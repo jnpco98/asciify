@@ -1,5 +1,5 @@
-import { AsciiHtml, StyleSheet } from "./ascii-html";
-import { AsciiOutputModifierApplyParams } from "./ascii-output-modifier";
+import { AsciiHtml, StyleSheet } from './ascii-html';
+import { AsciiOutputModifierApplyParams } from './ascii-output-modifier';
 
 export class AsciiPixel extends AsciiHtml {
   public constructor() {
@@ -17,9 +17,9 @@ export class AsciiPixel extends AsciiHtml {
           ${colorData.reduce((ascii, color, idx) => {
             let { r, g, b } = { ...color };
 
-            if(this.getMonochromatic()) {
-              const greyscale = Math.ceil((0.21 * r) + (0.72 * g) + (0.07 * b));
-              r = greyscale, g = greyscale, b = greyscale;
+            if (this.getMonochromatic()) {
+              const greyscale = Math.ceil(0.21 * r + 0.72 * g + 0.07 * b);
+              (r = greyscale), (g = greyscale), (b = greyscale);
             }
 
             const colorKey = `asc_${r}_${g}_${b}`;
@@ -28,13 +28,20 @@ export class AsciiPixel extends AsciiHtml {
             return `
               ${ascii.trim()}
               <span class="${this.getElementClass()} ${colorKey}"></span>
-              ${(idx + 1) % info.width === 0 ? `</div><div class="${this.getRowClass()}">` : ''}
+              ${
+                (idx + 1) % info.width === 0
+                  ? `</div><div class="${this.getRowClass()}">`
+                  : ''
+              }
             `.trim();
           }, '')}
         </div>
       </div>
     `;
 
-    return { styles: this.createCssStyleSheet([this.getStyleSheet(), colorMap]), data: html };
+    return {
+      styles: this.createCssStyleSheet([this.getStyleSheet(), colorMap]),
+      data: html,
+    };
   }
 }

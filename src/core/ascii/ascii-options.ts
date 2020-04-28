@@ -28,32 +28,60 @@ export class AsciiOptions {
 
   private preserveAspectRatio: boolean;
 
-  public constructor(charRamp: string[], size: Size | null, preserveAspectRatio: boolean = true, contrast?: number) {
+  public constructor(
+    charRamp: string[],
+    size: Size | null,
+    preserveAspectRatio: boolean = true,
+    contrast?: number
+  ) {
     this.setCharRamp(charRamp);
     this.setSize(size);
     this.setContrast(contrast);
     this.setPreserveAspectRatio(preserveAspectRatio);
   }
 
-  public setCharRamp(charRamp: string[]) { this.charRamp = charRamp; }
-  public getCharRamp() { return this.charRamp; }
+  public setCharRamp(charRamp: string[]) {
+    this.charRamp = charRamp;
+  }
+  public getCharRamp() {
+    return this.charRamp;
+  }
 
-  public setSize(size: Size | null){
-    if(!size) {
-      this.size = { width: AsciiOptions.DEFAULT_WIDTH, height: AsciiOptions.DEFAULT_HEIGHT };
+  public setSize(size: Size | null) {
+    if (!size) {
+      this.size = {
+        width: AsciiOptions.DEFAULT_WIDTH,
+        height: AsciiOptions.DEFAULT_HEIGHT,
+      };
       return;
     }
 
-    const width = Math.abs(size.width) > AsciiOptions.MAX_WIDTH ? AsciiOptions.MAX_WIDTH : Math.abs(size.width);
-    const height = Math.abs(size.height) > AsciiOptions.MAX_HEIGHT ? AsciiOptions.MAX_HEIGHT : Math.abs(size.height);
+    const width =
+      Math.abs(size.width) > AsciiOptions.MAX_WIDTH
+        ? AsciiOptions.MAX_WIDTH
+        : Math.abs(size.width);
+    const height =
+      Math.abs(size.height) > AsciiOptions.MAX_HEIGHT
+        ? AsciiOptions.MAX_HEIGHT
+        : Math.abs(size.height);
 
     this.size = { width, height };
   }
-  public getSize() { return this.size; }
+  public getSize() {
+    return this.size;
+  }
 
-  public setContrast(contrast?: number) { this.contrast = contrast || 1; }
-  public getContrast() { return this.contrast; }
-  
-  public setPreserveAspectRatio(preserveAspectRatio: boolean) { this.preserveAspectRatio = preserveAspectRatio; }
-  public getPreserveAspectRatio() { return this.preserveAspectRatio; }
+  public setContrast(contrast?: number) {
+    this.contrast = contrast || 1;
+  }
+  public getContrast() {
+    return this.contrast;
+  }
+
+  public setPreserveAspectRatio(preserveAspectRatio: boolean) {
+    this.preserveAspectRatio = preserveAspectRatio;
+  }
+  public getPreserveAspectRatio() {
+    return this.preserveAspectRatio;
+  }
 }

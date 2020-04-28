@@ -9,8 +9,8 @@ export const minifySettings: MinifyOptions = {
   collapseBooleanAttributes: true,
   collapseWhitespace: true,
   collapseInlineTagWhitespace: true,
-  removeTagWhitespace: true
-}
+  removeTagWhitespace: true,
+};
 
 export class AsciiGenerator {
   private image: Buffer;
@@ -18,18 +18,30 @@ export class AsciiGenerator {
   private asciiOptions: AsciiOptions;
   private outputModifier: AsciiOutputModifier;
 
-  public constructor(image: Buffer, asciiOptions: AsciiOptions, outputModifier?: AsciiOutputModifier) {
+  public constructor(
+    image: Buffer,
+    asciiOptions: AsciiOptions,
+    outputModifier?: AsciiOutputModifier
+  ) {
     this.setImage(image);
     this.setAsciiOptions(asciiOptions);
-    this.setOutputModifier(outputModifier || new AsciiText(this.asciiOptions.getCharRamp()));
+    this.setOutputModifier(
+      outputModifier || new AsciiText(this.asciiOptions.getCharRamp())
+    );
   }
 
   public async generate(minifyHtml?: boolean) {
     const { data, colorData, info } = await this.getImagePixels();
     const output = this.getOutputModifier().apply({ data, colorData, info });
-    return { 
-      style: this.getOutputModifier().modifierAllowsMinify() && minifyHtml ? minify(output.styles, minifySettings) : output.styles,
-      data: this.getOutputModifier().modifierAllowsMinify() && minifyHtml ? minify(output.data, minifySettings) : output.data
+    return {
+      style:
+        this.getOutputModifier().modifierAllowsMinify() && minifyHtml
+          ? minify(output.styles, minifySettings)
+          : output.styles,
+      data:
+        this.getOutputModifier().modifierAllowsMinify() && minifyHtml
+          ? minify(output.data, minifySettings)
+          : output.data,
     };
   }
 
@@ -46,9 +58,9 @@ export class AsciiGenerator {
 
     const greyscaleArr = [];
     const colorArr = [];
-    
-    for(let i = 0; i < data.length; i += 3) {
-      const color = (0.21 * data[i]) + (0.71 * data[i + 1]) + (0.07 * data[2]);
+
+    for (let i = 0; i < data.length; i += 3) {
+      const color = 0.21 * data[i] + 0.71 * data[i + 1] + 0.07 * data[2];
       greyscaleArr.push(color);
       colorArr.push({ r: data[i], g: data[i + 1], b: data[i + 2] });
     }
@@ -56,12 +68,24 @@ export class AsciiGenerator {
     return { data: greyscaleArr, info, colorData: colorArr };
   }
 
-  public setImage(image: Buffer) { this.image = image; }
-  public getImage() { return this.image; }
+  public setImage(image: Buffer) {
+    this.image = image;
+  }
+  public getImage() {
+    return this.image;
+  }
 
-  public setAsciiOptions(asciiOptions: AsciiOptions) { this.asciiOptions = asciiOptions; }
-  public getAsciiOptions() { return this.asciiOptions; }
+  public setAsciiOptions(asciiOptions: AsciiOptions) {
+    this.asciiOptions = asciiOptions;
+  }
+  public getAsciiOptions() {
+    return this.asciiOptions;
+  }
 
-  public setOutputModifier(outputModifier: AsciiOutputModifier) { this.outputModifier = outputModifier; }
-  public getOutputModifier() { return this.outputModifier; }
+  public setOutputModifier(outputModifier: AsciiOutputModifier) {
+    this.outputModifier = outputModifier;
+  }
+  public getOutputModifier() {
+    return this.outputModifier;
+  }
 }

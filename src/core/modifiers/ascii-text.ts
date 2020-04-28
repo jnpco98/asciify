@@ -1,5 +1,8 @@
-import { AsciiOutputModifier, AsciiOutputModifierApplyParams } from "./ascii-output-modifier";
-import { AsciiOptions } from "../ascii/ascii-options";
+import {
+  AsciiOutputModifier,
+  AsciiOutputModifierApplyParams,
+} from './ascii-output-modifier';
+import { AsciiOptions } from '../ascii/ascii-options';
 
 export class AsciiText implements AsciiOutputModifier {
   protected charRamp: string[];
@@ -14,9 +17,17 @@ export class AsciiText implements AsciiOutputModifier {
 
   public apply(params: AsciiOutputModifierApplyParams) {
     const { data, info } = params;
-    const content = data.reduce((ascii, color, idx) => `${ascii}${this.getColorCharacter(color)}${(idx + 1) % info.width === 0 ? '\n' : ''}`, '');
+    const content = data.reduce(
+      (ascii, color, idx) =>
+        `${ascii}${this.getColorCharacter(color)}${
+          (idx + 1) % info.width === 0 ? '\n' : ''
+        }`,
+      ''
+    );
     return { styles: '', data: content };
   }
 
-  public modifierAllowsMinify() { return false; }
+  public modifierAllowsMinify() {
+    return false;
+  }
 }
