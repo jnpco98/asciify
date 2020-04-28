@@ -61,9 +61,9 @@ export class AsciiHtml extends AsciiText {
   protected rowClass: string;
   protected elementClass: string;
 
-  protected greyscale: boolean;
+  protected monochromatic: boolean;
   
-  public constructor(charRamp: string[], greyscale?: boolean) {
+  public constructor(charRamp: string[], monochromatic?: boolean) {
     super(charRamp);
 
     this.setStyleSheet({
@@ -86,7 +86,7 @@ export class AsciiHtml extends AsciiText {
     this.setContainerClass("ascii")
     this.setRowClass("ascii__row")
     this.setElementClass("ascii__row-item")
-    this.setGreyscale(greyscale);
+    this.setMonochromatic(monochromatic);
   }
   
   public apply(params: AsciiOutputModifierApplyParams) {
@@ -99,9 +99,9 @@ export class AsciiHtml extends AsciiText {
           ${data.reduce((ascii, color, idx) => {
             let { r, g, b } = { ...colorData[idx] };
             
-            if(this.getGreyscale()) {
-              const greyscale = Math.ceil((0.21 * r) + (0.72 * g) + (0.07 * b));
-              r = greyscale, g = greyscale, b = greyscale;
+            if(this.getMonochromatic()) {
+              const monochrome = Math.ceil((0.21 * r) + (0.72 * g) + (0.07 * b));
+              r = monochrome, g = monochrome, b = monochrome;
             }
 
             const colorKey = `asc_${r}_${g}_${b}`;
@@ -147,8 +147,8 @@ export class AsciiHtml extends AsciiText {
   public setElementClass(elementClass: string) { this.elementClass = elementClass; }
   public getElementClass() { return this.elementClass; }
 
-  public setGreyscale(greyscale?: boolean) { this.greyscale = !!greyscale; }
-  public getGreyscale() { return this.greyscale; }
+  public setMonochromatic(monochromatic?: boolean) { this.monochromatic = !!monochromatic; }
+  public getMonochromatic() { return this.monochromatic; }
 
 
   public modifierAllowsMinify() { return true; }
@@ -170,7 +170,7 @@ export class AsciiPixel extends AsciiHtml {
           ${colorData.reduce((ascii, color, idx) => {
             let { r, g, b } = { ...color };
 
-            if(this.getGreyscale()) {
+            if(this.getMonochromatic()) {
               const greyscale = Math.ceil((0.21 * r) + (0.72 * g) + (0.07 * b));
               r = greyscale, g = greyscale, b = greyscale;
             }
@@ -275,16 +275,15 @@ export class AsciiGenerator {
 
   private async getImagePixels() {
     let image = this.image;
-
     const { width, height } = this.asciiOptions.getSize();
+
     const { data, info } = await sharp(image)
-      .resize(width, height, { fit: sharp.fit.contain })
+      .resize(width, height, { fit: sharp.fit.inside })
       .flatten({ background: { r: 255, g: 255, b: 255 } })
       .removeAlpha()
       .raw()
       .toBuffer({ resolveWithObject: true });
 
-    console.log(info)
     const greyscaleArr = [];
     const colorArr = [];
     
