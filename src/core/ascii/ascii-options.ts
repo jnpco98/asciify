@@ -29,16 +29,14 @@ export class AsciiOptions {
 
   private preserveAspectRatio: boolean;
 
-  public constructor(
-    charRamp: string[],
-    size: Size | null,
-    preserveAspectRatio: boolean = true,
-    contrast?: number
-  ) {
-    this.setCharRamp(charRamp);
-    this.setSize(size);
-    this.setContrast(contrast);
-    this.setPreserveAspectRatio(preserveAspectRatio);
+  public constructor() {
+    this.setCharRamp(AsciiOptions.DEFAULT_CHARACTER_RAMP);
+    this.setSize({
+      width: AsciiOptions.DEFAULT_WIDTH,
+      height: AsciiOptions.DEFAULT_HEIGHT,
+    });
+    this.setContrast(1);
+    this.setPreserveAspectRatio(true);
   }
 
   public setCharRamp(charRamp: string[]) {

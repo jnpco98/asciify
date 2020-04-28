@@ -50,7 +50,11 @@ export class AsciiGenerator {
     const { width, height } = this.asciiOptions.getSize();
 
     const { data, info } = await sharp(image)
-      .resize(width, height, { fit: sharp.fit.inside })
+      .resize(width, height, {
+        fit: this.asciiOptions.getPreserveAspectRatio()
+          ? sharp.fit.inside
+          : sharp.fit.fill,
+      })
       .flatten({ background: { r: 255, g: 255, b: 255 } })
       .removeAlpha()
       .raw()

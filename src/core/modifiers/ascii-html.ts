@@ -1,6 +1,6 @@
 import escapeHtml from 'escape-html';
 import { AsciiText } from './ascii-text';
-import { AsciiOutputModifierApplyParams } from './ascii-output-modifier';
+import { AsciiOutputModifierApplyParams, Color } from './ascii-output-modifier';
 
 export interface StyleSheetProperty {
   [key: string]: string | number;
@@ -10,14 +10,16 @@ export interface StyleSheet {
   [key: string]: StyleSheetProperty;
 }
 
+export type ColorMode = 'default' | 'monochromatic' | 'black';
+
 export class AsciiHtml extends AsciiText {
   protected styleSheet: StyleSheet;
-  
+
   protected readonly containerClass: string;
   protected readonly rowClass: string;
   protected readonly elementClass: string;
 
-  protected monochromatic: boolean;
+  protected colorMode: ColorMode;
   protected gap: number;
 
   public constructor(charRamp?: string[]) {
@@ -48,7 +50,18 @@ export class AsciiHtml extends AsciiText {
 
     // Update settings
     this.setGap(0);
-    this.setMonochromatic(false);
+    this.setColorMode('default');
+  }
+
+  protected transformColors(color: Color) {
+    let { r, g, b } = color;
+    if (this.getColorMode() === 'monochromatic') {
+      const monochrome = Math.ceil(0.21 * r + 0.72 * g + 0.07 * b);
+      (r = monochrome), (g = monochrome), (b = monochrome);
+    } else if (this.getColorMode() === 'black') {
+      (r = 0), (g = 0), (b = 0);
+    }
+    return { r, g, b };
   }
 
   public apply(params: AsciiOutputModifierApplyParams) {
@@ -59,12 +72,7 @@ export class AsciiHtml extends AsciiText {
       <div class="${this.getContainerClass()}">
         <div class="${this.getRowClass()}">
           ${data.reduce((ascii, color, idx) => {
-            let { r, g, b } = { ...colorData[idx] };
-
-            if (this.getMonochromatic()) {
-              const monochrome = Math.ceil(0.21 * r + 0.72 * g + 0.07 * b);
-              (r = monochrome), (g = monochrome), (b = monochrome);
-            }
+            let { r, g, b } = this.transformColors({ ...colorData[idx] });
 
             const colorKey = `asc_${r}_${g}_${b}`;
             colorMap[colorKey] = { color: `rgb(${r}, ${g}, ${b})` };
@@ -133,11 +141,11 @@ export class AsciiHtml extends AsciiText {
     return this.elementClass;
   }
 
-  public setMonochromatic(monochromatic?: boolean) {
-    this.monochromatic = !!monochromatic;
+  public setColorMode(colorMode: ColorMode) {
+    this.colorMode = colorMode;
   }
-  public getMonochromatic() {
-    return this.monochromatic;
+  public getColorMode() {
+    return this.colorMode;
   }
 
   public setGap(gap: number) {
