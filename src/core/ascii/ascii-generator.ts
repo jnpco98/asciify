@@ -60,11 +60,13 @@ export class AsciiHtml extends AsciiText {
   protected containerClass: string;
   protected rowClass: string;
   protected elementClass: string;
+
+  protected greyscale: boolean;
   
-  public constructor(charRamp: string[]) {
+  public constructor(charRamp: string[], greyscale?: boolean) {
     super(charRamp);
 
-    this.styleSheet = {
+    this.setStyleSheet({
       ['ascii span']: {
         width: '1rem',
         height: '1rem',
@@ -79,11 +81,12 @@ export class AsciiHtml extends AsciiText {
         ['box-sizing']: 'border-box',
         ['margin-bottom']: '1px'
       }
-    }
+    });
 
-    this.containerClass = "ascii";
-    this.rowClass = "ascii__row";
-    this.elementClass = "";
+    this.setContainerClass("ascii")
+    this.setRowClass("ascii__row")
+    this.setElementClass("ascii__row-item")
+    this.setGreyscale(greyscale);
   }
   
   public apply(params: AsciiOutputModifierApplyParams) {
@@ -91,24 +94,30 @@ export class AsciiHtml extends AsciiText {
     const colorMap: StyleSheet = {};
 
     const html = `
-      <div class="${this.containerClass}">
-        <div class="${this.rowClass}">
+      <div class="${this.getContainerClass()}">
+        <div class="${this.getRowClass()}">
           ${data.reduce((ascii, color, idx) => {
-            const { r, g, b } = colorData[idx];
+            let { r, g, b } = { ...colorData[idx] };
+            
+            if(this.getGreyscale()) {
+              const greyscale = Math.ceil((0.21 * r) + (0.72 * g) + (0.07 * b));
+              r = greyscale, g = greyscale, b = greyscale;
+            }
+
             const colorKey = `asc_${r}_${g}_${b}`;
             colorMap[colorKey] = { color: `rgb(${r}, ${g}, ${b})` };
 
             return `
               ${ascii.trim()}
-              <span class="${this.elementClass} ${colorKey}">${escapeHtml(this.getColorCharacter(color))}</span>
-              ${(idx + 1) % info.width === 0 ? `</div><div class="${this.rowClass}">` : ''}
+              <span class="${this.getElementClass()} ${colorKey}">${escapeHtml(this.getColorCharacter(color))}</span>
+              ${(idx + 1) % info.width === 0 ? `</div><div class="${this.getRowClass()}">` : ''}
             `.trim();
           }, '')}
         </div>
       </div>
     `;
     
-    return { styles: this.createCssStyleSheet([this.styleSheet, colorMap]), data: html };
+    return { styles: this.createCssStyleSheet([this.getStyleSheet(), colorMap]), data: html };
   }
 
   protected createCssStyleSheet(styleSheets: StyleSheet[]) {
@@ -135,15 +144,19 @@ export class AsciiHtml extends AsciiText {
   public setRowClass(rowClass: string) { this.rowClass = rowClass; }
   public getRowClass() { return this.rowClass }
   
-  public getElementClass(elementClass: string) { this.elementClass = elementClass; }
-  public setElementClass() { return this.elementClass; }
+  public setElementClass(elementClass: string) { this.elementClass = elementClass; }
+  public getElementClass() { return this.elementClass; }
+
+  public setGreyscale(greyscale?: boolean) { this.greyscale = !!greyscale; }
+  public getGreyscale() { return this.greyscale; }
+
 
   public modifierAllowsMinify() { return true; }
 }
 
 export class AsciiPixel extends AsciiHtml {
-  public constructor() {
-    super([]);
+  public constructor(greyscale?: boolean) {
+    super([], greyscale);
     this.styleSheet['ascii span'].color = 'transparent';
   }
 
@@ -152,24 +165,30 @@ export class AsciiPixel extends AsciiHtml {
     const colorMap: StyleSheet = {};
 
     const html = `
-      <div class="${this.containerClass}">
-        <div class="${this.rowClass}">
+      <div class="${this.getContainerClass()}">
+        <div class="${this.getRowClass()}">
           ${colorData.reduce((ascii, color, idx) => {
-            const { r, g, b } = color;
+            let { r, g, b } = { ...color };
+
+            if(this.getGreyscale()) {
+              const greyscale = Math.ceil((0.21 * r) + (0.72 * g) + (0.07 * b));
+              r = greyscale, g = greyscale, b = greyscale;
+            }
+
             const colorKey = `asc_${r}_${g}_${b}`;
             colorMap[colorKey] = { background: `rgb(${r}, ${g}, ${b})` };
 
             return `
               ${ascii.trim()}
-              <span class="${this.elementClass} ${colorKey}"></span>
-              ${(idx + 1) % info.width === 0 ? `</div><div class="${this.rowClass}">` : ''}
+              <span class="${this.getElementClass()} ${colorKey}"></span>
+              ${(idx + 1) % info.width === 0 ? `</div><div class="${this.getRowClass()}">` : ''}
             `.trim();
           }, '')}
         </div>
       </div>
     `;
 
-    return { styles: this.createCssStyleSheet([this.styleSheet, colorMap]), data: html };
+    return { styles: this.createCssStyleSheet([this.getStyleSheet(), colorMap]), data: html };
   }
 }
 
@@ -197,7 +216,7 @@ export class AsciiOptions {
 
   private charRamp: string[];
 
-  private size: Size | null;
+  private size: Size;
 
   private contrast: number;
 
@@ -215,7 +234,7 @@ export class AsciiOptions {
 
   public setSize(size: Size | null){
     if(!size) {
-      this.size = null;
+      this.size = { width: AsciiOptions.DEFAULT_WIDTH, height: AsciiOptions.DEFAULT_HEIGHT };
       return;
     }
 
@@ -257,13 +276,15 @@ export class AsciiGenerator {
   private async getImagePixels() {
     let image = this.image;
 
-    const size = this.asciiOptions.getSize();
-    if(size) {
-      const { width, height } = size;
-      image = await sharp(this.image).resize(width, height, { fit: sharp.fit.contain }).toBuffer();
-    }
+    const { width, height } = this.asciiOptions.getSize();
+    const { data, info } = await sharp(image)
+      .resize(width, height, { fit: sharp.fit.contain })
+      .flatten({ background: { r: 255, g: 255, b: 255 } })
+      .removeAlpha()
+      .raw()
+      .toBuffer({ resolveWithObject: true });
 
-    const { data, info } = await sharp(image).flatten({ background: { r: 255, g: 255, b: 255 } }).removeAlpha().raw().toBuffer({ resolveWithObject: true });
+    console.log(info)
     const greyscaleArr = [];
     const colorArr = [];
     
