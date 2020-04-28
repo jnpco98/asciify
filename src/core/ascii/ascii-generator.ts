@@ -24,13 +24,14 @@ export interface AsciiOutputModifierApplyParams {
 
 export interface AsciiOutputModifier {
   apply(params: AsciiOutputModifierApplyParams): { styles: string; data: string; };
+  modifierAllowsMinify(): boolean;
 }
 
 export class AsciiText implements AsciiOutputModifier {
   protected charRamp: string[];
 
   constructor(charRamp: string[]) {
-    this.charRamp = charRamp;  
+    this.charRamp = charRamp;
   }
 
   protected getColorCharacter(color: number) {
@@ -42,6 +43,8 @@ export class AsciiText implements AsciiOutputModifier {
     const content = data.reduce((ascii, color, idx) => `${ascii}${this.getColorCharacter(color)}${(idx + 1) % info.width === 0 ? '\n' : ''}`, '');
     return { styles: '', data: content };
   }
+
+  public modifierAllowsMinify() { return false; }
 }
 
 interface StyleSheetProperty { 
@@ -134,6 +137,8 @@ export class AsciiHtml extends AsciiText {
   
   public getElementClass(elementClass: string) { this.elementClass = elementClass; }
   public setElementClass() { return this.elementClass; }
+
+  public modifierAllowsMinify() { return true; }
 }
 
 export class AsciiPixel extends AsciiHtml {
@@ -244,8 +249,8 @@ export class AsciiGenerator {
     const { data, colorData, info } = await this.getImagePixels();
     const output = this.getOutputModifier().apply({ data, colorData, info });
     return { 
-      style: minifyHtml ? minify(output.styles, minifySettings) : output.styles,
-      data: minifyHtml ? minify(output.data, minifySettings) : output.data
+      style: this.getOutputModifier().modifierAllowsMinify() && minifyHtml ? minify(output.styles, minifySettings) : output.styles,
+      data: this.getOutputModifier().modifierAllowsMinify() && minifyHtml ? minify(output.data, minifySettings) : output.data
     };
   }
 
