@@ -4,7 +4,7 @@ import { AsciiOutputModifierApplyParams } from './ascii-output-modifier';
 export class AsciiPixel extends AsciiHtml {
   public constructor() {
     super([]);
-    this.styleSheet['ascii span'].color = 'transparent';
+    this.styleSheet[this.getElementClass()].color = 'transparent';
   }
 
   public apply(params: AsciiOutputModifierApplyParams) {

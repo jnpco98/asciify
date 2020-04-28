@@ -12,9 +12,10 @@ export interface StyleSheet {
 
 export class AsciiHtml extends AsciiText {
   protected styleSheet: StyleSheet;
-  protected containerClass: string;
-  protected rowClass: string;
-  protected elementClass: string;
+  
+  protected readonly containerClass: string;
+  protected readonly rowClass: string;
+  protected readonly elementClass: string;
 
   protected monochromatic: boolean;
   protected gap: number;
@@ -22,8 +23,14 @@ export class AsciiHtml extends AsciiText {
   public constructor(charRamp?: string[]) {
     super(charRamp);
 
+    // Initialize classes first
+    this.containerClass = 'ascii';
+    this.rowClass = 'ascii__row';
+    this.elementClass = 'ascii__row-item';
+
+    // Use classes for stylesheets
     this.setStyleSheet({
-      ['ascii span']: {
+      [this.getElementClass()]: {
         width: '1rem',
         height: '1rem',
         display: 'inline-block',
@@ -32,17 +39,15 @@ export class AsciiHtml extends AsciiText {
         ['text-align']: 'center',
         ['margin-right']: '1px',
       },
-      ['ascii__row']: {
+      [this.getRowClass()]: {
         display: 'flex',
         ['box-sizing']: 'border-box',
         ['margin-bottom']: '1px',
       },
     });
 
+    // Update settings
     this.setGap(0);
-    this.setContainerClass('ascii');
-    this.setRowClass('ascii__row');
-    this.setElementClass('ascii__row-item');
     this.setMonochromatic(false);
   }
 
@@ -116,23 +121,14 @@ export class AsciiHtml extends AsciiText {
     return this.styleSheet;
   }
 
-  public setContainerClass(containerClass: string) {
-    this.containerClass = containerClass;
-  }
   public getContainerClass() {
     return this.containerClass;
   }
 
-  public setRowClass(rowClass: string) {
-    this.rowClass = rowClass;
-  }
   public getRowClass() {
     return this.rowClass;
   }
 
-  public setElementClass(elementClass: string) {
-    this.elementClass = elementClass;
-  }
   public getElementClass() {
     return this.elementClass;
   }
@@ -145,12 +141,12 @@ export class AsciiHtml extends AsciiText {
   }
 
   public setGap(gap: number) {
-    this.styleSheet['ascii span']['margin-right'] = `${gap}px`;
-    this.styleSheet['ascii__row']['margin-bottom'] = `${gap}px`;
+    this.styleSheet[this.getElementClass()]['margin-right'] = `${gap}px`;
+    this.styleSheet[this.getRowClass()]['margin-bottom'] = `${gap}px`;
   }
 
   public getGap() {
-    return this.styleSheet['ascii span']['margin-right'];
+    return this.styleSheet[this.getElementClass()]['margin-right'];
   }
 
   public modifierAllowsMinify() {

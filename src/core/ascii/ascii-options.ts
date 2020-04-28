@@ -6,10 +6,11 @@ export interface Size {
 export class AsciiOptions {
   public static readonly DEFAULT_WIDTH = 50;
   public static readonly MAX_WIDTH = 500;
-  
+
   public static readonly DEFAULT_HEIGHT = 50;
   public static readonly MAX_HEIGHT = 500;
 
+  // prettier-ignore
   public static readonly DEFAULT_CHARACTER_RAMP = [
     "$", "@", "B", "%", "8", "&", "W", "M", "#", "*", "o", 
     "a", "h", "k", "b", "d", "p", "q", "w", "m", "Z", "O", 
