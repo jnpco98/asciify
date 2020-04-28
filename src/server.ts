@@ -9,4 +9,21 @@ const options = new AsciiOptions(AsciiOptions.DEFAULT_CHARACTER_RAMP, { width: 1
 const outputModifier = new AsciiHtml(AsciiOptions.DEFAULT_CHARACTER_RAMP);
 
 const ascii = new AsciiGenerator(image, options, outputModifier);
-ascii.generate();
+
+ascii.generate(true).then(({ data, style }) => {
+  const html = `
+    <html>
+      <head>
+        <style>
+          ${style}
+        </style>
+      </head>
+      <body>
+        ${data}
+      </body>
+    </html>
+  `;
+  require('fs-extra').writeFileSync('so.html', html);
+}).catch(e => console.error(e));
+
+

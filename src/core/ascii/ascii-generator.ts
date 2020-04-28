@@ -1,4 +1,14 @@
 import sharp from 'sharp';
+import { minify, Options as MinifyOptions } from 'html-minifier';
+import escapeHtml from 'escape-html';
+
+const minifySettings: MinifyOptions = {
+  minifyCSS: true,
+  collapseBooleanAttributes: true,
+  collapseWhitespace: true,
+  collapseInlineTagWhitespace: true,
+  removeTagWhitespace: true
+}
 
 export interface Color {
   r: number;
@@ -13,110 +23,148 @@ export interface AsciiOutputModifierApplyParams {
 }
 
 export interface AsciiOutputModifier {
-  apply(params: AsciiOutputModifierApplyParams): string | Buffer;
-}
-
-export class AsciiPixel implements AsciiOutputModifier {
-  useClass: boolean;
-  monochrome: boolean;
-  monochromeColor: boolean;
-  
-  apply(params: AsciiOutputModifierApplyParams): string {
-    const { data, colorData, info } = params;
-    const colorMap: { [key: string]: string } = {};
-
-    const body = data.reduce((ascii, color, idx) => {
-      const { r, g, b } = colorData[idx];
-      const colorKey = `asc_${r}_${g}_${b}`;
-      colorMap[colorKey] = `rgb(${r}, ${g}, ${b})`
-
-      return `${ascii}<span class="${colorKey}"></span>${(idx + 1) % info.width === 0 ? '</div><div class="ascii__row">' : ''}`
-    }, '');
-
-    return `
-      <html>
-        <head>
-          <style>
-            .ascii span { width: 1rem; height: 1rem; box-sizing: border-box; display: inline-block; font-family: sans-serif; text-align: center; line-height: 1; margin-right: 1px; }
-            .ascii__row { display: flex; box-sizing: border-box; margin-bottom: 1px; }
-            ${Object.keys(colorMap).map(styleKey => `.${styleKey} { background: ${colorMap[styleKey]}; color: transparent; }`).join(' ')}
-          </style>
-        </head>
-        <body><div class="ascii"><div class="ascii__row">${body}</div></div></body>
-      </html>
-    `;
-  }
-}
-
-export class AsciiHtml implements AsciiOutputModifier {
-  useClass: boolean;
-  monochrome: boolean;
-  monochromeColor: boolean;
-  private charRamp: string[];
-
-  constructor(charRamp: string[]) {
-    this.charRamp = charRamp;  
-  }
-
-  private getColorCharacter(color: number) {
-    return this.charRamp[Math.ceil(((this.charRamp.length - 1) * color) / 255)];
-  }
-  
-  apply(params: AsciiOutputModifierApplyParams): string {
-    const { data, colorData, info } = params;
-    const colorMap: { [key: string]: string } = {};
-
-    const body = data.reduce((ascii, color, idx) => {
-      const { r, g, b } = colorData[idx];
-      const colorKey = `asc_${r}_${g}_${b}`;
-      colorMap[colorKey] = `rgb(${r}, ${g}, ${b})`
-
-      return `${ascii}<span class="${colorKey}">${this.getColorCharacter(color)}</span>${(idx + 1) % info.width === 0 ? '</div><div class="ascii__row">' : ''}`
-    }, '');
-
-    return `
-      <html>
-        <head>
-          <style>
-            .ascii span { width: 1rem; height: 1rem; box-sizing: border-box; display: inline-block; font-family: sans-serif; text-align: center; line-height: 1; margin-right: 1px; }
-            .ascii__row { display: flex; box-sizing: border-box; margin-bottom: 1px; }
-            ${Object.keys(colorMap).map(styleKey => `.${styleKey} { color: ${colorMap[styleKey]}; }`).join(' ')}
-          </style>
-        </head>
-        <body><div class="ascii"><div class="ascii__row">${body}</div></div></body>
-      </html>
-    `;
-  }
-}
-
-export class AsciiImage implements AsciiOutputModifier {
-  monochrome: boolean;
-  monochromeColor: boolean;
-  private charRamp: string[];
-
-  constructor(charRamp: string[]) {
-    this.charRamp = charRamp;  
-  }
-
-  apply(params: AsciiOutputModifierApplyParams): Buffer {
-    throw new Error("Method not implemented.");
-  }
+  apply(params: AsciiOutputModifierApplyParams): { styles: string; data: string; };
 }
 
 export class AsciiText implements AsciiOutputModifier {
-  private charRamp: string[];
+  protected charRamp: string[];
 
   constructor(charRamp: string[]) {
     this.charRamp = charRamp;  
   }
 
-  private getColorCharacter(color: number) {
+  protected getColorCharacter(color: number) {
     return this.charRamp[Math.ceil(((this.charRamp.length - 1) * color) / 255)];
   }
 
-  apply(params: AsciiOutputModifierApplyParams): string {
+  public apply(params: AsciiOutputModifierApplyParams) {
     const { data, info } = params;
-    return data.reduce((ascii, color, idx) => `${ascii}${this.getColorCharacter(color)}${(idx + 1) % info.width === 0 ? '\n' : ''}`, '');
+    const content = data.reduce((ascii, color, idx) => `${ascii}${this.getColorCharacter(color)}${(idx + 1) % info.width === 0 ? '\n' : ''}`, '');
+    return { styles: '', data: content };
+  }
+}
+
+interface StyleSheetProperty { 
+  [key: string]: string | number;
+} 
+
+interface StyleSheet { 
+  [key: string]: StyleSheetProperty;
+}
+
+export class AsciiHtml extends AsciiText {
+  protected styleSheet: StyleSheet;
+  protected containerClass: string;
+  protected rowClass: string;
+  protected elementClass: string;
+  
+  public constructor(charRamp: string[]) {
+    super(charRamp);
+
+    this.styleSheet = {
+      ['ascii span']: {
+        width: '1rem',
+        height: '1rem',
+        display: 'inline-block',
+        ['box-sizing']: 'border-box',
+        ['font-family']: 'sans-serif',
+        ['text-align']: 'center',
+        ['margin-right']: '1px'
+      },
+      ['ascii__row']: {
+        display: 'flex',
+        ['box-sizing']: 'border-box',
+        ['margin-bottom']: '1px'
+      }
+    }
+
+    this.containerClass = "ascii";
+    this.rowClass = "ascii__row";
+    this.elementClass = "";
+  }
+  
+  public apply(params: AsciiOutputModifierApplyParams) {
+    const { data, colorData, info } = params;
+    const colorMap: StyleSheet = {};
+
+    const html = `
+      <div class="${this.containerClass}">
+        <div class="${this.rowClass}">
+          ${data.reduce((ascii, color, idx) => {
+            const { r, g, b } = colorData[idx];
+            const colorKey = `asc_${r}_${g}_${b}`;
+            colorMap[colorKey] = { color: `rgb(${r}, ${g}, ${b})` };
+
+            return `
+              ${ascii.trim()}
+              <span class="${this.elementClass} ${colorKey}">${escapeHtml(this.getColorCharacter(color))}</span>
+              ${(idx + 1) % info.width === 0 ? `</div><div class="${this.rowClass}">` : ''}
+            `.trim();
+          }, '')}
+        </div>
+      </div>
+    `;
+    
+    return { styles: this.createCssStyleSheet([this.styleSheet, colorMap]), data: html };
+  }
+
+  protected createCssStyleSheet(styleSheets: StyleSheet[]) {
+    let style = '';
+
+    styleSheets.forEach(styleSheet => 
+      style += Object.keys(styleSheet).reduce((styles, selector) => 
+        `${styles}
+          .${selector} {
+            ${Object.keys(styleSheet[selector]).reduce((elStyles, property) => 
+              `${elStyles}${property}:${styleSheet[selector][property]};`, '')}
+          }
+        `, ''));
+
+    return style;
+  }
+
+  public setStyleSheet(styleSheet: StyleSheet) { this.styleSheet = styleSheet; }
+  public getStyleSheet() { return this.styleSheet; }
+  
+  public setContainerClass(containerClass: string) { this.containerClass = containerClass; }
+  public getContainerClass() { return this.containerClass; }
+  
+  public setRowClass(rowClass: string) { this.rowClass = rowClass; }
+  public getRowClass() { return this.rowClass }
+  
+  public getElementClass(elementClass: string) { this.elementClass = elementClass; }
+  public setElementClass() { return this.elementClass; }
+}
+
+export class AsciiPixel extends AsciiHtml {
+  public constructor() {
+    super([]);
+    this.styleSheet['ascii span'].color = 'transparent';
+  }
+
+  public apply(params: AsciiOutputModifierApplyParams) {
+    const { colorData, info } = params;
+    const colorMap: StyleSheet = {};
+
+    const html = `
+      <div class="${this.containerClass}">
+        <div class="${this.rowClass}">
+          ${colorData.reduce((ascii, color, idx) => {
+            const { r, g, b } = color;
+            const colorKey = `asc_${r}_${g}_${b}`;
+            colorMap[colorKey] = { background: `rgb(${r}, ${g}, ${b})` };
+
+            return `
+              ${ascii.trim()}
+              <span class="${this.elementClass} ${colorKey}"></span>
+              ${(idx + 1) % info.width === 0 ? `</div><div class="${this.rowClass}">` : ''}
+            `.trim();
+          }, '')}
+        </div>
+      </div>
+    `;
+
+    return { styles: this.createCssStyleSheet([this.styleSheet, colorMap]), data: html };
   }
 }
 
@@ -150,7 +198,7 @@ export class AsciiOptions {
 
   private preserveAspectRatio: boolean;
 
-  constructor(charRamp: string[], size: Size | null, preserveAspectRatio: boolean = true, contrast?: number) {
+  public constructor(charRamp: string[], size: Size | null, preserveAspectRatio: boolean = true, contrast?: number) {
     this.setCharRamp(charRamp);
     this.setSize(size);
     this.setContrast(contrast);
@@ -186,16 +234,19 @@ export class AsciiGenerator {
   private asciiOptions: AsciiOptions;
   private outputModifier: AsciiOutputModifier;
 
-  constructor(image: Buffer, asciiOptions: AsciiOptions, outputModifier?: AsciiOutputModifier) {
+  public constructor(image: Buffer, asciiOptions: AsciiOptions, outputModifier?: AsciiOutputModifier) {
     this.setImage(image);
     this.setAsciiOptions(asciiOptions);
     this.setOutputModifier(outputModifier);
   }
 
-  public async generate() {
+  public async generate(minifyHtml?: boolean) {
     const { data, colorData, info } = await this.getImagePixels();
     const output = this.getOutputModifier().apply({ data, colorData, info });
-    require('fs-extra').writeFileSync('so.html', output);
+    return { 
+      style: minifyHtml ? minify(output.styles, minifySettings) : output.styles,
+      data: minifyHtml ? minify(output.data, minifySettings) : output.data
+    };
   }
 
   private async getImagePixels() {
