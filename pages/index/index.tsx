@@ -1,15 +1,14 @@
 import React from 'react';
-import Standard from '@layout/Standard';
 import Link from 'next/link';
+import Standard from '@layout/Standard';
+import FileHandler from '@components/organism/FileHandler';
+import * as S from './style';
 
 function Index() {
-
-  console.log(process.env.NODE_ENV);
   return (
     <Standard>
-      Asciify homepage
-
-      <Link href="/page/[id]" as="/page/1"><a style={{ paddingTop: '10rem', display: 'block' }}>go to page</a></Link>
+      <FileHandler/>
+      <S.BlobIcon/>
     </Standard>
   );
 }

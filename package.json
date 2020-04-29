@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "build:static": "yarn build && next export"
   },
   "devDependencies": {
     "@types/dompurify": "^2.0.1",
@@ -36,7 +37,12 @@
     "react": "^16.13.1",
     "react-autosize-textarea": "^7.0.0",
     "react-dom": "^16.13.1",
+    "react-dropzone": "^11.0.1",
     "sharp": "^0.25.2",
     "styled-components": "^5.1.0"
+  },
+  "browser": {
+    "fs": false,
+    "child_process": false
   }
 }
