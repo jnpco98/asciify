@@ -1,5 +1,5 @@
 export function isMobile() {
-  const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+  const userAgent = navigator.userAgent || navigator.vendor;
 
   if (
     /windows phone/i.test(userAgent) ||

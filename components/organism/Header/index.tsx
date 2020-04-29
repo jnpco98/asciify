@@ -1,0 +1,70 @@
+import React, { useState, useEffect, useRef } from 'react';
+import dynamic from 'next/dynamic';
+import { ENABLE_ACCOUNTS } from '@constants/environment';
+import { MenuItem, mainMenu } from '@constants/menu';
+import * as S from './style';
+
+const DynamicIcon = dynamic(() => import('@components/molecule/DynamicIcon'), { ssr: false });
+
+type Props = {
+  onSelect?: Function;
+};
+
+function Header(props: Props) {
+  const { onSelect } = props;
+
+  const [activeMenuItem, setActiveMenuItem] = useState(mainMenu[0].key);
+  const [floating, setFloating] = useState(false);
+
+  const containerRef = useRef(null);
+
+  useEffect(() => onSelect && onSelect(activeMenuItem), []);
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return (): void => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  function handleScroll() {
+    setFloating(window.pageYOffset >= containerRef.current.scrollHeight);
+  }
+
+  function handleSelect(key: string) {
+    setActiveMenuItem(key);
+    if (onSelect) onSelect(key);
+  }
+
+  function renderLinks(menuItem: MenuItem, key: string) {
+    if (menuItem.key === 'account' && !ENABLE_ACCOUNTS) return <></>;
+    return (
+      <S.MenuItem
+        key={key}
+        active={menuItem.key === activeMenuItem}
+        icon={!!menuItem.icon}
+        onClick={() => { handleSelect(menuItem.key); }}
+      >
+        {menuItem.link ? (
+          <S.Link link={menuItem.link}>
+            {menuItem.icon ? <DynamicIcon SVGString={menuItem.label} /> : menuItem.label}
+          </S.Link>
+        ) : (
+          <S.Button>
+            {menuItem.icon ? <DynamicIcon SVGString={menuItem.label} /> : menuItem.label}
+          </S.Button>
+        )}
+      </S.MenuItem>
+    );
+  }
+
+  return (
+    <S.Container floating={false} ref={containerRef}>
+      <S.LeftMenu>
+        Asciify
+      </S.LeftMenu>
+
+      <S.RightMenu>{mainMenu.map((item) => renderLinks(item, `main_${item.key}`))}</S.RightMenu>
+    </S.Container>
+  );
+}
+
+export default Header;
