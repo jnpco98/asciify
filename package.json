@@ -1,7 +1,16 @@
 {
+  "name": "asciify",
+  "version": "1.0.0",
+  "license": "MIT",
+  "scripts": {
+    "start": "yarn run build && cross-env NODE_ENV=production node --require dotenv/config dist/index.js",
+    "dev": "yarn ts-node-dev --respawn --inspect=9000 --require dotenv/config --project tsconfig.server.json server/index.ts",
+    "build": "next build && tsc --project tsconfig.server.json"
+  },
   "devDependencies": {
     "@types/dompurify": "^2.0.1",
     "@types/escape-html": "^0.0.20",
+    "@types/express": "^4.17.6",
     "@types/fs-extra": "^8.1.0",
     "@types/html-minifier": "^3.5.3",
     "@types/jsdom": "^16.2.1",
@@ -11,6 +20,7 @@
     "@types/styled-components": "^5.1.0",
     "babel-plugin-module-resolver": "^4.0.0",
     "ts-node": "^8.9.1",
+    "ts-node-dev": "^1.0.0-pre.44",
     "tslint": "^6.1.2",
     "tslint-config-prettier": "^1.18.0",
     "typescript": "^3.8.3"
@@ -19,15 +29,19 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.28",
     "@fortawesome/free-solid-svg-icons": "^5.13.0",
     "@fortawesome/react-fontawesome": "^0.1.9",
+    "core-js": "^3.6.5",
+    "cross-env": "^7.0.2",
     "dompurify": "^2.0.10",
+    "dotenv": "^8.2.0",
     "escape-html": "^1.0.3",
+    "express": "^4.17.1",
     "fs-extra": "^9.0.0",
     "html-minifier": "^4.0.0",
     "jsdom": "^16.2.2",
-    "log4js": "^6.2.1",
     "next": "^9.3.6",
     "polished": "^3.5.2",
     "react": "^16.13.1",
+    "react-autosize-textarea": "^7.0.0",
     "react-dom": "^16.13.1",
     "sharp": "^0.25.2",
     "styled-components": "^5.1.0"

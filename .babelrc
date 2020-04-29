@@ -44,7 +44,9 @@
   ],
   "env": {
     "test": {
-      "presets": [["@babel/preset-env", { "modules": false } ], "next/babel"]
+      "presets": [
+        ["@babel/preset-env", { "modules": false } ],
+        ["next/babel", { "preset-env": { "modules": "commonjs" }}]]
     }
   }
 }

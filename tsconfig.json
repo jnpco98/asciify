@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "esnext",
     "lib": [
       "dom",
       "dom.iterable",
@@ -18,10 +18,11 @@
     "noImplicitReturns": true,
     "noImplicitThis": true,
     "strictFunctionTypes": true,
-    "module": "esnext",
+    "module": "ESNext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "noEmit": true,
+    "sourceMap": true,
     "jsx": "preserve",
     "pretty": true,
     "isolatedModules": true,
@@ -75,7 +76,10 @@
     }
   },
   "exclude": [
-    "node_modules"
+    "dist", 
+    ".next", 
+    "out", 
+    "next.config.js"
   ],
   "include": [
     "next-env.d.ts",
