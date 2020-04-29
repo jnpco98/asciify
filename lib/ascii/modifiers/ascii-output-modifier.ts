@@ -13,6 +13,6 @@ export interface AsciiOutputModifierApplyParams {
 }
 
 export interface AsciiOutputModifier {
-  apply(params: AsciiOutputModifierApplyParams): { styles: string; data: string };
+  apply(params: AsciiOutputModifierApplyParams): { styles: string | null; data: string };
   modifierAllowsMinify(): boolean;
 }

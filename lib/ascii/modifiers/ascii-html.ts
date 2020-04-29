@@ -80,8 +80,8 @@ export class AsciiHtml extends AsciiText {
             return `
               ${ascii.trim()}
               <span class="${this.getElementClass()} ${colorKey}">${escapeHtml(
-              this.getColorCharacter(color)
-            )}</span>
+                this.getColorCharacter(color)
+              )}</span>
               ${
                 (idx + 1) % info.width === 0
                   ? `</div><div class="${this.getRowClass()}">`

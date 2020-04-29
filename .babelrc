@@ -1,0 +1,50 @@
+{
+  "presets": [
+    [
+      "next/babel",
+      {
+        "preset-env": {
+          "useBuiltIns": "usage",
+          "corejs": 3
+        }
+      }
+    ]
+  ],
+  "plugins": [
+    [
+      "module-resolver",
+      {
+        "alias": {
+          "@modules": "./modules",
+          "@components": "./components",
+          "@layout": "./layout",
+          "@actions": "./actions",
+          "@actionTypes": "./actionTypes",
+          "@static": "./static",
+          "@store": "./store",
+          "@sagas": "./sagas",
+          "@reducers": "./reducers",
+          "@dummy": "./dummy",
+          "@constants": "./constants/",
+          "@utilities": "./utilities",
+          "@settings": "./.settings.ts",
+          "@icons": "./.icons.ts",
+          "@themeTypes": "./@types/styled.d.ts"
+        }
+      }
+    ],
+    [
+      "styled-components",
+      {
+        "ssr": true,
+        "displayName": true,
+        "preprocess": false
+      }
+    ]
+  ],
+  "env": {
+    "test": {
+      "presets": [["@babel/preset-env", { "modules": false } ], "next/babel"]
+    }
+  }
+}

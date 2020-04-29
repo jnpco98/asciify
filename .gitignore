@@ -4,10 +4,8 @@
 .next/
 node_modules/
 build/
+.build/
 dist/
 tmp/
 temp/
 logs/
-
-# Ignore import script data
-import-scripts/**/data/*

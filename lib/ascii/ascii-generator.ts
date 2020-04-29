@@ -1,8 +1,8 @@
 import sharp from 'sharp';
 import { minify, Options as MinifyOptions } from 'html-minifier';
 import { AsciiOptions } from './ascii-options';
-import { AsciiOutputModifier } from '../modifiers/ascii-output-modifier';
-import { AsciiText } from '../modifiers/ascii-text';
+import { AsciiOutputModifier } from './modifiers/ascii-output-modifier';
+import { AsciiText } from './modifiers/ascii-text';
 
 export const minifySettings: MinifyOptions = {
   minifyCSS: true,
@@ -30,16 +30,16 @@ export class AsciiGenerator {
     );
   }
 
-  public async generate(minifyHtml?: boolean) {
+  public async generate(minifyHtml: boolean = true) {
     const { data, colorData, info } = await this.getImagePixels();
     const output = this.getOutputModifier().apply({ data, colorData, info });
     return {
       style:
         this.getOutputModifier().modifierAllowsMinify() && minifyHtml
-          ? minify(output.styles, minifySettings)
+          ? minify(output.styles || '', minifySettings)
           : output.styles,
       data:
-        this.getOutputModifier().modifierAllowsMinify() && minifyHtml
+        this.getOutputModifier().modifierAllowsMinify() && minifyHtml && typeof output.data === 'string'
           ? minify(output.data, minifySettings)
           : output.data,
     };
@@ -48,7 +48,7 @@ export class AsciiGenerator {
   private async getImagePixels() {
     let image = this.image;
     const { width, height } = this.asciiOptions.getSize();
-
+    
     const { data, info } = await sharp(image)
       .resize(width, height, {
         fit: this.asciiOptions.getPreserveAspectRatio()

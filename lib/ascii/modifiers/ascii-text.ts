@@ -2,7 +2,7 @@ import {
   AsciiOutputModifier,
   AsciiOutputModifierApplyParams,
 } from './ascii-output-modifier';
-import { AsciiOptions } from '../ascii/ascii-options';
+import { AsciiOptions } from '../ascii-options';
 
 export class AsciiText implements AsciiOutputModifier {
   protected charRamp: string[];

@@ -70,8 +70,8 @@ export class AsciiOptions {
     return this.size;
   }
 
-  public setContrast(contrast?: number) {
-    this.contrast = contrast || 1;
+  public setContrast(contrast: number) {
+    this.contrast = contrast;
   }
   public getContrast() {
     return this.contrast;
