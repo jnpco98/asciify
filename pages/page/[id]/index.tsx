@@ -6,29 +6,29 @@ type Props = {
 
 }
 
-function Novels() {
+function Page() {
   const router = useRouter();
-  const { pid } = router.query;
+  const { id } = router.query;
   const [placeholder, setPlaceholder] = useState('');
 
-  console.log(pid)
+  console.log(id)
 
   async function fetchPlaceholder() {
-    const res = await fetch(`https://jsonplaceholder.typicode.com/todos/${pid}`);
+    const res = await fetch(`https://jsonplaceholder.typicode.com/todos/${id}`);
     const json = await res.json();
     setPlaceholder(JSON.stringify(json));
   }
 
   useEffect(() => {
     fetchPlaceholder();
-  }, []);
+  }, [id]);
   
   return (
     <Standard>
-      Novels homepage
+      Page homepage
       {placeholder}
     </Standard>
   );
 }
 
-export default Novels;
+export default Page;

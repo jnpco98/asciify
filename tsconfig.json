@@ -77,7 +77,7 @@
   },
   "exclude": [
     "dist", 
-    ".next", 
+    ".next/*", 
     "out", 
     "next.config.js"
   ],
