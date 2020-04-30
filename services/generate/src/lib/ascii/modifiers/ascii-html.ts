@@ -94,8 +94,8 @@ export class AsciiHtml extends AsciiText {
     `;
 
     return {
-      styles: this.createCssStyleSheet([this.getStyleSheet(), colorMap]),
-      data: html,
+      style: this.createCssStyleSheet([this.getStyleSheet(), colorMap]),
+      ascii: html,
     };
   }
 
@@ -142,7 +142,8 @@ export class AsciiHtml extends AsciiText {
   }
 
   public setColorMode(colorMode: ColorMode) {
-    this.colorMode = colorMode;
+    if(colorMode === 'black' || colorMode === 'monochromatic') this.colorMode = colorMode;
+    else this.colorMode = 'default';
   }
   public getColorMode() {
     return this.colorMode;

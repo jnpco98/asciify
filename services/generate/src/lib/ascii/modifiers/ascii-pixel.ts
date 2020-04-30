@@ -44,8 +44,8 @@ export class AsciiPixel extends AsciiHtml {
     `;
 
     return {
-      styles: this.createCssStyleSheet([this.getStyleSheet(), colorMap]),
-      data: html,
+      style: this.createCssStyleSheet([this.getStyleSheet(), colorMap]),
+      ascii: html,
     };
   }
 }

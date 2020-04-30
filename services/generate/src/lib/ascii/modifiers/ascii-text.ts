@@ -24,10 +24,10 @@ export class AsciiText implements AsciiOutputModifier {
         }`,
       ''
     );
-    return { styles: '', data: content };
+    return { style: '', ascii: content };
   }
 
   public modifierAllowsMinify() {
-    return false;
+    return true;
   }
 }

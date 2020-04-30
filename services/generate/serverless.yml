@@ -1,0 +1,45 @@
+service: generate-ascii
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  environment:
+    AWS_ACCESS_KEY_ID: ${file(config.${self:provider.stage}.json):AWS_ACCESS_KEY_ID}
+    AWS_SECRET_ACCESS_KEY: ${file(config.${self:provider.stage}.json):AWS_SECRET_ACCESS_KEY}
+
+stage: dev
+region: us-east-1
+
+
+plugins:
+  - serverless-plugin-typescript
+  - serverless-offline
+
+functions:
+  ascii-text:
+    handler: src/lambdas/endpoints/generate-ascii-text.handler
+    memorySize: 256
+    timeout: 15
+    events:
+      - http:
+          path: generate-ascii-text
+          method: POST
+          cors: true
+  ascii-html:
+    handler: src/lambdas/endpoints/generate-ascii-html.handler
+    memorySize: 256
+    timeout: 15
+    events:
+      - http:
+          path: generate-ascii-html
+          method: POST
+          cors: true
+  ascii-pixels:
+    handler: src/lambdas/endpoints/generate-ascii-pixels.handler
+    memorySize: 256
+    timeout: 15
+    events:
+      - http:
+          path: generate-ascii-pixels
+          method: POST
+          cors: true

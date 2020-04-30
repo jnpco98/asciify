@@ -33,15 +33,16 @@ export class AsciiGenerator {
   public async generate(minifyHtml: boolean = true) {
     const { data, colorData, info } = await this.getImagePixels();
     const output = this.getOutputModifier().apply({ data, colorData, info });
+
     return {
       style:
         this.getOutputModifier().modifierAllowsMinify() && minifyHtml
-          ? minify(output.styles || '', minifySettings)
-          : output.styles,
-      data:
-        this.getOutputModifier().modifierAllowsMinify() && minifyHtml && typeof output.data === 'string'
-          ? minify(output.data, minifySettings)
-          : output.data,
+          ? minify(output.style || '', minifySettings)
+          : output.style,
+      ascii:
+        this.getOutputModifier().modifierAllowsMinify() && minifyHtml && typeof output.ascii === 'string'
+          ? minify(output.ascii, minifySettings)
+          : output.ascii,
     };
   }
 
