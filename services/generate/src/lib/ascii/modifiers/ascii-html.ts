@@ -26,9 +26,9 @@ export class AsciiHtml extends AsciiText {
     super(charRamp);
 
     // Initialize classes first
-    this.containerClass = 'ascii';
-    this.rowClass = 'ascii__row';
-    this.elementClass = 'ascii__row-item';
+    this.containerClass = 'asc';
+    this.rowClass = 'asc__row';
+    this.elementClass = 'asc__row-item';
 
     // Use classes for stylesheets
     this.setStyleSheet({
@@ -75,7 +75,7 @@ export class AsciiHtml extends AsciiText {
       const color = data[i];
       let { r, g, b } = this.transformColors({ ...colorData[i] });
       
-      const colorKey = `asc_${r}_${g}_${b}`;
+      const colorKey = `asc${r}${g}${b}`;
       colorMap[colorKey] = { color: `rgb(${r}, ${g}, ${b})` };
 
       html += `<span class="${this.getElementClass()} ${colorKey}">${escapeHtml(this.getColorCharacter(color))}</span>`;

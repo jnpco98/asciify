@@ -5,10 +5,10 @@ export interface Size {
 
 export class AsciiOptions {
   public static readonly DEFAULT_WIDTH = 50;
-  public static readonly MAX_WIDTH = 500;
+  public static readonly MAX_WIDTH = 300;
 
   public static readonly DEFAULT_HEIGHT = 50;
-  public static readonly MAX_HEIGHT = 500;
+  public static readonly MAX_HEIGHT = 300;
 
   // prettier-ignore
   public static readonly DEFAULT_CHARACTER_RAMP = [
