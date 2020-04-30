@@ -20,6 +20,7 @@ export class AsciiPixel extends AsciiHtml {
     const { colorData, info } = params;
     const colorMap: StyleSheet = {};
 
+    // prettier-ignore
     const html = `
       <div class="${this.getContainerClass()}">
         <div class="${this.getRowClass()}">

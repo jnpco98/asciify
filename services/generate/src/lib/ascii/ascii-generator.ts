@@ -40,7 +40,9 @@ export class AsciiGenerator {
           ? minify(output.style || '', minifySettings)
           : output.style,
       ascii:
-        this.getOutputModifier().modifierAllowsMinify() && minifyHtml && typeof output.ascii === 'string'
+        this.getOutputModifier().modifierAllowsMinify() &&
+        minifyHtml &&
+        typeof output.ascii === 'string'
           ? minify(output.ascii, minifySettings)
           : output.ascii,
     };
@@ -49,7 +51,7 @@ export class AsciiGenerator {
   private async getImagePixels() {
     let image = this.image;
     const { width, height } = this.asciiOptions.getSize();
-    
+
     const { data, info } = await sharp(image)
       .resize(width, height, {
         fit: this.asciiOptions.getPreserveAspectRatio()

@@ -68,6 +68,7 @@ export class AsciiHtml extends AsciiText {
     const { data, colorData, info } = params;
     const colorMap: StyleSheet = {};
 
+    // prettier-ignore
     const html = `
       <div class="${this.getContainerClass()}">
         <div class="${this.getRowClass()}">
@@ -142,7 +143,8 @@ export class AsciiHtml extends AsciiText {
   }
 
   public setColorMode(colorMode: ColorMode) {
-    if(colorMode === 'black' || colorMode === 'monochromatic') this.colorMode = colorMode;
+    if (colorMode === 'black' || colorMode === 'monochromatic')
+      this.colorMode = colorMode;
     else this.colorMode = 'default';
   }
   public getColorMode() {

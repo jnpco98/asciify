@@ -17,6 +17,8 @@ export class AsciiText implements AsciiOutputModifier {
 
   public apply(params: AsciiOutputModifierApplyParams) {
     const { data, info } = params;
+
+    // prettier-ignore
     const content = data.reduce(
       (ascii, color, idx) =>
         `${ascii}${this.getColorCharacter(color)}${(idx + 1) % info.width === 0 ? '\n' : ''}`, ''
