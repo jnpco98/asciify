@@ -15,7 +15,7 @@ type RequestBody = {
 export async function handler(event: APIGatewayEvent, context: Context) {
   const body = JSON.parse(event.body || '{}') as RequestBody;
   const image = body.image.split(';base64,').pop() || '';
-  const { gap = 0, charRamp, preserveAspectRatio = true, colorMode = 'default', pixelCountHorizontal = AsciiOptions.MAX_WIDTH, pixelCountVertical = AsciiOptions.MAX_HEIGHT } = body.options || {};
+  const { gap = 0, charRamp, preserveAspectRatio = true, colorMode = 'default', pixelCountHorizontal = AsciiOptions.DEFAULT_WIDTH, pixelCountVertical = AsciiOptions.DEFAULT_HEIGHT } = body.options || {};
 
   if(!body.image || !body.image.includes(';base64,') || !image.trim().length) 
     return { statusCode: 401, body: JSON.stringify({ error: new Error('Invalid image data') })}

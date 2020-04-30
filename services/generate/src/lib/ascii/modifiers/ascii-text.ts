@@ -19,15 +19,12 @@ export class AsciiText implements AsciiOutputModifier {
     const { data, info } = params;
     const content = data.reduce(
       (ascii, color, idx) =>
-        `${ascii}${this.getColorCharacter(color)}${
-          (idx + 1) % info.width === 0 ? '\n' : ''
-        }`,
-      ''
+        `${ascii}${this.getColorCharacter(color)}${(idx + 1) % info.width === 0 ? '\n' : ''}`, ''
     );
     return { style: '', ascii: content };
   }
 
   public modifierAllowsMinify() {
-    return true;
+    return false;
   }
 }
