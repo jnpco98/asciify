@@ -64,35 +64,25 @@ export class AsciiHtml extends AsciiText {
     return { r, g, b };
   }
 
+  // prettier-ignore
   public apply(params: AsciiOutputModifierApplyParams) {
     const { data, colorData, info } = params;
     const colorMap: StyleSheet = {};
 
-    // prettier-ignore
-    const html = `
-      <div class="${this.getContainerClass()}">
-        <div class="${this.getRowClass()}">
-          ${data.reduce((ascii, color, idx) => {
-            let { r, g, b } = this.transformColors({ ...colorData[idx] });
+    let html = `<div class="${this.getContainerClass()}"><div class="${this.getRowClass()}">`;
 
-            const colorKey = `asc_${r}_${g}_${b}`;
-            colorMap[colorKey] = { color: `rgb(${r}, ${g}, ${b})` };
+    for (let i = 0; i < data.length; i++) {
+      const color = data[i];
+      let { r, g, b } = this.transformColors({ ...colorData[i] });
+      
+      const colorKey = `asc_${r}_${g}_${b}`;
+      colorMap[colorKey] = { color: `rgb(${r}, ${g}, ${b})` };
 
-            return `
-              ${ascii.trim()}
-              <span class="${this.getElementClass()} ${colorKey}">${escapeHtml(
-                this.getColorCharacter(color)
-              )}</span>
-              ${
-                (idx + 1) % info.width === 0
-                  ? `</div><div class="${this.getRowClass()}">`
-                  : ''
-              }
-            `.trim();
-          }, '')}
-        </div>
-      </div>
-    `;
+      html += `<span class="${this.getElementClass()} ${colorKey}">${escapeHtml(this.getColorCharacter(color))}</span>`;
+      if((i + 1) % info.width === 0) html += `</div><div class="${this.getRowClass()}">`;
+    }
+
+    html += `</div></div>`;
 
     return {
       style: this.createCssStyleSheet([this.getStyleSheet(), colorMap]),
@@ -101,26 +91,25 @@ export class AsciiHtml extends AsciiText {
   }
 
   protected createCssStyleSheet(styleSheets: StyleSheet[]) {
-    let style = '';
+    let accumulatedStyles = '';
+    
+    styleSheets.forEach(styleSheet => {
+      let styles = '';
 
-    styleSheets.forEach(
-      (styleSheet) =>
-        (style += Object.keys(styleSheet).reduce(
-          (styles, selector) =>
-            `${styles}
-          .${selector} {
-            ${Object.keys(styleSheet[selector]).reduce(
-              (elStyles, property) =>
-                `${elStyles}${property}:${styleSheet[selector][property]};`,
-              ''
-            )}
-          }
-        `,
-          ''
-        ))
-    );
+      Object.keys(styleSheet).forEach(selector => {
+        let selectorStyles = '';
 
-    return style;
+        Object.keys(styleSheet[selector]).forEach(property => {
+          selectorStyles += `${property}:${styleSheet[selector][property]};`;
+        });
+        
+        styles += `.${selector}{${selectorStyles}}`;
+      });
+
+      accumulatedStyles += styles;
+    });
+
+    return accumulatedStyles;
   }
 
   public setStyleSheet(styleSheet: StyleSheet) {

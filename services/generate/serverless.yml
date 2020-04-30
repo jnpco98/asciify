@@ -25,8 +25,8 @@ plugins:
 functions:
   ascii-text:
     handler: src/lambdas/endpoints/generate-ascii-text.handler
-    memorySize: 256
-    timeout: 15
+    memorySize: 512
+    timeout: 30
     events:
       - http:
           path: generate-ascii-text
@@ -34,8 +34,8 @@ functions:
           cors: true
   ascii-html:
     handler: src/lambdas/endpoints/generate-ascii-html.handler
-    memorySize: 256
-    timeout: 15
+    memorySize: 512
+    timeout: 30
     events:
       - http:
           path: generate-ascii-html
@@ -43,8 +43,8 @@ functions:
           cors: true
   ascii-pixels:
     handler: src/lambdas/endpoints/generate-ascii-pixels.handler
-    memorySize: 256
-    timeout: 15
+    memorySize: 512
+    timeout: 30
     events:
       - http:
           path: generate-ascii-pixels
