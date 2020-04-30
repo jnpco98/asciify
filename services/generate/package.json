@@ -12,5 +12,10 @@
     "escape-html": "^1.0.3",
     "html-minifier": "^4.0.0",
     "sharp": "^0.25.2"
+  },
+  "scripts": {
+    "dev": "serverless offline start --printOutput",
+    "deploy:dev": "serverless deploy --stage dev",
+    "deploy:prod": "serverless deploy --stage production"
   }
 }

@@ -3,14 +3,18 @@ service: generate-ascii
 provider:
   name: aws
   runtime: nodejs12.x
-  environment:
-    AWS_ACCESS_KEY_ID: ${file(config.${self:provider.stage}.json):AWS_ACCESS_KEY_ID}
-    AWS_SECRET_ACCESS_KEY: ${file(config.${self:provider.stage}.json):AWS_SECRET_ACCESS_KEY}
-
-stage: dev
-region: us-east-1
+  stage: dev
+  region: ${self:custom.region}
+  stackTags:
+    STACK: "${self:service}"
+    REGION: ${self:custom.region}
+  profile: serverless-admin
+  # environment:
+  #   AWS_ACCESS_KEY_ID: ${file(config.${self:provider.stage}.json):AWS_ACCESS_KEY_ID}
+  #   AWS_SECRET_ACCESS_KEY: ${file(config.${self:provider.stage}.json):AWS_SECRET_ACCESS_KEY}
 
 custom:
+  region: us-east-1
   serverless-offline:
     useChildProcesses: true
 
