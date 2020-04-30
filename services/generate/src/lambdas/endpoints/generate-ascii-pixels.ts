@@ -45,8 +45,8 @@ export async function handler(event: APIGatewayEvent, context: Context) {
 
   try {
     const { ascii, style } = await asciiGenerator.generate();
-    return { statusCode: 201, body: JSON.stringify({ ascii, style }) };
+    return { statusCode: 201, body: JSON.stringify({ ascii, style, size: options.getSize() }) };
   } catch (e) {
-    return { statusCode: 401, body: JSON.stringify({ error: e }) };
+    return { statusCode: 422, body: JSON.stringify({ error: e }) };
   }
 }
