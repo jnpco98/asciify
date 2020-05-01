@@ -5,8 +5,7 @@ import Switch from "@components/atom/Switch";
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 1.8rem;
-  padding-bottom: 2.2rem;
+  padding: 2.6rem 1.8rem 2.8rem;
   background: ${({ theme }) => theme.colors.backgroundSecondary};
   border-radius: 0.8rem;
   z-index: 2;

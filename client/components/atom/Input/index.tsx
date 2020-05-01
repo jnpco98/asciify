@@ -16,7 +16,7 @@ function Input(
   props: Props,
   ref: React.RefObject<HTMLInputElement | HTMLTextAreaElement>
 ): ReactElement {
-  const { className, inputType } = props;
+  const { className, inputType, ...restProps } = props;
 
   let StyledInput: AnyStyledComponent;
 
@@ -30,7 +30,7 @@ function Input(
       break;
   }
 
-  return <StyledInput ref={ref} className={className} {...props} />;
+  return <StyledInput ref={ref} className={className} {...restProps} />;
 }
 
 export default forwardRef(Input as ForwardRefRenderFunction<HTMLInputElement, Props>);

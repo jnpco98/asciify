@@ -8,7 +8,7 @@ type Props = {
 function Standard(props: Props) {
   return (
     <div>
-      <Header />
+      {/* <Header /> */}
       {props.children}
     </div>
   );

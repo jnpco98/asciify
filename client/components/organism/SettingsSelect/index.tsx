@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
 import Section from '@layout/Section';
-// import Select, { OptionsType, ValueType, ActionMeta, Theme } from 'react-select';
-import { OptionsType, ValueType, Theme } from 'react-select';
+import { OptionsType, ValueType } from 'react-select';
 import Select from '@components/atom/Select';
-import * as S from './style';
 import Button from '@components/atom/Button';
-import Switch from '@components/atom/Switch';
+import * as S from './style';
 
 export type SelectOption = { value: string; label: string };
 
@@ -34,16 +32,28 @@ export type AsciiHtmlSettings = AsciiTextSettings & {
 
 export type AsciiPixelSettings = AsciiHtmlSettings;
 
-function OptionSelect() {
+type Props = {
+  handleOnGenerateAscii?: (ascii: string) => void;
+  handleOnGenerateAsciiImage?: (asciiImage: string) => void;
+}
+
+function SettingsSelect(props: Props) {
+  const { handleOnGenerateAscii, handleOnGenerateAsciiImage } = props;
   const [option, selectOption] = useState<{ value: string }>();
+
   function handleSelect(selected: ValueType<SelectOption>) {
     selectOption((selected as any).value || '');
+  }
+
+  function handleOnClick() {
+    handleOnGenerateAscii && handleOnGenerateAscii(`<div>Ascii</div>`);
+    handleOnGenerateAsciiImage && handleOnGenerateAsciiImage(`https://upload.wikimedia.org/wikipedia/en/2/2d/SSU_Kirby_artwork.png`);
   }
   
   return(
     <Section>
       <S.Container>
-        <Select placeholder="Select ascii output type" options={generateOptions} onSelect={handleSelect} className="generate-select" classNamePrefix="generate-select" instanceId="generate-select"/>
+        <Select placeholder="Select ascii output type" options={generateOptions} onSelect={handleSelect} isSearchable={false} className="generate-select" classNamePrefix="generate-select" instanceId="generate-select"/>
         <S.SettingsDivider/>
         <S.SettingsContainer>
           <S.AspectRatioSwitch />
@@ -53,16 +63,16 @@ function OptionSelect() {
             <S.SettingsInput bordered placeholder="Gap"></S.SettingsInput>
           </S.SettingsRow>
           <S.SettingsRow>
-            <Select placeholder="Select color mode" options={colorModeOptions} onSelect={handleSelect} className="color-mode" classNamePrefix="color-mode" instanceId="color-mode"/>
+            <Select placeholder="Select color mode" options={colorModeOptions} onSelect={handleSelect} isSearchable={false} className="color-mode" classNamePrefix="color-mode" instanceId="color-mode"/>
           </S.SettingsRow>
           <S.SettingsRow>
             <S.SettingsCharacterRamp bordered placeholder={`Enter the characters you want to get included in the ascii art. From the darkest to the lightest ex: "$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\|()1{}[]?-_+~<>i!lI;:," ^\`'. "`}></S.SettingsCharacterRamp>
           </S.SettingsRow>
         </S.SettingsContainer>
-        <Button>Generate</Button>
+        <Button onClick={handleOnClick}>Generate</Button>
       </S.Container>
     </Section>
   );
 }
 
-export default OptionSelect;
+export default SettingsSelect;

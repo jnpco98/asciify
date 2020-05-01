@@ -44,7 +44,7 @@ export const BaseTheme: DefaultTheme = {
   colors: {
     // Standard Colors
     default: '#e8e0f6',
-    defaultSubdued: '#e8e0f6',
+    defaultSubdued: 'lightgray',
 
     // Backgrounds
     background: '#f8f9fa',
@@ -65,7 +65,7 @@ export const BaseTheme: DefaultTheme = {
     // Disabled
     disabled: 'f8f9fa',
 
-    selection: transparentize(0.8, '#8e63d4'),
+    selection: '#000',
 
     backdrop: transparentize(0.7, '#8e63d4'),
 

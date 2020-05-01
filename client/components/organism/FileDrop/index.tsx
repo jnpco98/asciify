@@ -5,14 +5,16 @@ import { readFileAsync } from '@utilities/file';
 import * as S from './style';
 
 // const DynamicIcon = dynamic(() => import('@components/molecule/DynamicIcon'), { ssr: false });
+export interface FileDropFormat { name: string; data: string | ArrayBuffer | null, size: number }
 
 type Props = {
   className?: string;
+  onFileSelect?: (file: FileDropFormat) => void;
 };
 
-function FileHandler(props: Props) {
-  const { className } = props;
-  const [file, setFile] = useState<{ name: string, data: string | ArrayBuffer | null, size: number }>();
+function FileDrop(props: Props) {
+  const { className, onFileSelect } = props;
+  const [file, setFile] = useState<FileDropFormat>();
   
   async function handleDrop(acceptedFiles: File[]) {
     if(!acceptedFiles || !Array.isArray(acceptedFiles)) return;
@@ -21,6 +23,7 @@ function FileHandler(props: Props) {
     const { name, size } = acceptedFiles[0];
 
     setFile({ name, data, size });
+    onFileSelect && onFileSelect({ name, data, size });
   }
 
   const dropzoneRef = useRef(null);
@@ -38,4 +41,4 @@ function FileHandler(props: Props) {
   );
 }
 
-export default FileHandler;
+export default FileDrop;

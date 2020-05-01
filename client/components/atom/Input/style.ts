@@ -1,12 +1,14 @@
 import styled, { css } from 'styled-components';
-import { regularFontSize } from '../../../utilities/mixins';
 import TextAreaAutoResize from 'react-autosize-textarea';
+import { regularFontSize } from '../../../utilities/mixins';
 
 type InputProps = {
   bordered?: boolean;
 }
 
-export const TextArea = styled(TextAreaAutoResize)<InputProps>`
+export const TextArea = styled(TextAreaAutoResize).withConfig({
+  shouldForwardProp: prop => !['bordered'].includes(prop)
+})<InputProps>`
   ${regularFontSize};
   ${({ theme, ...props }) =>
     props.bordered && css`
@@ -20,6 +22,7 @@ export const TextArea = styled(TextAreaAutoResize)<InputProps>`
     `
   };
   padding: 0.5rem;
+  resize: none;
 `;
 
 export const Input = styled.input<InputProps>`

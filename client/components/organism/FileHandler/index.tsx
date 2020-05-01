@@ -1,9 +1,16 @@
 import React from 'react';
 import Section from '@layout/Section';
 import Text, { TextType } from '@components/atom/Text';
+import { FileDropFormat } from '../FileDrop';
 import * as S from './style'
 
-function FileHandler() {
+type Props = {
+  onFileSelect?: (file: FileDropFormat) => void;
+}
+
+function FileHandler(props: Props) {
+  const { onFileSelect } = props;
+
   return (
     <Section>
       <S.Container>
@@ -15,7 +22,7 @@ function FileHandler() {
               <S.UrlInput bordered placeholder="Paste image url here"/>
               <S.UrlButton>Load Image</S.UrlButton>
             </S.UrlWrapper>
-            <S.ImageDrop />
+            <S.ImageDrop onFileSelect={onFileSelect}/>
           </S.PrimaryContent>
           <S.SecondardContent>
             <S.InstructionBox/>
