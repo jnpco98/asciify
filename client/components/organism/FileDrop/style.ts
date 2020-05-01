@@ -15,8 +15,9 @@ export const Container = styled.div<FileProps>`
   border-radius: 0.125rem;
   border-style: dashed;
   background-color: ${({ theme }) => theme.colors.background};
-  transition: border 0.25s ease;
+  transition: border 0.1s ease;
   text-align: center;
+  cursor: pointer;
   
   ${({ theme, ...props }) => 
     props.isDragAccept && css`
@@ -30,6 +31,11 @@ export const Container = styled.div<FileProps>`
     css`
       color: ${theme.colors.primary};
       border-color: ${theme.colors.primary};
+
+      &:hover {
+        color: ${theme.colors.primaryCompliment};
+        border-color: ${theme.colors.primaryCompliment};
+      }
     `
   };
 `;

@@ -53,7 +53,7 @@ export const BaseTheme: DefaultTheme = {
 
     // Borders
     border: '#b5b5b5',
-    borderHover: '#b5b5b5',
+    borderHover: '#8e63d4',
 
     // Scheme
     primary: '#8e63d4',

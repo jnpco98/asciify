@@ -12,6 +12,7 @@ export const Container = styled.div`
   background: ${({ theme }) => theme.colors.backgroundSecondary};
   border-radius: 0.8rem;
   margin-top: 3rem;
+  margin-bottom: 2rem;
   z-index: 2;
   position: relative;
   width: 100%;
