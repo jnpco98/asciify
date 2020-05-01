@@ -40,27 +40,27 @@ const Danger = css`
 export const Container = styled.a<ButtonProps>`
   ${center(FLEX_ALIGN_MAIN)};
   color: ${({ theme }) => theme.colors.info};
-  background-color: ${({ theme }) => theme.colors.background};
-  padding: 0.6rem 1.2rem;
+  background-color: ${({ theme }) => theme.colors.primary};
+  padding: 0.6rem 1.4rem;
   font-size: 0.7rem;
   text-transform: uppercase;
   transition: all 0.1s ease-in;
   font-weight: 600;
   font-family: ${({ theme }) => theme.font.secondary};
-  border-radius: 2.5rem;
+  border-radius: 0.3rem;
+  text-align: center;
+  justify-content: center;
 
   &:hover {
     color: ${({ theme }) => theme.colors.background};
-    background-color: ${({ theme }) => theme.colors.info};
+    background-color: ${({ theme }) => theme.colors.primaryCompliment};
   }
 
   ${props => props.buttonType === ButtonType.Success && Success};
   ${props => props.buttonType === ButtonType.Warning && Warning};
   ${props => props.buttonType === ButtonType.Error && Danger};
 
-  &.is-flat {
-    border: none;
-  }
+  border: none;
 
   ${M.MEDIA_SMALL} {
     padding: 0.7rem 1.5rem;

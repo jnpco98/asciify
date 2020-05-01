@@ -17,7 +17,6 @@ export const PageTitle = styled.h1<HeadingStyleProps>`
   ${pageTitleFontSize};
   font-family: ${({ theme }) => theme.font.secondary};
   font-weight: ${({ theme }) => theme.font.bold};
-  text-transform: uppercase;
 
   ${margin('1.4rem', null, '1.4rem', null)};
 
@@ -37,8 +36,7 @@ export const SectionTitle = styled.h2<HeadingStyleProps>`
 
   font-family: ${({ theme }) => theme.font.secondary};
   font-weight: ${({ theme }) => theme.font.bold};
-  text-transform: uppercase;
-  ${margin('1rem', null, '1rem', null)};
+  ${margin('0.7rem', null, '0.7rem', null)};
 
   ${M.MEDIA_SMALL} {
     ${margin('1.7rem', null, '1.7rem', null)};
@@ -53,7 +51,6 @@ export const SectionTitle = styled.h2<HeadingStyleProps>`
 
 export const SubsectionTitle = styled.h3`
   ${subsectionFontSize};
-  text-transform: uppercase;
   font-family: ${({ theme }) => theme.font.secondary};
   font-weight: ${({ theme }) => theme.font.bold};
   ${margin('1rem', null, '1rem', null)};
@@ -89,6 +86,22 @@ export const Span = styled.span`
 
 export const Anchor = styled.a`
   ${regularFontSize};
+  color: ${({ theme }) => theme.colors.primary};
+  position: relative;
+  
+  &:after {
+    width: 100%;
+    height: 0.0625rem;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    content: '';
+    background: ${({ theme }) => theme.colors.primary};
+  }
+
+  &:hover {
+    color: ${({ theme }) => theme.colors.primaryCompliment};
+  }
 
   ${margin('0.2rem', null, '0.2rem', null)};
 

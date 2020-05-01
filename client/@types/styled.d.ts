@@ -24,35 +24,17 @@ export interface Colors {
   // Borders
   border: string;
   borderHover: string;
-  borderSecondary: string;
-  borderSecondaryHover: string;
 
   // Scheme
   primary: string;
   primaryCompliment: string;
 
-  secondary: string;
-  secondaryCompliment: string;
-
-  tertiary: string;
-  tertiaryCompliment: string;
-
   // Hover
-  defaultHover: string;
-
   primaryHover: string;
-  primaryComplimentHover: string;
-
-  secondaryHover: string;
-  secondaryComplimentHover: string;
-
-  tertiaryHover: string;
-  tertiaryComplimentHover: string;
 
   // Disabled
   disabled: string;
-  disabledCompliment: string;
-
+  
   selection: string;
 
   backdrop: string;
