@@ -14,6 +14,7 @@ const reset = css`
     height: 100%;
     text-rendering: optimizeLegibility !important;
     -webkit-font-smoothing: antialiased !important;
+    background: ${({ theme }) => theme.colors.background};
   }
 
   html, body, div, span, applet, object, iframe, 
@@ -35,6 +36,7 @@ const reset = css`
     font-family: ${({ theme }) => theme.font.primary}, Sans-Serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    outline: none;
 
     &::selection {
       color: ${({ theme }) => theme.colors.default};

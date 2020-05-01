@@ -20,10 +20,10 @@ export const BaseTheme: DefaultTheme = {
     xxsmall: '1rem',
     xsmall: '1rem',
     small: '3rem',
-    medium: '6rem',
-    large: '10rem',
-    xlarge: '20rem',
-    xxlarge: '20rem'
+    medium: '4rem',
+    large: '6rem',
+    xlarge: '10rem',
+    xxlarge: '12rem'
   },
   font: {
     baseSize: '1rem',
@@ -38,59 +38,41 @@ export const BaseTheme: DefaultTheme = {
     default: '0.042rem',
     wide: '0.085rem',
 
-    primary: '"Work Sans", Sans-Serif',
-    secondary: '"Alegraya", Sans-Serif'
+    primary: '"Source Code Pro", Sans-Serif',
+    secondary: '"Source Code Pro", Sans-Serif'
   },
   colors: {
     // Standard Colors
-    default: '#111111',
-    defaultSubdued: '#949494',
+    default: '#e8e0f6',
+    defaultSubdued: '#e8e0f6',
 
     // Backgrounds
-    background: '#FFFFFF',
-    backgroundSecondary: '#FBFAF4',
-    backgroundTertiary: '#642254',
+    background: '#f8f9fa',
+    backgroundSecondary: '#ffffff',
+    backgroundTertiary: '#dfdde2',
 
     // Borders
-    border: '#EEE',
-    borderHover: '#F3F3F3',
-    borderSecondary: '#DBD8D0',
-    borderSecondaryHover: '#E2DFD6',
+    border: '#b5b5b5',
+    borderHover: '#b5b5b5',
 
     // Scheme
-    primary: '#2A4A59',
-    primaryCompliment: '#FFFFFF',
-
-    secondary: '#EEECE3',
-    secondaryCompliment: '#2A4A59',
-
-    tertiary: '#FFFFFF',
-    tertiaryCompliment: '#2A4A59',
+    primary: '#8e63d4',
+    primaryCompliment: '#5338a8',
 
     // Hover
-    defaultHover: lighten(0.1, '#111111'),
-
-    primaryHover: lighten(0.1, '#2A4A59'),
-    primaryComplimentHover: lighten(0.1, '#FFFFFF'),
-
-    secondaryHover: lighten(0.1, '#EEECE3'),
-    secondaryComplimentHover: lighten(0.1, '#2A4A59'),
-
-    tertiaryHover: lighten(0.1, '#FFFFFF'),
-    tertiaryComplimentHover: lighten(0.1, '#2A4A59'),
+    primaryHover: '#5338a8',
 
     // Disabled
-    disabled: 'transparent',
-    disabledCompliment: '#2A4A59',
+    disabled: 'f8f9fa',
 
-    selection: transparentize(0.8, '#2A4A59'),
+    selection: transparentize(0.8, '#8e63d4'),
 
-    backdrop: transparentize(0.7, '#111111'),
+    backdrop: transparentize(0.7, '#8e63d4'),
 
     // Form color sets
-    info: '#2A4A59',
-    success: '#EEECE3',
-    warning: '#EEECE3',
-    error: '#C10000'
+    info: '#e8e0f6',
+    success: '#b5b5b5',
+    warning: '#ff1744',
+    error: '#ff1744'
   }
 };

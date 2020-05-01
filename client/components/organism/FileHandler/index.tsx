@@ -1,46 +1,29 @@
-import React, { useState, useRef, useCallback } from 'react';
-// import dynamic from 'next/dynamic';
-import { useDropzone } from 'react-dropzone';
-import * as S from './style';
-import { readFileAsync } from '@utilities/file';
+import React from 'react';
+import Section from '@layout/Section';
+import Text, { TextType } from '@components/atom/Text';
+import * as S from './style'
 
-// const DynamicIcon = dynamic(() => import('@components/molecule/DynamicIcon'), { ssr: false });
-
-type Props = {
-  className?: string;
-};
-
-function FileHandler(props: Props) {
-  const { className } = props;
-  const [files, setFiles] = useState<{ name: string, data: string | ArrayBuffer | null }[]>([]);
-  
-  const handleDrop = useCallback(async acceptedFiles => {
-    if(!acceptedFiles || !Array.isArray(acceptedFiles)) return;
-
-    const fileData = [];
-
-    for (const file of acceptedFiles) {
-      const { name } = file as File;
-      const data = await readFileAsync(file);
-      fileData.push({ name, data});
-    }
-
-    setFiles([...files, ...fileData]);
-  }, []);
-
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop: handleDrop, accept: 'image/jpeg, image/png, image/webp' });
-
-  const containerRef = useRef(null);
-
+function FileHandler() {
   return (
-    <div {...getRootProps()} style={{paddingTop: '10rem'}}>
-      <input {...getInputProps()} />
-      {
-        isDragActive ?
-          <p>Drop the files here ...</p> :
-          <p>Drag 'n' drop some files here, or click to select files</p>
-      }
-    </div>
+    <Section>
+      <S.Container>
+        <Text textType={TextType.SectionTitle}>Add an Image</Text>
+        <Text>Image Url</Text>
+        <S.Wrapper>
+          <S.PrimaryContent>
+            <S.UrlWrapper>
+              <S.UrlInput bordered placeholder="Paste image url here"/>
+              <S.UrlButton>Load Image</S.UrlButton>
+            </S.UrlWrapper>
+            <S.ImageDrop />
+          </S.PrimaryContent>
+          <S.SecondardContent>
+            <S.InstructionBox/>
+            <S.DemoLink>View Demo</S.DemoLink>
+          </S.SecondardContent>
+        </S.Wrapper>
+      </S.Container>
+    </Section>
   );
 }
 

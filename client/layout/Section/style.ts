@@ -5,7 +5,7 @@ import * as M from '@utilities/media';
 import Text, { TextType } from "@components/atom/Text";
 
 export const Container = styled.div`
-  background: teal;
+  background: transparent;
 `;
 
 export const SectionTitle = styled(Text).attrs({ textType: TextType.SectionTitle })`

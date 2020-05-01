@@ -62,7 +62,7 @@ class Document extends NextDocument {
           <meta property="og:title" content={SITE_TITLE} />
           <meta property="og:description" content={SITE_DESCRIPTION} />
           <link
-            href="https://fonts.googleapis.com/css2?family=Alegreya:wght@400;700&family=Work+Sans:wght@400;700&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;700&display=swap"
             rel="stylesheet"
           />
           {this.props.styles}
