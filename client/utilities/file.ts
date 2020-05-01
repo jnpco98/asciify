@@ -5,5 +5,5 @@ export async function readFileAsync(file: Blob): Promise<string | ArrayBuffer | 
     reader.onload = () => resolve(reader.result);
     reader.onerror = reject;
     reader.readAsDataURL(file);
-  })
+  });
 }

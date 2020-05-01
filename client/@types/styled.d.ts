@@ -34,7 +34,7 @@ export interface Colors {
 
   // Disabled
   disabled: string;
-  
+
   selection: string;
 
   backdrop: string;

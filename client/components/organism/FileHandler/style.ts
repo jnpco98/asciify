@@ -1,8 +1,8 @@
-import styled, { css } from "styled-components";
-import Button from "@components/atom/Button";
-import Text, { TextType } from "@components/atom/Text";
-import Input from "@components/atom/Input";
-import FileDrop from "@components/organism/FileDrop";
+import styled, { css } from 'styled-components';
+import Button from '@components/atom/Button';
+import Text, { TextType } from '@components/atom/Text';
+import Input from '@components/atom/Input';
+import FileDrop from '@components/organism/FileDrop';
 
 export const Container = styled.div`
   display: flex;
@@ -43,7 +43,7 @@ export const UrlWrapper = styled.div`
 type InputProps = {
   bordered?: boolean;
   placeholder?: string;
-}
+};
 
 export const UrlInput = styled(Input)<InputProps>`
   width: 100%;
@@ -60,7 +60,7 @@ export const ImageDrop = styled(FileDrop)`
 
 type BoxActive = {
   active?: boolean;
-}
+};
 
 export const InstructionBox = styled.div<BoxActive>`
   width: 100%;
@@ -73,13 +73,13 @@ export const InstructionBox = styled.div<BoxActive>`
 
   transition: all 0.3s ease;
 
-  ${props =>
-    props.active && css`
+  ${(props) =>
+    props.active &&
+    css`
       height: 10rem;
       opacity: 1;
       margin: 1rem 0;
-    `
-  };
+    `};
 `;
 
 export const DemoLink = styled(Text).attrs({ textType: TextType.Anchor })`

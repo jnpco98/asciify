@@ -1,10 +1,10 @@
-import styled, { css } from "styled-components";
-import Text from "@components/atom/Text";
+import styled, { css } from 'styled-components';
+import Text from '@components/atom/Text';
 
 type FileProps = {
   isDragAccept?: boolean;
   isDragReject?: boolean;
-}
+};
 
 export const Container = styled.div<FileProps>`
   display: flex;
@@ -18,16 +18,18 @@ export const Container = styled.div<FileProps>`
   transition: border 0.1s ease;
   text-align: center;
   cursor: pointer;
-  
-  ${({ theme, ...props }) => 
-    props.isDragAccept && css`
-      color: ${theme.colors.default};
-      border-color: ${theme.colors.default};
-    ` ||
-    props.isDragReject && css`
-      color: ${theme.colors.error};
-      border-color: ${theme.colors.error};
-    ` ||
+
+  ${({ theme, ...props }) =>
+    (props.isDragAccept &&
+      css`
+        color: ${theme.colors.default};
+        border-color: ${theme.colors.default};
+      `) ||
+    (props.isDragReject &&
+      css`
+        color: ${theme.colors.error};
+        border-color: ${theme.colors.error};
+      `) ||
     css`
       color: ${theme.colors.primary};
       border-color: ${theme.colors.primary};
@@ -36,8 +38,7 @@ export const Container = styled.div<FileProps>`
         color: ${theme.colors.primaryCompliment};
         border-color: ${theme.colors.primaryCompliment};
       }
-    `
-  };
+    `};
 `;
 
 export const FileNotif = styled(Text)``;

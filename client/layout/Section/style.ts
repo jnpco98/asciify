@@ -1,8 +1,8 @@
-import styled, { css } from "styled-components";
-import { gutter, GUTTER_LEFT, GUTTER_RIGHT, pageTitleFontSize } from "@utilities/mixins";
-import { SectionType } from ".";
+import styled, { css } from 'styled-components';
+import { gutter, GUTTER_LEFT, GUTTER_RIGHT, pageTitleFontSize } from '@utilities/mixins';
+import { SectionType } from '.';
 import * as M from '@utilities/media';
-import Text, { TextType } from "@components/atom/Text";
+import Text, { TextType } from '@components/atom/Text';
 
 export const Container = styled.div`
   background: transparent;
@@ -16,17 +16,17 @@ export const SectionTitle = styled(Text).attrs({ textType: TextType.SectionTitle
   text-align: center;
 `;
 
-export const Wrapper = styled.div<{ layout?: SectionType; }>`
+export const Wrapper = styled.div<{ layout?: SectionType }>`
   ${gutter(GUTTER_LEFT)};
   ${gutter(GUTTER_RIGHT)};
 
   ${M.MEDIA_SMALL} {
     display: flex;
     align-items: flex-start;
-    
-    ${props => {
+
+    ${(props) => {
       const { layout } = props;
-      if(layout === 'equal')
+      if (layout === 'equal')
         return css`
           & > * {
             width: 50%;
@@ -40,7 +40,7 @@ export const Wrapper = styled.div<{ layout?: SectionType; }>`
             margin-left: 0.7rem;
           }
         `;
-      if(layout === 'primarySecondary')
+      if (layout === 'primarySecondary')
         return css`
           & > :nth-child(1) {
             width: 70%;
@@ -51,7 +51,7 @@ export const Wrapper = styled.div<{ layout?: SectionType; }>`
             margin-left: 0.7rem;
           }
         `;
-      if(layout === 'secondaryPrimary')
+      if (layout === 'secondaryPrimary')
         return css`
           & > :nth-child(1) {
             width: 30%;

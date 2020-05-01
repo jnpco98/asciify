@@ -28,7 +28,7 @@ export const PageTitle = styled.h1<HeadingStyleProps>`
     ${margin('2rem', null, '2rem', null)};
   }
 
-  ${props => props.decorate && headingDecoration};
+  ${(props) => props.decorate && headingDecoration};
 `;
 
 export const SectionTitle = styled.h2<HeadingStyleProps>`
@@ -46,7 +46,7 @@ export const SectionTitle = styled.h2<HeadingStyleProps>`
     ${margin('2rem', null, '2rem', null)};
   }
 
-  ${props => props.decorate && headingDecoration};
+  ${(props) => props.decorate && headingDecoration};
 `;
 
 export const SubsectionTitle = styled.h3`
@@ -88,7 +88,7 @@ export const Anchor = styled.a`
   ${regularFontSize};
   color: ${({ theme }) => theme.colors.primary};
   position: relative;
-  
+
   &:after {
     width: 100%;
     height: 0.0625rem;

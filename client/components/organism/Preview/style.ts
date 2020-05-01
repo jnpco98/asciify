@@ -1,8 +1,8 @@
-import styled, { css } from "styled-components";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import styled, { css } from 'styled-components';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
-import Button from "@components/atom/Button";
-import { regularFontSize } from "@utilities/mixins";
+import Button from '@components/atom/Button';
+import { regularFontSize } from '@utilities/mixins';
 
 export const Container = styled.div`
   display: flex;
@@ -47,7 +47,7 @@ export const PreviewImageWrapper = styled.div`
 
 type PreviewProps = {
   visible?: boolean;
-}
+};
 
 export const PreviewImage = styled.img<PreviewProps>`
   top: 0;
@@ -59,11 +59,11 @@ export const PreviewImage = styled.img<PreviewProps>`
   padding: 0.7rem;
   opacity: 0;
 
-  ${({ theme, ...props }) => 
-    props.visible && 
-      css`
-        opacity: 1;
-      `};
+  ${({ theme, ...props }) =>
+    props.visible &&
+    css`
+      opacity: 1;
+    `};
 `;
 
 export const ActionButton = styled(Button)`
@@ -73,7 +73,7 @@ export const ActionButton = styled(Button)`
 
 type OutputProps = {
   visible?: boolean;
-}
+};
 
 export const Output = styled.textarea<OutputProps>`
   ${regularFontSize};
@@ -88,15 +88,16 @@ export const Output = styled.textarea<OutputProps>`
       color: ${theme.colors.defaultSubdued};
       border-radius: 0.2rem;
 
-      &:hover, &:focus {
+      &:hover,
+      &:focus {
         border-color: ${theme.colors.borderHover};
         box-shadow: 0 0 0 0.065rem ${theme.colors.borderHover};
       }
-    `
-  };
+    `};
 
   ${({ theme, ...props }) =>
-    props.visible && css`
+    props.visible &&
+    css`
       padding: 0.5rem;
       height: 10rem;
       margin: 1rem 0;

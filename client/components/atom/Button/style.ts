@@ -56,9 +56,9 @@ export const Container = styled.a<ButtonProps>`
     background-color: ${({ theme }) => theme.colors.primaryCompliment};
   }
 
-  ${props => props.buttonType === ButtonType.Success && Success};
-  ${props => props.buttonType === ButtonType.Warning && Warning};
-  ${props => props.buttonType === ButtonType.Error && Danger};
+  ${(props) => props.buttonType === ButtonType.Success && Success};
+  ${(props) => props.buttonType === ButtonType.Warning && Warning};
+  ${(props) => props.buttonType === ButtonType.Error && Danger};
 
   border: none;
 

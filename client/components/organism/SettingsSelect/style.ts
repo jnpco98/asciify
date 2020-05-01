@@ -1,6 +1,6 @@
-import styled from "styled-components";
-import Input, { InputType } from "@components/atom/Input";
-import Switch from "@components/atom/Switch";
+import styled from 'styled-components';
+import Input, { InputType } from '@components/atom/Input';
+import Switch from '@components/atom/Switch';
 
 export const Container = styled.div`
   display: flex;
@@ -19,11 +19,10 @@ export const SettingsContainer = styled.div`
   margin-top: 1rem;
 `;
 
-
 type InputProps = {
   bordered?: boolean;
   placeholder?: string;
-}
+};
 
 export const SettingsDivider = styled.div`
   width: 100%;
@@ -34,11 +33,15 @@ export const SettingsDivider = styled.div`
 
 export const SettingsInput = styled(Input)<InputProps>``;
 
-export const SettingsCharacterRamp = styled(Input).attrs({ inputType: InputType.Multi })<InputProps>`
+export const SettingsCharacterRamp = styled(Input).attrs({ inputType: InputType.Multi })<
+  InputProps
+>`
   height: 7rem;
 `;
 
-export const AspectRatioSwitch = styled(Switch).attrs({ name: 'ascii-options-aspect-ratio' })`
+export const AspectRatioSwitch = styled(Switch).attrs({
+  name: 'ascii-options-aspect-ratio'
+})`
   margin-bottom: 1rem;
   margin-left: auto;
 `;

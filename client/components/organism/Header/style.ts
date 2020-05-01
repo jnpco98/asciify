@@ -30,7 +30,7 @@ export const RightMenu = styled.ul`
   }
 `;
 
-export const Link = styled(Text).attrs({ textType: TextType.Anchor })<{ link: string; }>`
+export const Link = styled(Text).attrs({ textType: TextType.Anchor })<{ link: string }>`
   overflow: hidden;
 
   &:after {
@@ -75,8 +75,9 @@ export const MenuItem = styled.li<HeaderMenuItemProps>`
     }
   }
 
-  ${props => 
-    props.icon && css`
+  ${(props) =>
+    props.icon &&
+    css`
       padding-top: 0;
       margin-right: 0;
 
@@ -91,15 +92,14 @@ export const MenuItem = styled.li<HeaderMenuItemProps>`
       }
     `};
 
-
-  ${props =>
+  ${(props) =>
     props.active &&
     css`
       ${Link}:after {
         transform: translateX(0);
       }
     `};
-    
+
   ${M.MEDIA_XXSMALL} {
     margin: 0 0.5rem;
   }
@@ -108,8 +108,8 @@ export const MenuItem = styled.li<HeaderMenuItemProps>`
     margin: 0 1rem;
     padding-top: 1.3rem;
 
-    ${props =>
-      props.icon && 
+    ${(props) =>
+      props.icon &&
       css`
         padding-top: 0;
         ${Link}, ${Button} {
@@ -141,52 +141,56 @@ export const Container = styled.header<HeaderMenuProps>`
     display: flex;
   }
 
-  ${props =>
+  ${(props) =>
     props.floating &&
     css`
       font-size: 0.9rem;
       position: fixed;
-      background: linear-gradient(to top, rgba(245, 245, 245, 60%) 0%, rgba(245, 245, 245, 1) 100%);
+      background: linear-gradient(
+        to top,
+        rgba(245, 245, 245, 60%) 0%,
+        rgba(245, 245, 245, 1) 100%
+      );
       box-shadow: 0px 10px 13px -9px rgba(0, 0, 0, 0.75);
     `};
-  
+
   ${M.MEDIA_XSMALL} {
     padding-top: 1rem;
 
-    ${props => 
+    ${(props) =>
       props.floating &&
-        css`
-          padding: 2rem 0;
-        `};
+      css`
+        padding: 2rem 0;
+      `};
   }
 
   ${M.MEDIA_SMALL} {
     padding-top: 2rem;
 
-    ${props => 
+    ${(props) =>
       props.floating &&
-        css`
-          padding: 2.5rem 0;
-        `};
+      css`
+        padding: 2.5rem 0;
+      `};
   }
 
   ${M.MEDIA_XLARGE} {
     height: 6rem;
 
-    ${props => 
+    ${(props) =>
       props.floating &&
-        css`
-          padding: 3rem 0;
-        `};
+      css`
+        padding: 3rem 0;
+      `};
   }
 
   ${M.MEDIA_XXLARGE} {
     height: 8rem;
 
-    ${props => 
+    ${(props) =>
       props.floating &&
-        css`
-          padding: 4rem 0;
-        `};
+      css`
+        padding: 4rem 0;
+      `};
   }
 `;

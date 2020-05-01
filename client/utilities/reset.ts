@@ -1,5 +1,6 @@
-import { css, createGlobalStyle } from "styled-components";
+import { css, createGlobalStyle } from 'styled-components';
 
+// prettier-ignore
 const reset = css`
   * {
     box-sizing: border-box;

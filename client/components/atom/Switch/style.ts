@@ -1,9 +1,9 @@
-import styled from "styled-components";
-import Text, { TextType } from "../Text";
+import styled from 'styled-components';
+import Text, { TextType } from '../Text';
 
 type SwitchProps = {
   className?: string;
-}
+};
 
 export const Container = styled.div<SwitchProps>`
   display: flex;
@@ -12,7 +12,7 @@ export const Container = styled.div<SwitchProps>`
 
 type CheckboxProps = {
   name: string;
-}
+};
 
 export const Checkbox = styled.input.attrs({ type: 'checkbox' })<CheckboxProps>`
   position: relative;
@@ -24,7 +24,7 @@ export const Checkbox = styled.input.attrs({ type: 'checkbox' })<CheckboxProps>`
   box-shadow: inset 0 0 0.1rem rgba(0, 0, 0, 0.2);
   transition: 0.5s ease;
   cursor: pointer;
-  
+
   &:before {
     content: '';
     position: absolute;
@@ -40,7 +40,7 @@ export const Checkbox = styled.input.attrs({ type: 'checkbox' })<CheckboxProps>`
 
   &:checked {
     background: ${({ theme }) => theme.colors.primary};
-      
+
     &:before {
       left: 1.5625rem;
     }
@@ -49,7 +49,7 @@ export const Checkbox = styled.input.attrs({ type: 'checkbox' })<CheckboxProps>`
 
 type LabelProps = {
   htmlFor: string;
-}
+};
 
 export const Label = styled(Text).attrs({ textType: TextType.Label })<LabelProps>`
   margin-right: 1rem;

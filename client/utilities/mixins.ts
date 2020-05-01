@@ -37,26 +37,32 @@ const crossAxisAlignment = css`
   justify-content: center;
 `;
 
-export function center(pos: typeof FLEX_ALIGN_MAIN | typeof FLEX_ALIGN_CROSS | typeof FLEX_ALIGN_BOTH | 
-  typeof CENTER_VERTICAL | typeof CENTER_HORIZONTAL | typeof CENTER_BOTH
+export function center(
+  pos:
+    | typeof FLEX_ALIGN_MAIN
+    | typeof FLEX_ALIGN_CROSS
+    | typeof FLEX_ALIGN_BOTH
+    | typeof CENTER_VERTICAL
+    | typeof CENTER_HORIZONTAL
+    | typeof CENTER_BOTH
 ) {
   return css`
     ${pos === CENTER_VERTICAL && centerVertical};
     ${pos === CENTER_HORIZONTAL && centerHorizontal};
     ${pos === CENTER_BOTH &&
-      css`
-        ${centerVertical};
-        ${centerHorizontal};
-        transform: translate(-50%, -50%);
-      `};
+    css`
+      ${centerVertical};
+      ${centerHorizontal};
+      transform: translate(-50%, -50%);
+    `};
 
     ${pos === FLEX_ALIGN_MAIN && mainAxisAlignment};
     ${pos === FLEX_ALIGN_CROSS && crossAxisAlignment};
     ${pos === FLEX_ALIGN_BOTH &&
-      css`
-        ${mainAxisAlignment};
-        ${crossAxisAlignment};
-      `}
+    css`
+      ${mainAxisAlignment};
+      ${crossAxisAlignment};
+    `}
   `;
 }
 
@@ -82,28 +88,28 @@ export function truncate(
     -webkit-box-orient: vertical;
 
     ${typeof fontSize === 'string' &&
-      css`
-        height: ${math(`${fontSize} * ${lineHeight} * ${linesToShow}`)};
-        font-size: ${fontSize};
-      `};
+    css`
+      height: ${math(`${fontSize} * ${lineHeight} * ${linesToShow}`)};
+      font-size: ${fontSize};
+    `};
 
     ${typeof fontSize === 'object' &&
-      css`
-        height: ${math(`${fontSize.default.fontSize} * ${lineHeight} * ${linesToShow}`)};
-        font-size: ${fontSize.default.fontSize};
+    css`
+      height: ${math(`${fontSize.default.fontSize} * ${lineHeight} * ${linesToShow}`)};
+      font-size: ${fontSize.default.fontSize};
 
-        ${fontSize.responsive &&
-          fontSize.responsive.length &&
-          fontSize.responsive.map(
-            fr =>
-              css`
-                ${fr.screenSize} {
-                  height: ${math(`${fr.fontSize} * ${lineHeight} * ${linesToShow}`)};
-                  font-size: ${fr.fontSize};
-                }
-              `
-          )}
-      `};
+      ${fontSize.responsive &&
+      fontSize.responsive.length &&
+      fontSize.responsive.map(
+        (fr) =>
+          css`
+            ${fr.screenSize} {
+              height: ${math(`${fr.fontSize} * ${lineHeight} * ${linesToShow}`)};
+              font-size: ${fr.fontSize};
+            }
+          `
+      )}
+    `};
   `;
 }
 
@@ -278,7 +284,14 @@ export function xSmallFontSize() {
   `;
 }
 
-export function gutter(pos: typeof GUTTER_TOP | typeof GUTTER_RIGHT | typeof GUTTER_BOTTOM | typeof GUTTER_LEFT, useMargin?: boolean) {
+export function gutter(
+  pos:
+    | typeof GUTTER_TOP
+    | typeof GUTTER_RIGHT
+    | typeof GUTTER_BOTTOM
+    | typeof GUTTER_LEFT,
+  useMargin?: boolean
+) {
   const gutterFn = useMargin ? margin : padding;
 
   //#region Gutters CSS
