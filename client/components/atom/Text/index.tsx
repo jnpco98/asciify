@@ -19,10 +19,11 @@ type Props = {
   className?: string;
   children?: React.ReactNode;
   textType?: TextType;
+  htmlFor?: string;
 };
 
 function Text(props: Props) {
-  const { children, className, textType, link, absolute } = props;
+  const { children, className, textType, link, absolute, htmlFor } = props;
 
   let StyledText: AnyStyledComponent;
 
@@ -51,7 +52,7 @@ function Text(props: Props) {
       break;
   }
 
-  const textProps: any = { className, textType };
+  const textProps: any = { className, textType, htmlFor };
   if (absolute) textProps.href = link;
 
   const Element = <StyledText {...textProps}>{children || ''}</StyledText>;
