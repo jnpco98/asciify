@@ -8,14 +8,15 @@ type Props<T> = {
   classNamePrefix?: string;
   options: OptionsType<T>;
   onSelect?: (selected: ValueType<T>) => void;
-  defaultValue: SelectOption;
+  defaultValue?: SelectOption;
+  placeholder?: string;
   instanceId: string;
 }
 
 function Select<T>(props: Props<T>) {
-  const { className, options, onSelect: handleSelect, defaultValue, classNamePrefix, instanceId } = props;
+  const { className, options, onSelect: handleSelect, defaultValue, classNamePrefix, instanceId, placeholder } = props;
   return(
-    <S.Select className={className} classNamePrefix={classNamePrefix} options={options} defaultValue={defaultValue} onChange={handleSelect} instanceId={instanceId} />
+    <S.Container className={className} classNamePrefix={classNamePrefix} options={options} defaultValue={defaultValue} onChange={handleSelect} instanceId={instanceId} placeholder={placeholder}/>
   );
 }
 

@@ -33,4 +33,4 @@ function Input(
   return <StyledInput ref={ref} className={className} {...props} />;
 }
 
-export default forwardRef(Input as ForwardRefRenderFunction<HTMLDivElement, Props>);
+export default forwardRef(Input as ForwardRefRenderFunction<HTMLInputElement, Props>);
