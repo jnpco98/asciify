@@ -17,19 +17,22 @@ type Props = {
   buttonType?: ButtonType;
   children?: ReactNode;
   onClick?: (event: MouseEvent<HTMLAnchorElement | HTMLButtonElement, MouseEvent>) => void;
+  disabled?: boolean;
+  loading?: boolean;
 };
 
 function Button(props: Props) {
-  const { children, className, onClick, buttonType, submitButton, link, absolute } = props;
+  const { children, className, onClick, buttonType, submitButton, link, absolute, disabled, loading } = props;
 
-  const buttonProps: any = { className, buttonType, onClick };
+  const buttonProps: any = { className, buttonType, onClick, disabled, loading };
+  
   if (!link) {
     buttonProps.as = 'button';
     if (submitButton) buttonProps.type = 'submit';
   }
   if (absolute) buttonProps.href = link;
 
-  const Element = <S.Container {...buttonProps}>{children}</S.Container>;
+  const Element = <S.Container {...buttonProps}>{loading ? children : children}</S.Container>;
 
   if (link) return <Link href={link}>{Element}</Link>;
 

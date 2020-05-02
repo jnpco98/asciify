@@ -37,7 +37,9 @@ const Danger = css`
   }
 `;
 
-export const Container = styled.a<ButtonProps>`
+export const Container = styled.a.withConfig({
+  shouldForwardProp: (prop) => !['loading', 'buttonType'].includes(prop)
+})<ButtonProps>`
   ${center(FLEX_ALIGN_MAIN)};
   color: ${({ theme }) => theme.colors.info};
   background-color: ${({ theme }) => theme.colors.primary};
