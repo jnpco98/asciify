@@ -42,7 +42,7 @@ export const Container = styled.a<ButtonProps>`
   color: ${({ theme }) => theme.colors.info};
   background-color: ${({ theme }) => theme.colors.primary};
   padding: 0.6rem 1.4rem;
-  font-size: 0.7rem;
+  font-size: 0.9rem;
   text-transform: uppercase;
   transition: all 0.1s ease-in;
   font-weight: 600;

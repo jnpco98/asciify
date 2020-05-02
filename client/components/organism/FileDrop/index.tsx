@@ -7,6 +7,8 @@ import * as S from './style';
 // const DynamicIcon = dynamic(() => import('@components/molecule/DynamicIcon'), { ssr: false });
 export interface FileDropFormat { name: string; data: string | ArrayBuffer | null, size: number }
 
+export const FILE_DROP_MAX_SIZE = 5242880;
+
 type Props = {
   className?: string;
   onFileSelect?: (file: FileDropFormat) => void;
@@ -29,7 +31,7 @@ function FileDrop(props: Props) {
   const dropzoneRef = useRef(null);
 
   return (
-    <Dropzone ref={dropzoneRef} accept='image/*' onDropAccepted={handleDrop} maxSize={5242880} multiple={false}>
+    <Dropzone ref={dropzoneRef} accept='image/*' onDropAccepted={handleDrop} maxSize={FILE_DROP_MAX_SIZE} multiple={false}>
       {({ getRootProps, getInputProps, isDragAccept, isDragReject }) => (
           <S.Container className={className} {...getRootProps()} isDragAccept={isDragAccept} isDragReject={isDragReject}>
             <input {...getInputProps()} />

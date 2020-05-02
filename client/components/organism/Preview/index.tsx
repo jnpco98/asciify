@@ -11,7 +11,6 @@ type Props = {
 
 function Preview(props: Props) {
   const { targetImage, outputImage, generatedAscii } = props;
-  console.log(generatedAscii)
 
   return (
     <Section>

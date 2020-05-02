@@ -33,12 +33,12 @@ export type AsciiHtmlSettings = AsciiTextSettings & {
 export type AsciiPixelSettings = AsciiHtmlSettings;
 
 type Props = {
-  handleOnGenerateAscii?: (ascii: string) => void;
-  handleOnGenerateAsciiImage?: (asciiImage: string) => void;
+  onAsciiGenerated?: (ascii: string) => void;
+  onAsciiImageGenerated?: (asciiImage: string) => void;
 }
 
 function SettingsSelect(props: Props) {
-  const { handleOnGenerateAscii, handleOnGenerateAsciiImage } = props;
+  const { onAsciiGenerated, onAsciiImageGenerated } = props;
   const [option, selectOption] = useState<{ value: string }>();
 
   function handleSelect(selected: ValueType<SelectOption>) {
@@ -46,8 +46,8 @@ function SettingsSelect(props: Props) {
   }
 
   function handleOnClick() {
-    handleOnGenerateAscii && handleOnGenerateAscii(`<div>Ascii</div>`);
-    handleOnGenerateAsciiImage && handleOnGenerateAsciiImage(`https://upload.wikimedia.org/wikipedia/en/2/2d/SSU_Kirby_artwork.png`);
+    onAsciiGenerated && onAsciiGenerated(`<div>Ascii</div>`);
+    onAsciiImageGenerated && onAsciiImageGenerated(`https://upload.wikimedia.org/wikipedia/en/2/2d/SSU_Kirby_artwork.png`);
   }
   
   return(

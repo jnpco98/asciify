@@ -33,7 +33,7 @@ export const SecondardContent = styled.div`
   flex-direction: column;
 `;
 
-export const UrlWrapper = styled.div`
+export const UrlWrapper = styled.form`
   width: 100%;
   display: flex;
   flex-direction: column;
