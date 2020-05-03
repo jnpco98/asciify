@@ -6,7 +6,9 @@
     "dev": "next",
     "build": "next build",
     "start": "next start",
-    "build:static": "yarn build && next export"
+    "build:static": "yarn build && next export",
+    "deploy": "yarn build:static && netlify deploy --dir=out",
+    "deploy:prod": "yarn deploy -p"
   },
   "devDependencies": {
     "@types/dompurify": "^2.0.1",
