@@ -16,6 +16,11 @@ type RequestBody = {
 };
 
 export async function handler(event: APIGatewayEvent, context: Context) {
+  const headers = { 
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Credentials': true,
+  }
+
   const body = JSON.parse(event.body || '{}') as RequestBody;
   const image = body.image.split(';base64,').pop() || '';
   const {
@@ -29,6 +34,7 @@ export async function handler(event: APIGatewayEvent, context: Context) {
     return {
       statusCode: 401,
       body: JSON.stringify({ error: new Error('Invalid image data') }),
+      headers
     };
 
   const options = new AsciiOptions();
@@ -43,8 +49,8 @@ export async function handler(event: APIGatewayEvent, context: Context) {
 
   try {
     const { ascii, style } = await asciiGenerator.generate();
-    return { statusCode: 201, body: JSON.stringify({ ascii, style, size: options.getSize() }) };
+    return { statusCode: 201, body: JSON.stringify({ ascii, style, size: options.getSize() }), headers };
   } catch (e) {
-    return { statusCode: 422, body: JSON.stringify({ error: e }) };
+    return { statusCode: 422, body: JSON.stringify({ error: e }), headers};
   }
 }
