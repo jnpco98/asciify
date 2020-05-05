@@ -35,9 +35,10 @@ export async function handler(event: APIGatewayEvent, context: Context): Promise
     const buffer = Buffer.from(image, 'base64');
 
     const { info } = await sharp(buffer).raw().toBuffer({ resolveWithObject: true });
+    const adjustedPixelCountHorizontal = pixelCountHorizontal ? pixelCountHorizontal / 2 : pixelCountHorizontal;
     const adjustedSize = getAdjustedRatio(
       { width: info.width, height: info.height }, 
-      { width: pixelCountHorizontal, height: pixelCountVertical }
+      { width: adjustedPixelCountHorizontal, height: pixelCountVertical }
     );
 
     /**
