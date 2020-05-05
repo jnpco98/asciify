@@ -5,8 +5,6 @@ import { AsciiGenerator } from '../../lib/ascii/ascii-generator';
 import { AsciiText } from '../../lib/ascii/modifiers/ascii-text';
 import { Response, createResponse } from '../../lib/ascii/utilities/response';
 import { getRatioDimension } from '../../lib/ascii/utilities/scale';
-import fs from 'fs';
-import path from 'path';
 
 export type GenerateTextOptions = {
   characterRamp?: string;
@@ -54,7 +52,6 @@ export async function handler(event: APIGatewayEvent, context: Context): Promise
     const htmlOutputModifier = new AsciiText();
     const asciiGenerator = new AsciiGenerator(buffer, options, htmlOutputModifier);
     const { ascii, style } = await asciiGenerator.generate();
-    fs.writeFileSync(path.resolve(__dirname,  'performance.txt'), ascii)
     return createResponse(200, { ascii, style, size: options.getSize() });
   } catch(e) {
     console.error(e);

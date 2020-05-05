@@ -1,6 +1,7 @@
 import { AsciiText } from './ascii-text';
 import { AsciiOutputModifierApplyParams, Color, AsciiOutputModifierResult } from './ascii-output-modifier';
 import escapeHTML from 'escape-html';
+import { AsciiOptions } from '../ascii-options';
 
 export interface StyleSheetProperty {
   [key: string]: string | number;
@@ -32,7 +33,7 @@ export class AsciiHtml extends AsciiText {
     // Use classes for stylesheets
     this.setStyleSheet({
       [this.getContainerClass()]: {
-        background: '#343a40',
+        background: `${AsciiOptions.COLOR_SET.GREY}`,
         overflow: 'auto',
         ['text-align']: 'center',
         ['font-weight']: 'bold',
@@ -70,18 +71,18 @@ export class AsciiHtml extends AsciiText {
 
   // prettier-ignore
   public apply(params: AsciiOutputModifierApplyParams, characterRamp: string): AsciiOutputModifierResult {
-    const { data, colorData, info } = params;
+    const { luminance, colors, info } = params;
     const colorMap: StyleSheet = {};
 
     let html = `<pre class="${this.getContainerClass()}">`;
 
-    for (let i = 0; i < data.length; i++) {
-      let { r, g, b, a } = this.transformColor({ ...colorData[i] }, this.getColorMode());
+    for (let i = 0; i < luminance.length; i++) {
+      let { r, g, b, a } = this.transformColor({ ...colors[i] }, this.getColorMode());
       
-      const colorKey = `asc${r}${g}${b}${a * 255}`;
+      const colorKey = `_${r}${g}${b}${a * 255}`;
       colorMap[colorKey] = { color: `rgba(${r}, ${g}, ${b}, ${a})` };
 
-      html += `<span class="${this.getElementClass()} ${colorKey}">${escapeHTML(this.getColorCharacter(characterRamp, data[i]))}</span>`;
+      html += `<span class="${this.getElementClass()} ${colorKey}">${escapeHTML(this.getColorCharacter(characterRamp, luminance[i]))}</span>`;
       if((i + 1) % info.width === 0) html += '\n';
     }
 

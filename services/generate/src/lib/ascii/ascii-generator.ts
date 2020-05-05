@@ -53,7 +53,7 @@ export class AsciiGenerator {
   private async getAsciiImageData(): Promise<AsciiOutputModifierApplyParams> {
     const { width, height } = this.asciiOptions.getSize();
     const contrast = this.asciiOptions.getContrast();
-    const background = AsciiOptions.DEFAULT_BG.DARK;
+    const background = AsciiOptions.COLOR_SET.DARK;
 
     const { data, info } = await sharp(this.image)
       .resize(width, height, {
@@ -67,17 +67,17 @@ export class AsciiGenerator {
       .raw()
       .toBuffer({ resolveWithObject: true });
 
-    const lumninanceArr = [];
-    const colorArr = [];
+    const luminance = [];
+    const colors = [];
 
     for (let i = 0; i < data.length; i += 4) {
       const color = 0.21 * data[i] + 0.71 * data[i + 1] + 0.07 * data[i + 2];
       const alpha = data[i + 3] / 255;
-      lumninanceArr.push(color * alpha);
-      colorArr.push({ r: data[i], g: data[i + 1], b: data[i + 2], a: alpha });
+      luminance.push(color * alpha);
+      colors.push({ r: data[i], g: data[i + 1], b: data[i + 2], a: alpha });
     }
 
-    return { data: lumninanceArr, info, colorData: colorArr };
+    return { luminance, info, colors };
   }
 
   public setImage(image: Buffer): void {

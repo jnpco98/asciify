@@ -8,8 +8,8 @@ export interface Color {
 }
 
 export interface AsciiOutputModifierApplyParams {
-  data: number[];
-  colorData: Color[];
+  luminance: number[];
+  colors: Color[];
   info: sharp.OutputInfo;
 }
 

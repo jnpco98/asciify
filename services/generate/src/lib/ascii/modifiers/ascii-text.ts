@@ -10,14 +10,14 @@ export class AsciiText implements AsciiOutputModifier {
   }
 
   public apply(params: AsciiOutputModifierApplyParams, characterRamp: string): AsciiOutputModifierResult {
-    const { data, info } = params;
+    const { luminance, info } = params;
 
     // prettier-ignore
-    const content = data.reduce(
+    const content = luminance.reduce(
       (ascii, color, idx) =>
         `${ascii}${this.getColorCharacter(characterRamp, color)}${(idx + 1) % info.width === 0 ? '\n' : ''}`, ''
     );
-    return { style: '', ascii: content };
+    return { style: null, ascii: content };
   }
 
   public modifierAllowsMinify(): boolean {

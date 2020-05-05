@@ -18,9 +18,10 @@ export class AsciiOptions {
     COLORED: `@`
   }
 
-  public static readonly DEFAULT_BG = {
-    DARK: 'rgba(77, 77, 77, 1)',
-    LIGHT: 'rgba(255, 255, 255, 1)'
+  public static readonly COLOR_SET = {
+    DARK: '#191e2a',
+    GREY: '#343a40',
+    LIGHT: '#fff'
   }
 
   private characterRamp: string;
