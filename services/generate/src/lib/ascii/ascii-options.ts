@@ -1,14 +1,14 @@
+import { getMaxDimension } from "./utilities/scale";
+
 export interface Size {
   width: number;
   height: number;
 }
 
 export class AsciiOptions {
-  public static readonly DEFAULT_WIDTH = 50;
-  public static readonly MAX_WIDTH = 300;
-
-  public static readonly DEFAULT_HEIGHT = 50;
-  public static readonly MAX_HEIGHT = 300;
+  public static readonly DEFAULT_DIMENSION = 10000;
+  public static readonly MAX_DIMENSION = 90000;
+  public static readonly MAX_DIMENSION_SQRT = Math.sqrt(AsciiOptions.MAX_DIMENSION);
 
   public static readonly CHARACTER_RAMP_PRESETS = {
     CLEAN: `@80GCLft1i;:,. `,
@@ -33,15 +33,20 @@ export class AsciiOptions {
 
   private inverted: boolean;
 
+  private widthAdjustment: number;
+
   public constructor() {
     this.setCharacterRamp(AsciiOptions.CHARACTER_RAMP_PRESETS.CLEAN);
-    this.setSize({
-      width: AsciiOptions.DEFAULT_WIDTH,
-      height: AsciiOptions.DEFAULT_HEIGHT,
-    });
+
     this.setContrast(1);
     this.setPreserveAspectRatio(true);
     this.setInverted(false);
+    this.widthAdjustment = 2;
+
+    this.setSize({ 
+      width: AsciiOptions.MAX_DIMENSION_SQRT, 
+      height: AsciiOptions.MAX_DIMENSION_SQRT 
+    });
   }
 
   public setCharacterRamp(charRamp: string): void {
@@ -52,25 +57,10 @@ export class AsciiOptions {
     return this.characterRamp;
   }
 
-  public setSize(size: Size | null): void {
-    if (!size) {
-      this.size = {
-        width: AsciiOptions.DEFAULT_WIDTH,
-        height: AsciiOptions.DEFAULT_HEIGHT,
-      };
-      return;
-    }
-
-    const width =
-      Math.abs(size.width) > AsciiOptions.MAX_WIDTH
-        ? AsciiOptions.MAX_WIDTH
-        : Math.abs(size.width);
-    const height =
-      Math.abs(size.height) > AsciiOptions.MAX_HEIGHT
-        ? AsciiOptions.MAX_HEIGHT
-        : Math.abs(size.height);
-
-    this.size = { width, height };
+  public setSize(size: Size, maxDimension?: number): void {
+    let { width, height } = size;
+    width = width * this.widthAdjustment;
+    this.size = getMaxDimension({ width, height }, maxDimension || AsciiOptions.MAX_DIMENSION);
   }
 
   public getSize(): Size {
@@ -99,5 +89,13 @@ export class AsciiOptions {
 
   public getInverted(): boolean {
     return this.inverted;
+  }
+
+  public setWidthAdjustment(widthAdjustment: number): void {
+    this.widthAdjustment = widthAdjustment;
+  }
+
+  public getWidthAdjustment(): number {
+    return this.widthAdjustment;
   }
 }

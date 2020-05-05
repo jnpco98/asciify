@@ -51,12 +51,11 @@ export class AsciiGenerator {
   }
 
   private async getAsciiImageData(): Promise<AsciiOutputModifierApplyParams> {
-    let image = this.image;
     const { width, height } = this.asciiOptions.getSize();
     const contrast = this.asciiOptions.getContrast();
     const background = AsciiOptions.DEFAULT_BG.DARK;
 
-    const { data, info } = await sharp(image)
+    const { data, info } = await sharp(this.image)
       .resize(width, height, {
         fit: this.asciiOptions.getPreserveAspectRatio()
           ? sharp.fit.inside
@@ -92,6 +91,7 @@ export class AsciiGenerator {
   public setAsciiOptions(asciiOptions: AsciiOptions): void {
     this.asciiOptions = asciiOptions;
   }
+
   public getAsciiOptions(): AsciiOptions {
     return this.asciiOptions;
   }
@@ -103,5 +103,4 @@ export class AsciiGenerator {
   public getOutputModifier(): AsciiOutputModifier {
     return this.outputModifier;
   }
-
 }

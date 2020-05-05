@@ -1,11 +1,11 @@
+import sharp from 'sharp';
 import { APIGatewayEvent, Context } from 'aws-lambda';
 import { AsciiOptions } from '../../lib/ascii/ascii-options';
 import { AsciiHtml, ColorMode } from '../../lib/ascii/modifiers/ascii-html';
 import { AsciiGenerator } from '../../lib/ascii/ascii-generator';
 import { GenerateTextOptions } from './generate-ascii-text';
-import { Response } from '../response';
-import fs from 'fs';
-import path from 'path';
+import { Response, createResponse } from '../../lib/ascii/utilities/response';
+import { getRatioDimension } from '../../lib/ascii/utilities/scale';
 
 interface RequestBody {
   image: string;
@@ -16,48 +16,45 @@ interface RequestBody {
 };
 
 export async function handler(event: APIGatewayEvent, context: Context): Promise<Response> {
-  const headers = { 
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Credentials': true,
-  }
-
   const body = JSON.parse(event.body || '{}') as RequestBody;
   const image = body.image.split(';base64,').pop() || '';
   const {
-    gap = 0,
+    gap,
     characterRamp,
-    preserveAspectRatio = true,
-    colorMode = 'default',
-    pixelCountHorizontal = AsciiOptions.DEFAULT_WIDTH,
-    pixelCountVertical = AsciiOptions.DEFAULT_HEIGHT
+    preserveAspectRatio,
+    colorMode,
+    pixelCountHorizontal,
+    pixelCountVertical,
+    inverted
   } = body.options || {};
 
-  if (!body.image || !body.image.includes(';base64,') || !image.trim().length)
-    return {
-      statusCode: 401,
-      body: JSON.stringify({ error: new Error('Invalid image data') }), 
-      headers
-    };
-
-  const options = new AsciiOptions();
-  options.setCharacterRamp(AsciiOptions.CHARACTER_RAMP_PRESETS.COLORED);
-  if (characterRamp) options.setCharacterRamp(characterRamp);
-  options.setPreserveAspectRatio(preserveAspectRatio);
-  options.setSize({ width: pixelCountHorizontal, height: pixelCountVertical });
-  options.setContrast(1.1);
-
-  const htmlOutputModifier = new AsciiHtml();
-  htmlOutputModifier.setColorMode(colorMode);
-  htmlOutputModifier.setGap(Math.abs(gap));
-
-  const buffer = Buffer.from(image, 'base64');
-  const asciiGenerator = new AsciiGenerator(buffer, options, htmlOutputModifier);
-
   try {
+    if (!body.image || !body.image.includes(';base64,') || !image.trim().length)
+      return createResponse(422, { error: 'Invalid image data' });
+  
+    const buffer = Buffer.from(image, 'base64');
+
+    const { info } = await sharp(buffer).raw().toBuffer({ resolveWithObject: true });
+    const size = getRatioDimension(
+      { width: info.width, height: info.height }, 
+      { width: pixelCountHorizontal, height: pixelCountVertical }
+    );
+    const options = new AsciiOptions();
+    options.setCharacterRamp(characterRamp || AsciiOptions.CHARACTER_RAMP_PRESETS.COLORED);
+    options.setInverted(!!inverted);
+    options.setPreserveAspectRatio(!!preserveAspectRatio);
+    options.setContrast(1.1);
+    options.setSize(size, AsciiOptions.DEFAULT_DIMENSION);
+  
+    const htmlOutputModifier = new AsciiHtml();
+    htmlOutputModifier.setColorMode(colorMode || 'default');
+    htmlOutputModifier.setGap(gap ? Math.abs(gap) : 0);
+  
+    const asciiGenerator = new AsciiGenerator(buffer, options, htmlOutputModifier);
     const { ascii, style } = await asciiGenerator.generate(true);
-    fs.writeFileSync(path.resolve(__dirname,  'something.html'), `<html><head><style>${style}</style></head><body>${ascii}</body></html>`)
-    return { statusCode: 201, body: JSON.stringify({ ascii, style, size: options.getSize() }), headers };
-  } catch (e) {
-    return { statusCode: 422, body: JSON.stringify({ error: e }), headers };
+    return createResponse(200, { ascii, style, size: options.getSize() });
+  } catch(e) {
+    console.error(e)
+    return createResponse(422, { error: 'Invalid image data'});
   }
 }
