@@ -41,12 +41,3 @@ functions:
           path: generate-ascii-html
           method: POST
           cors: true
-  ascii-pixels:
-    handler: src/lambdas/endpoints/generate-ascii-pixels.handler
-    memorySize: 512
-    timeout: 30
-    events:
-      - http:
-          path: generate-ascii-pixels
-          method: POST
-          cors: true

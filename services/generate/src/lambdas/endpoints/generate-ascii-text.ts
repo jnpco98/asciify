@@ -2,6 +2,7 @@ import { APIGatewayEvent, Context } from 'aws-lambda';
 import { AsciiOptions } from '../../lib/ascii/ascii-options';
 import { AsciiGenerator } from '../../lib/ascii/ascii-generator';
 import { AsciiText } from '../../lib/ascii/modifiers/ascii-text';
+import { Response } from '../response';
 
 export type GenerateTextOptions = {
   charRamp?: string;
@@ -10,12 +11,12 @@ export type GenerateTextOptions = {
   pixelCountVertical?: number;
 };
 
-type RequestBody = {
+interface RequestBody {
   image: string;
   options?: GenerateTextOptions;
 };
 
-export async function handler(event: APIGatewayEvent, context: Context) {
+export async function handler(event: APIGatewayEvent, context: Context): Promise<Response> {
   const headers = { 
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Credentials': true,
@@ -38,9 +39,10 @@ export async function handler(event: APIGatewayEvent, context: Context) {
     };
 
   const options = new AsciiOptions();
-  if (charRamp) options.setCharRamp(charRamp.split(''));
+  if (charRamp) options.setCharRamp(charRamp);
   options.setPreserveAspectRatio(preserveAspectRatio);
   options.setSize({ width: pixelCountHorizontal, height: pixelCountVertical });
+  options.setContrast(1.8);
 
   const htmlOutputModifier = new AsciiText();
 

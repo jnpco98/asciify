@@ -3,8 +3,9 @@ import { AsciiOptions } from '../../lib/ascii/ascii-options';
 import { AsciiHtml, ColorMode } from '../../lib/ascii/modifiers/ascii-html';
 import { AsciiGenerator } from '../../lib/ascii/ascii-generator';
 import { GenerateTextOptions } from './generate-ascii-text';
+import { Response } from '../response';
 
-type RequestBody = {
+interface RequestBody {
   image: string;
   options?: GenerateTextOptions & {
     gap?: number;
@@ -12,7 +13,7 @@ type RequestBody = {
   };
 };
 
-export async function handler(event: APIGatewayEvent, context: Context) {
+export async function handler(event: APIGatewayEvent, context: Context): Promise<Response> {
   const headers = { 
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Credentials': true,
@@ -37,9 +38,10 @@ export async function handler(event: APIGatewayEvent, context: Context) {
     };
 
   const options = new AsciiOptions();
-  if (charRamp) options.setCharRamp(charRamp.split(''));
+  if (charRamp) options.setCharRamp(charRamp);
   options.setPreserveAspectRatio(preserveAspectRatio);
   options.setSize({ width: pixelCountHorizontal, height: pixelCountVertical });
+  options.setContrast(1.1);
 
   const htmlOutputModifier = new AsciiHtml();
   htmlOutputModifier.setColorMode(colorMode);
