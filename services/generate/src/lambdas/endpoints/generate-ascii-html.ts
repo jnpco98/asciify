@@ -29,7 +29,7 @@ export async function handler(event: APIGatewayEvent, context: Context): Promise
     preserveAspectRatio = true,
     colorMode = 'default',
     pixelCountHorizontal = AsciiOptions.DEFAULT_WIDTH,
-    pixelCountVertical = AsciiOptions.DEFAULT_HEIGHT,
+    pixelCountVertical = AsciiOptions.DEFAULT_HEIGHT
   } = body.options || {};
 
   if (!body.image || !body.image.includes(';base64,') || !image.trim().length)

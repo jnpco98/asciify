@@ -18,6 +18,11 @@ export class AsciiOptions {
     COLORED: `@`
   }
 
+  public static readonly DEFAULT_BG = {
+    DARK: 'rgba(77, 77, 77, 1)',
+    LIGHT: 'rgba(255, 255, 255, 1)'
+  }
+
   private characterRamp: string;
 
   private size: Size;
@@ -25,6 +30,8 @@ export class AsciiOptions {
   private contrast: number;
 
   private preserveAspectRatio: boolean;
+
+  private inverted: boolean;
 
   public constructor() {
     this.setCharacterRamp(AsciiOptions.CHARACTER_RAMP_PRESETS.CLEAN);
@@ -34,11 +41,13 @@ export class AsciiOptions {
     });
     this.setContrast(1);
     this.setPreserveAspectRatio(true);
+    this.setInverted(false);
   }
 
   public setCharacterRamp(charRamp: string): void {
     this.characterRamp = charRamp;
   }
+
   public getCharacterRamp(): string {
     return this.characterRamp;
   }
@@ -63,6 +72,7 @@ export class AsciiOptions {
 
     this.size = { width, height };
   }
+
   public getSize(): Size {
     return this.size;
   }
@@ -70,6 +80,7 @@ export class AsciiOptions {
   public setContrast(contrast: number): void {
     this.contrast = contrast;
   }
+
   public getContrast(): number {
     return this.contrast;
   }
@@ -77,7 +88,16 @@ export class AsciiOptions {
   public setPreserveAspectRatio(preserveAspectRatio: boolean): void {
     this.preserveAspectRatio = preserveAspectRatio;
   }
+
   public getPreserveAspectRatio(): boolean {
     return this.preserveAspectRatio;
+  }
+
+  public setInverted(inverted: boolean): void {
+    this.inverted = inverted;
+  }
+
+  public getInverted(): boolean {
+    return this.inverted;
   }
 }

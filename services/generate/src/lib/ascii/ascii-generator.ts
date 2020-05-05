@@ -32,8 +32,9 @@ export class AsciiGenerator {
   }
 
   public async generate(minifyHtml: boolean = true): Promise<AsciiOutputModifierResult> {
-    const modifierParams = await this.getImagePixels();
-    const output = this.getOutputModifier().apply(modifierParams, this.asciiOptions.getCharacterRamp());
+    const asciiImageData = await this.getAsciiImageData();
+    const characterRamp = this.asciiOptions.getInverted() ? this.asciiOptions.getCharacterRamp().split('').reverse().join('') : this.asciiOptions.getCharacterRamp();
+    const output = this.getOutputModifier().apply(asciiImageData, characterRamp);
 
     return {
       style:
@@ -49,10 +50,11 @@ export class AsciiGenerator {
     };
   }
 
-  private async getImagePixels(): Promise<AsciiOutputModifierApplyParams> {
+  private async getAsciiImageData(): Promise<AsciiOutputModifierApplyParams> {
     let image = this.image;
     const { width, height } = this.asciiOptions.getSize();
     const contrast = this.asciiOptions.getContrast();
+    const background = AsciiOptions.DEFAULT_BG.DARK;
 
     const { data, info } = await sharp(image)
       .resize(width, height, {
@@ -61,7 +63,7 @@ export class AsciiGenerator {
           : sharp.fit.fill,
       })
       .linear(contrast, -(128 * contrast) + 128)
-      .flatten({ background: { r: 77, g: 77, b: 77 } })
+      .flatten({ background })
       .ensureAlpha()
       .raw()
       .toBuffer({ resolveWithObject: true });
@@ -101,5 +103,5 @@ export class AsciiGenerator {
   public getOutputModifier(): AsciiOutputModifier {
     return this.outputModifier;
   }
-  
+
 }

@@ -9,6 +9,7 @@ export type GenerateTextOptions = {
   preserveAspectRatio?: boolean;
   pixelCountHorizontal?: number;
   pixelCountVertical?: number;
+  inverted?: boolean;
 };
 
 interface RequestBody {
@@ -29,6 +30,7 @@ export async function handler(event: APIGatewayEvent, context: Context): Promise
     preserveAspectRatio = true,
     pixelCountHorizontal = AsciiOptions.DEFAULT_WIDTH,
     pixelCountVertical = AsciiOptions.DEFAULT_HEIGHT,
+    inverted = false
   } = body.options || {};
 
   if (!body.image || !body.image.includes(';base64,') || !image.trim().length)
@@ -40,6 +42,7 @@ export async function handler(event: APIGatewayEvent, context: Context): Promise
 
   const options = new AsciiOptions();
   if (characterRamp) options.setCharacterRamp(characterRamp);
+  options.setInverted(inverted);
   options.setPreserveAspectRatio(preserveAspectRatio);
   options.setSize({ width: pixelCountHorizontal, height: pixelCountVertical });
   options.setContrast(1.8);
