@@ -4,6 +4,8 @@ import { AsciiHtml, ColorMode } from '../../lib/ascii/modifiers/ascii-html';
 import { AsciiGenerator } from '../../lib/ascii/ascii-generator';
 import { GenerateTextOptions } from './generate-ascii-text';
 import { Response } from '../response';
+import fs from 'fs';
+import path from 'path';
 
 interface RequestBody {
   image: string;
@@ -23,7 +25,7 @@ export async function handler(event: APIGatewayEvent, context: Context): Promise
   const image = body.image.split(';base64,').pop() || '';
   const {
     gap = 0,
-    charRamp,
+    characterRamp,
     preserveAspectRatio = true,
     colorMode = 'default',
     pixelCountHorizontal = AsciiOptions.DEFAULT_WIDTH,
@@ -38,7 +40,8 @@ export async function handler(event: APIGatewayEvent, context: Context): Promise
     };
 
   const options = new AsciiOptions();
-  if (charRamp) options.setCharRamp(charRamp);
+  options.setCharacterRamp(AsciiOptions.CHARACTER_RAMP_PRESETS.COLORED);
+  if (characterRamp) options.setCharacterRamp(characterRamp);
   options.setPreserveAspectRatio(preserveAspectRatio);
   options.setSize({ width: pixelCountHorizontal, height: pixelCountVertical });
   options.setContrast(1.1);
@@ -52,6 +55,7 @@ export async function handler(event: APIGatewayEvent, context: Context): Promise
 
   try {
     const { ascii, style } = await asciiGenerator.generate(true);
+    fs.writeFileSync(path.resolve(__dirname,  'something.html'), `<html><head><style>${style}</style></head><body>${ascii}</body></html>`)
     return { statusCode: 201, body: JSON.stringify({ ascii, style, size: options.getSize() }), headers };
   } catch (e) {
     return { statusCode: 422, body: JSON.stringify({ error: e }), headers };

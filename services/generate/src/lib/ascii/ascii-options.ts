@@ -10,18 +10,15 @@ export class AsciiOptions {
   public static readonly DEFAULT_HEIGHT = 50;
   public static readonly MAX_HEIGHT = 300;
 
-  // prettier-ignore
-  public static readonly DEFAULT_CHARACTER_RAMP = [
-    "$", "@", "B", "%", "8", "&", "W", "M", "#", "*", "o", 
-    "a", "h", "k", "b", "d", "p", "q", "w", "m", "Z", "O", 
-    "0", "Q", "L", "C", "J", "U", "Y", "X", "z", "c", "v", 
-    "u", "n", "x", "r", "j", "f", "t", "/", "\\", "|", "(", 
-    ")", "1", "{", "}", "[", "]", "?", "-", "_", "+", "~", 
-    "<", ">", "i", "!", "l", "I", ";", ":", ",", "\"", " ", 
-    "^", "`", "'", ".", " "
-  ];
+  public static readonly CHARACTER_RAMP_PRESETS = {
+    CLEAN: `@80GCLft1i;:,. `,
+    CLEAN_2: `BS#&@$%*!:. `,
+    MINIMAL: `@#8&o:*. `,
+    DETAILED: `$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\|()1{}[]?-_+~<>i!lI;:," ^\`'. `,
+    COLORED: `@`
+  }
 
-  private charRamp: string[];
+  private characterRamp: string;
 
   private size: Size;
 
@@ -30,7 +27,7 @@ export class AsciiOptions {
   private preserveAspectRatio: boolean;
 
   public constructor() {
-    this.setCharRamp(AsciiOptions.DEFAULT_CHARACTER_RAMP);
+    this.setCharacterRamp(AsciiOptions.CHARACTER_RAMP_PRESETS.CLEAN);
     this.setSize({
       width: AsciiOptions.DEFAULT_WIDTH,
       height: AsciiOptions.DEFAULT_HEIGHT,
@@ -39,14 +36,14 @@ export class AsciiOptions {
     this.setPreserveAspectRatio(true);
   }
 
-  public setCharRamp(charRamp: string[]) {
-    this.charRamp = charRamp;
+  public setCharacterRamp(charRamp: string): void {
+    this.characterRamp = charRamp;
   }
-  public getCharRamp() {
-    return this.charRamp;
+  public getCharacterRamp(): string {
+    return this.characterRamp;
   }
 
-  public setSize(size: Size | null) {
+  public setSize(size: Size | null): void {
     if (!size) {
       this.size = {
         width: AsciiOptions.DEFAULT_WIDTH,
@@ -66,21 +63,21 @@ export class AsciiOptions {
 
     this.size = { width, height };
   }
-  public getSize() {
+  public getSize(): Size {
     return this.size;
   }
 
-  public setContrast(contrast: number) {
+  public setContrast(contrast: number): void {
     this.contrast = contrast;
   }
-  public getContrast() {
+  public getContrast(): number {
     return this.contrast;
   }
 
-  public setPreserveAspectRatio(preserveAspectRatio: boolean) {
+  public setPreserveAspectRatio(preserveAspectRatio: boolean): void {
     this.preserveAspectRatio = preserveAspectRatio;
   }
-  public getPreserveAspectRatio() {
+  public getPreserveAspectRatio(): boolean {
     return this.preserveAspectRatio;
   }
 }

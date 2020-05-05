@@ -33,7 +33,7 @@ export class AsciiGenerator {
 
   public async generate(minifyHtml: boolean = true): Promise<AsciiOutputModifierResult> {
     const modifierParams = await this.getImagePixels();
-    const output = this.getOutputModifier().apply(modifierParams, this.asciiOptions.getCharRamp());
+    const output = this.getOutputModifier().apply(modifierParams, this.asciiOptions.getCharacterRamp());
 
     return {
       style:
@@ -82,6 +82,7 @@ export class AsciiGenerator {
   public setImage(image: Buffer): void {
     this.image = image;
   }
+
   public getImage(): Buffer {
     return this.image;
   }
@@ -96,7 +97,9 @@ export class AsciiGenerator {
   public setOutputModifier(outputModifier: AsciiOutputModifier): void {
     this.outputModifier = outputModifier;
   }
+
   public getOutputModifier(): AsciiOutputModifier {
     return this.outputModifier;
   }
+  
 }

@@ -1,5 +1,6 @@
 import { AsciiText } from './ascii-text';
 import { AsciiOutputModifierApplyParams, Color, AsciiOutputModifierResult } from './ascii-output-modifier';
+import escapeHTML from 'escape-html';
 
 export interface StyleSheetProperty {
   [key: string]: string | number;
@@ -80,7 +81,7 @@ export class AsciiHtml extends AsciiText {
       const colorKey = `asc${r}${g}${b}${a * 255}`;
       colorMap[colorKey] = { color: `rgba(${r}, ${g}, ${b}, ${a})` };
 
-      html += `<span class="${this.getElementClass()} ${colorKey}">@</span>`;
+      html += `<span class="${this.getElementClass()} ${colorKey}">${escapeHTML(this.getColorCharacter(characterRamp, data[i]))}</span>`;
       if((i + 1) % info.width === 0) html += '\n';
     }
 

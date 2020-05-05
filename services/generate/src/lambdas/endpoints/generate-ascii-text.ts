@@ -5,7 +5,7 @@ import { AsciiText } from '../../lib/ascii/modifiers/ascii-text';
 import { Response } from '../response';
 
 export type GenerateTextOptions = {
-  charRamp?: string;
+  characterRamp?: string;
   preserveAspectRatio?: boolean;
   pixelCountHorizontal?: number;
   pixelCountVertical?: number;
@@ -25,7 +25,7 @@ export async function handler(event: APIGatewayEvent, context: Context): Promise
   const body = JSON.parse(event.body || '{}') as RequestBody;
   const image = body.image.split(';base64,').pop() || '';
   const {
-    charRamp,
+    characterRamp,
     preserveAspectRatio = true,
     pixelCountHorizontal = AsciiOptions.DEFAULT_WIDTH,
     pixelCountVertical = AsciiOptions.DEFAULT_HEIGHT,
@@ -39,7 +39,7 @@ export async function handler(event: APIGatewayEvent, context: Context): Promise
     };
 
   const options = new AsciiOptions();
-  if (charRamp) options.setCharRamp(charRamp);
+  if (characterRamp) options.setCharacterRamp(characterRamp);
   options.setPreserveAspectRatio(preserveAspectRatio);
   options.setSize({ width: pixelCountHorizontal, height: pixelCountVertical });
   options.setContrast(1.8);
