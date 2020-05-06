@@ -1,6 +1,7 @@
+import escapeHTML from 'escape-html';
+import tinyColor from 'tinycolor2';
 import { AsciiText } from './ascii-text';
 import { AsciiOutputModifierApplyParams, Color, AsciiOutputModifierResult } from './ascii-output-modifier';
-import escapeHTML from 'escape-html';
 import { AsciiOptions } from '../ascii-options';
 
 export interface StyleSheetProperty {
@@ -18,7 +19,6 @@ export class AsciiHtml extends AsciiText {
 
   protected readonly containerClass: string;
   protected readonly rowClass: string;
-  protected readonly elementClass: string;
 
   protected colorMode: ColorMode;
   protected gap: number;
@@ -26,9 +26,7 @@ export class AsciiHtml extends AsciiText {
   public constructor() {
     super();
     // Initialize classes first
-    this.containerClass = 'asc';
-    this.rowClass = 'asc__row';
-    this.elementClass = 'asc__row-item';
+    this.containerClass = 'ascii';
 
     // Use classes for stylesheets
     this.setStyleSheet({
@@ -43,14 +41,10 @@ export class AsciiHtml extends AsciiText {
         ['line-height']: 1.2,
         ['font-family']: 'monospace'
       },
-      [this.getElementClass()]: {
+      [`${this.getContainerClass()} span`]: {
         display: 'inline-block',
         ['box-sizing']: 'border-box',
-      },
-      [this.getRowClass()]: {
-        display: 'flex',
-        ['box-sizing']: 'border-box',
-      },
+      }
     });
 
     // Update settings
@@ -69,27 +63,24 @@ export class AsciiHtml extends AsciiText {
     return { r, g, b, a };
   }
 
-  // prettier-ignore
   public apply(params: AsciiOutputModifierApplyParams, characterRamp: string): AsciiOutputModifierResult {
     const { luminance, colors, info } = params;
-    const colorMap: StyleSheet = {};
 
     let html = `<pre class="${this.getContainerClass()}">`;
 
     for (let i = 0; i < luminance.length; i++) {
       let { r, g, b, a } = this.transformColor({ ...colors[i] }, this.getColorMode());
       
-      const colorKey = `_${r}${g}${b}${a * 255}`;
-      colorMap[colorKey] = { color: `rgba(${r}, ${g}, ${b}, ${a})` };
+      const color = tinyColor({ r, g, b, a: a }).toHexString();
 
-      html += `<span class="${this.getElementClass()} ${colorKey}">${escapeHTML(this.getColorCharacter(characterRamp, luminance[i]))}</span>`;
+      html += `<span style="color:${color}">${escapeHTML(this.getColorCharacter(characterRamp, luminance[i]))}</span>`;
       if((i + 1) % info.width === 0) html += '\n';
     }
 
     html += `</pre>`;
 
     return {
-      style: this.createCssStyleSheet([this.getStyleSheet(), colorMap]),
+      style: this.createCssStyleSheet([this.getStyleSheet()]),
       ascii: html
     };
   }
@@ -128,14 +119,6 @@ export class AsciiHtml extends AsciiText {
     return this.containerClass;
   }
 
-  public getRowClass(): string {
-    return this.rowClass;
-  }
-
-  public getElementClass(): string {
-    return this.elementClass;
-  }
-
   public setColorMode(colorMode: ColorMode): void {
     if (colorMode === 'black' || colorMode === 'monochromatic')
       this.colorMode = colorMode;
@@ -147,12 +130,12 @@ export class AsciiHtml extends AsciiText {
   }
 
   public setGap(gap: number): void {
-    this.styleSheet[this.getElementClass()]['margin-right'] = `${gap}px`;
-    this.styleSheet[this.getRowClass()]['margin-bottom'] = `${gap}px`;
+    this.styleSheet[`${this.getContainerClass()} span`]['margin-right'] = `${gap}px`;
+    this.styleSheet[`${this.getContainerClass()} span`]['margin-bottom'] = `${gap}px`;
   }
 
   public getGap(): number {
-    let gap = this.styleSheet[this.getElementClass()]['margin-right'];
+    let gap = this.styleSheet[`${this.getContainerClass()} span`]['margin-right'];
     if(typeof gap === 'number') return gap;
 
     if(gap && typeof gap === 'string') {

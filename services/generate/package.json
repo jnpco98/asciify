@@ -4,6 +4,7 @@
     "@types/escape-html": "^0.0.20",
     "@types/html-minifier": "^3.5.3",
     "@types/sharp": "^0.25.0",
+    "@types/tinycolor2": "^1.4.2",
     "serverless-offline": "^6.1.4",
     "serverless-plugin-typescript": "^1.1.9",
     "typescript": "^3.8.3"
@@ -11,7 +12,8 @@
   "dependencies": {
     "escape-html": "^1.0.3",
     "html-minifier": "^4.0.0",
-    "sharp": "^0.25.2"
+    "sharp": "^0.25.2",
+    "tinycolor2": "^1.4.1"
   },
   "scripts": {
     "dev": "serverless offline start --printOutput",
