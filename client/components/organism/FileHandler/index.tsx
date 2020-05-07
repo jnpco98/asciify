@@ -22,8 +22,7 @@ function FileHandler(props: Props) {
 
     try {
       setLoading(true);
-      const corsAnywhere = '';
-      // const corsAnywhere = 'https://ukiyo-cors-anywhere.herokuapp.com/';
+      const corsAnywhere = 'https://ukiyo-cors-anywhere.herokuapp.com/';
       const { data } = await axios({ method: 'get', url: corsAnywhere + urlInputValue, responseType: 'arraybuffer' });
       // prettier-ignore
       const imageBase64 = `data:;base64,${btoa(new Uint8Array(data).reduce((data, byte) => data + String.fromCharCode(byte), ''))}`;
