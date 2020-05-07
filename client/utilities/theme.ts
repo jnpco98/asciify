@@ -65,7 +65,7 @@ export const BaseTheme: DefaultTheme = {
     // Disabled
     disabled: '#f8f9fa',
 
-    selection: '#000',
+    selection: 'lightgray',
 
     backdrop: 'rgba(52,58,64,1)',
 
