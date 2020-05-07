@@ -65,8 +65,8 @@ export async function handler(event: APIGatewayEvent, context: Context): Promise
      * Setting up the modifier
      */
     const htmlOutputModifier = new AsciiText();
+    
     const asciiGenerator = new AsciiGenerator(buffer, options, htmlOutputModifier);
-
     const { ascii, style } = await asciiGenerator.generate();
     return createResponse(200, { ascii, style, size: options.getSize() });
   } catch(e) {

@@ -37,7 +37,6 @@ export class AsciiHtml extends AsciiText {
         ['font-weight']: 'bold',
         ['white-space']: 'pre',
         ['box-sizing']: 'border-box',
-        ['font-size']: '0.8rem',
         ['line-height']: 1.2,
         ['font-family']: 'monospace'
       },
