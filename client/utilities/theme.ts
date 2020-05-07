@@ -49,7 +49,7 @@ export const BaseTheme: DefaultTheme = {
     // Backgrounds
     background: '#f8f9fa',
     backgroundSecondary: '#ffffff',
-    backgroundTertiary: '#dfdde2',
+    backgroundTertiary: '#343a40',
 
     // Borders
     border: '#b5b5b5',
@@ -63,7 +63,7 @@ export const BaseTheme: DefaultTheme = {
     primaryHover: '#5338a8',
 
     // Disabled
-    disabled: 'f8f9fa',
+    disabled: '#f8f9fa',
 
     selection: '#000',
 

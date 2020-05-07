@@ -3,7 +3,7 @@ import React from 'react';
 import { ThemeProvider } from 'styled-components';
 import { BaseTheme } from '@utilities/theme';
 import Reset from '@utilities/reset';
-
+import Animate from '@utilities/animate';
 import Trumps from '@utilities/trumps';
 
 type Props = {
@@ -16,6 +16,7 @@ function App(props: Props) {
   return (
     <ThemeProvider theme={BaseTheme}>
       <Reset />
+      <Animate />
       <Trumps />
       <Component {...pageProps} />
     </ThemeProvider>

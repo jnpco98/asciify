@@ -19,7 +19,7 @@ export const Checkbox = styled.input.attrs({ type: 'checkbox' })<CheckboxProps>`
   width: 3rem;
   height: 1.5rem;
   appearance: none;
-  background: ${({ theme }) => theme.colors.backgroundTertiary};
+  background: ${({ theme }) => theme.colors.disabled};
   border-radius: 1rem;
   box-shadow: inset 0 0 0.1rem rgba(0, 0, 0, 0.2);
   transition: 0.5s ease;

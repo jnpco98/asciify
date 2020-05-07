@@ -6,6 +6,7 @@ type SelectProps = {
   className: string;
   classNamePrefix: string;
   placeholder?: string;
+  value?: string;
 };
 
 export const Container = styled(ReactSelect)<SelectProps>`

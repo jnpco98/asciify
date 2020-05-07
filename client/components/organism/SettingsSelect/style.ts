@@ -2,37 +2,48 @@ import styled, { css } from 'styled-components';
 import Input, { InputType } from '@components/atom/Input';
 import Switch from '@components/atom/Switch';
 
+type SwitchableProps = {
+  disabled?: boolean;
+}
+
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 2.6rem 1.8rem 2.8rem;
+  padding: 1rem 1.8rem 2.8rem;
   background: ${({ theme }) => theme.colors.backgroundSecondary};
-  border-radius: 0.8rem;
+  border-radius: 0 0 0.8rem 0.8rem;
   z-index: 2;
   position: relative;
   width: 100%;
 `;
 
-export const SettingsContainer = styled.div`
+export const SettingsContainer = styled.form<SwitchableProps>`
   display: flex;
   flex-direction: column;
-  margin-top: 1rem;
+  transition: all 0.3s ease;
+  overflow: visible;
+  max-height: 40rem;
+  opacity: 1;
+  margin-top: 0.5rem;
+
+  ${props =>
+    props.disabled && css`
+      max-height: 0;
+      opacity: 0;
+    `};
 `;
 
 type InputProps = {
   bordered?: boolean;
   placeholder?: string;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
-};
-
-type SwitchableProps = {
-  disabled?: boolean;
-}
+} & { [P in keyof HTMLInputElement]?: HTMLInputElement[P] };
 
 export const SettingsDivider = styled.div`
   width: 100%;
   height: 0.0625rem;
-  margin-top: 1.5rem;
+  margin-top: 1.8rem;
+  margin-bottom: 1rem;
   background: ${({ theme }) => theme.colors.backgroundTertiary};
 `;
 

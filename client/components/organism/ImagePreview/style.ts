@@ -3,16 +3,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import Button from '@components/atom/Button';
 import { regularFontSize } from '@utilities/mixins';
+import { BlockPicker } from 'react-color';
 
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
   padding: 1.8rem;
-  padding-bottom: 2.2rem;
+  padding-bottom: 0rem;
   background: ${({ theme }) => theme.colors.backgroundSecondary};
-  border-radius: 0.8rem;
-  margin-top: 3rem;
-  margin-bottom: 2rem;
+  border-radius: 0.8rem 0.8rem 0 0;
   z-index: 2;
   position: relative;
   width: 100%;
@@ -28,7 +27,7 @@ export const PrimaryContent = styled.div`
   margin: 1rem 0 1.5rem;
 
   & > * {
-    width: 50%;
+    width: 100%;
     margin-right: 0.7rem;
   }
 `;
@@ -36,6 +35,10 @@ export const PrimaryContent = styled.div`
 export const SecondardContent = styled.div`
   display: flex;
   flex-direction: column;
+`;
+
+export const ColorPicker = styled(BlockPicker)`
+  background: ${({ theme }) => theme.colors.background} !important;
 `;
 
 export const PreviewImageWrapper = styled.div`

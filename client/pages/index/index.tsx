@@ -4,10 +4,11 @@ import styled from 'styled-components';
 import Standard from '@layout/Standard';
 import FileHandler from '@components/organism/FileHandler';
 import SettingsSelect from '@components/organism/SettingsSelect';
-import Preview from '@components/organism/Preview';
+import Preview, { DEFAULT_PREVIEW_COLOR } from '@components/organism/ImagePreview';
 import { FileDropFormat } from '@components/organism/FileDrop';
 import { blob } from '@icons';
 import * as M from '@utilities/media';
+import AsciiPreview, { AsciiResult } from '@components/organism/AsciiPreview';
 
 const DynamicIcon = dynamic(() => import(`@components/molecule/DynamicIcon`), { ssr: false });
 
@@ -25,29 +26,29 @@ export const BlobIcon = styled(DynamicIcon).attrs({ SVGString: blob })`
 
 function Index() {
   const [targetImage, setTargetImage] = useState('');
-  const [generatedAsciiImage, setGeneratedAsciiImage] = useState('');
-  const [generatedAscii, setGeneratedAscii] = useState('');
+  const [generatedAscii, setGeneratedAscii] = useState<AsciiResult | null>();
+  const [background, setBackground] = useState(DEFAULT_PREVIEW_COLOR);
 
   function handleOnFileSelect(imageData: FileDropFormat) {
-    console.log(imageData.size)
     setTargetImage(imageData.data.toString());
   }
 
-  function handleOnGenerateAscii(ascii: string) {
+  function handleOnGenerateAscii(ascii: AsciiResult) {
     setGeneratedAscii(ascii);
-  }
-
-  function handleOnGenerateAsciiImage(asciiImage: string) {
-    setGeneratedAsciiImage(asciiImage);
   }
 
   return (
     <Standard>
       <BlobIcon/>
+      <FileHandler onFileSelect={handleOnFileSelect}/>
       {
-        targetImage ? <Preview targetImage={targetImage} generatedAscii={generatedAscii} outputImage={generatedAsciiImage} /> : <FileHandler onFileSelect={handleOnFileSelect}/>
+        targetImage &&
+          <>
+            <Preview background={background} setBackground={setBackground} targetImage={targetImage} setTargetImage={setTargetImage} generatedAscii={generatedAscii} setGeneratedAscii={setGeneratedAscii} />
+            <SettingsSelect onAsciiGenerated={handleOnGenerateAscii} targetImage={targetImage} />
+          </>
       }
-      <SettingsSelect onAsciiGenerated={handleOnGenerateAscii} onAsciiImageGenerated={handleOnGenerateAsciiImage}/>
+      {generatedAscii && <AsciiPreview ascii={generatedAscii} background={background} />}
     </Standard>
   );
 }
