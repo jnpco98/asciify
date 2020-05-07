@@ -37,7 +37,7 @@ function FileHandler(props: Props) {
   }
 
   return (
-    <Section>
+    <Section navOffset>
       <S.Container>
         <Text textType={TextType.SectionTitle}>Add an Image</Text>
         <Text>Image Url</Text>

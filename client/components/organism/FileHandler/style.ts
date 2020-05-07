@@ -3,6 +3,7 @@ import Button from '@components/atom/Button';
 import Text, { TextType } from '@components/atom/Text';
 import Input from '@components/atom/Input';
 import FileDrop from '@components/organism/FileDrop';
+import * as M from '@utilities/media';
 
 export const Container = styled.div`
   display: flex;
@@ -11,11 +12,13 @@ export const Container = styled.div`
   padding-bottom: 2.2rem;
   background: ${({ theme }) => theme.colors.backgroundSecondary};
   border-radius: 0.8rem;
-  margin-top: 3rem;
-  margin-bottom: 2rem;
   z-index: 2;
   position: relative;
   width: 100%;
+
+  ${M.MEDIA_XSMALL} {
+    padding: 3rem;
+  }
 `;
 
 export const Wrapper = styled.div`

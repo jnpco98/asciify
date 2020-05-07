@@ -13,9 +13,10 @@ type Props = {
   setBackground?: Function;
 }
 
-export const DEFAULT_PREVIEW_COLOR = '#343a40'
+export const DEFAULT_PREVIEW_COLOR = 'transparent'
 
 export const previewColors = [
+  DEFAULT_PREVIEW_COLOR,
   '#fff',
   '#fdf6e3',
   '#eee8d5',
@@ -32,14 +33,14 @@ export const previewColors = [
   '#657b83',
   '#839496',
   '#93a1a1',
-  DEFAULT_PREVIEW_COLOR
+  '#343a40'
 ]
 
 function Preview(props: Props) {
   const { background, targetImage, setTargetImage, setBackground } = props;
 
   return (
-    <Section>
+    <Section navOffset>
       <S.Container>
         <S.CloseIcon onClick={() => setTargetImage('')}/>
         <Text textType={TextType.SectionTitle}>Image Preview</Text>

@@ -10,12 +10,18 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   padding: 1.8rem;
-  padding-bottom: 0rem;
+  padding-bottom: 0;
+  /* margin-top: 9rem; */
   background: ${({ theme }) => theme.colors.backgroundSecondary};
   border-radius: 0.8rem 0.8rem 0 0;
   z-index: 2;
   position: relative;
   width: 100%;
+  
+  ${M.MEDIA_XSMALL} {
+    padding: 3rem;
+    padding-bottom: 0;
+  }
 `;
 
 export const Wrapper = styled.div`
@@ -25,7 +31,7 @@ export const Wrapper = styled.div`
 
 export const PrimaryContent = styled.div`
   display: flex;
-  margin: 2rem auto 1rem;
+  margin: 2rem auto;
   max-width: 25rem;
 
   ${M.MEDIA_XSMALL} {
@@ -48,10 +54,11 @@ export const SecondardContent = styled.div`
   display: flex;
   /* flex-direction: column; */
   margin-left: 0.5rem;
-  flex: 1;
+  flex: 0.7;
   
   ${M.MEDIA_XSMALL} {
     margin-left: 1rem;
+    flex: 0.9;
   }
 `;
 
@@ -141,6 +148,6 @@ export const CloseIcon = styled(FontAwesomeIcon).attrs({ icon: faTimes })`
   position: absolute;
   top: 1.4rem;
   right: 1.4rem;
-  color: ${({ theme }) => theme.colors.defaultSubdued};
+  color: ${({ theme }) => theme.colors.default};
   cursor: pointer;
 `;

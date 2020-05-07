@@ -15,6 +15,7 @@ export const Container = styled(ReactSelect)<SelectProps>`
   ${({ theme, ...props }) => css`
     .${props.classNamePrefix}__control {
       border-color: ${theme.colors.border};
+      background: transparent;
 
       &--menu-is-open,
       &--is-focused {
@@ -29,12 +30,16 @@ export const Container = styled(ReactSelect)<SelectProps>`
       }
     }
 
+    .${props.classNamePrefix}__menu {
+      background: ${({ theme }) => theme.colors.backgroundTertiary};
+    }
+
     .${props.classNamePrefix}__option {
       &:active,
       &--is-focused,
       &--is-selected {
         background-color: ${theme.colors.primary};
-        color: ${theme.colors.default};
+        color: ${theme.colors.backgroundTertiary};
       }
     }
   `};
