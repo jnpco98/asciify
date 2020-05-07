@@ -99,8 +99,8 @@ function SettingsSelect(props: Props) {
   return(
     <Section>
       <S.Container>
+        <S.Subtitle>Select between classic ascii which can also be used in terminals or colored ascii that uses HTML</S.Subtitle>
         <Select<SelectOption> placeholder="Select ascii type..." options={generateOptions} onSelect={selected => selectOption((selected as any).value || '')} isSearchable={false} className="generate-select" classNamePrefix="generate-select" instanceId="generate-select" value={generateOptions.find(o => o.value === option)} />
-
           <S.SettingsContainer onSubmit={handleOnAsciiGenerate} disabled={!option}>
             <S.SettingsRow>
               <S.SettingsInput onChange={e => handleSettingsInputUpdate('pixelCountHorizontal', e.currentTarget, true)} bordered placeholder="Pixel Width" value={(settings.pixelCountHorizontal || "").toString()}/>

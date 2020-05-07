@@ -20,6 +20,10 @@ export const Wrapper = styled.div<{ layout?: SectionType }>`
   ${gutter(GUTTER_LEFT)};
   ${gutter(GUTTER_RIGHT)};
 
+  max-width: 80rem;
+  margin-left: auto;
+  margin-right: auto;
+
   ${M.MEDIA_SMALL} {
     display: flex;
     align-items: flex-start;

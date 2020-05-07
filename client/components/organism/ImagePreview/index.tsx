@@ -17,12 +17,22 @@ export const DEFAULT_PREVIEW_COLOR = '#343a40'
 
 export const previewColors = [
   '#fff',
-  DEFAULT_PREVIEW_COLOR,
+  '#fdf6e3',
+  '#eee8d5',
   '#f2ae49',
   '#95e6cb',
+  '#2aa198',
   '#f07178',
   '#99bf4d',
-  '#709ecc'
+  '#859900',
+  '#709ecc',
+  '#268bd2',
+  '#002b36',
+  '#073642',
+  '#657b83',
+  '#839496',
+  '#93a1a1',
+  DEFAULT_PREVIEW_COLOR
 ]
 
 function Preview(props: Props) {
@@ -41,9 +51,6 @@ function Preview(props: Props) {
               <S.ColorPicker color={background} onChangeComplete={color => setBackground(color.hex)} triangle='hide' colors={previewColors} />
             </S.SecondardContent>
           </S.PrimaryContent>
-          <S.SecondardContent>
-            <Text>Select between classic ascii which can also be used in terminals or colored ascii that uses HTML</Text>
-          </S.SecondardContent>
         </S.Wrapper>
       </S.Container>
     </Section>

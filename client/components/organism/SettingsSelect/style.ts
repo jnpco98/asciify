@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
 import Input, { InputType } from '@components/atom/Input';
 import Switch from '@components/atom/Switch';
+import Text from '@components/atom/Text';
 
 type SwitchableProps = {
   disabled?: boolean;
@@ -63,6 +64,10 @@ export const SettingsInput = styled(Input)<InputProps & SwitchableProps>`
         margin-left: 0;
       }
     `};
+`;
+
+export const Subtitle = styled(Text)`
+  margin-bottom: 1rem;
 `;
 
 export const SettingsCharacterRamp = styled(Input).attrs({ inputType: InputType.Multi })<
