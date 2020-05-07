@@ -4,8 +4,31 @@ import { SectionType } from '.';
 import * as M from '@utilities/media';
 import Text, { TextType } from '@components/atom/Text';
 
-export const Container = styled.div`
+export const Container = styled.div<{ navOffset: boolean; footerOffset: boolean; }>`
   background: transparent;
+
+  ${props =>
+    props.navOffset && css`
+      padding-top: 9rem;
+    `};
+
+  ${props =>
+    props.footerOffset && css`
+      padding-bottom: 9rem;
+    `};
+
+  ${M.MEDIA_LARGE} {
+
+    ${props =>
+    props.navOffset && css`
+      padding-top: 12rem;
+    `};
+
+  ${props =>
+    props.footerOffset && css`
+      padding-bottom: 12rem;
+    `};
+  }
 `;
 
 export const SectionTitle = styled(Text).attrs({ textType: TextType.SectionTitle })`
@@ -20,7 +43,7 @@ export const Wrapper = styled.div<{ layout?: SectionType }>`
   ${gutter(GUTTER_LEFT)};
   ${gutter(GUTTER_RIGHT)};
 
-  max-width: 80rem;
+  max-width: ${({ theme }) => theme.screen.innerMaxWidth};
   margin-left: auto;
   margin-right: auto;
 

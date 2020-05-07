@@ -8,12 +8,14 @@ type Props = {
   children: ReactNode;
   layout?: SectionType;
   sectionTitle?: string;
+  navOffset?: boolean;
+  footerOffset?: boolean;
 };
 
 function Section(props: Props) {
-  const { className, children, layout, sectionTitle } = props;
+  const { className, children, layout, sectionTitle, navOffset, footerOffset } = props;
   return (
-    <S.Container>
+    <S.Container navOffset={navOffset} footerOffset={footerOffset}>
       {sectionTitle && <S.SectionTitle>{sectionTitle}</S.SectionTitle>}
       <S.Wrapper className={className} layout={layout}>
         {children}
