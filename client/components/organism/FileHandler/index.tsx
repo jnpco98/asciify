@@ -20,8 +20,8 @@ function FileHandler(props: Props) {
     const urlInputValue = urlInputRef.current.value.trim();
     if(!urlInputValue || !urlInputValue.length) return;
 
+    setLoading(true);
     try {
-      setLoading(true);
       const corsAnywhere = 'https://ukiyo-cors-anywhere.herokuapp.com/';
       const { data } = await axios({ method: 'get', url: corsAnywhere + urlInputValue, responseType: 'arraybuffer' });
       // prettier-ignore
@@ -44,13 +44,13 @@ function FileHandler(props: Props) {
           <S.PrimaryContent>
             <S.UrlWrapper onSubmit={handleOnUrlSubmit}>
               <S.UrlInput ref={urlInputRef} bordered placeholder="Paste image url here"/>
-              <S.UrlButton submitButton>Load Image</S.UrlButton>
+              <S.UrlButton submitButton loading={loading} disabled={loading}>Load Image</S.UrlButton>
             </S.UrlWrapper>
             <S.ImageDrop onFileSelect={onFileSelect}/>
           </S.PrimaryContent>
           <S.SecondardContent>
             <S.InstructionBox/>
-            <S.DemoLink>View Demo</S.DemoLink>
+            <S.DemoLink link="/">View Demo</S.DemoLink>
           </S.SecondardContent>
         </S.Wrapper>
       </S.Container>

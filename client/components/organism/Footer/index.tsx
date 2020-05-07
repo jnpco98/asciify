@@ -11,8 +11,8 @@ function Footer() {
         <S.TextGroup>
           <Text>Copyright &copy; 2020 by Ukiyo</Text>
           <S.TermsGroup>
-            <Text textType={TextType.Anchor} link="#!">Terms and conditions</Text>
-            <Text textType={TextType.Anchor} link="#!">Contact</Text>
+            <Text textType={TextType.Anchor} link="/">Terms and conditions</Text>
+            <Text textType={TextType.Anchor} link="/">Contact</Text>
           </S.TermsGroup>
         </S.TextGroup>
       </S.Container>
