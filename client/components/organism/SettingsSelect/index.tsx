@@ -38,6 +38,7 @@ function SettingsSelect(props: Props) {
   const { onAsciiGenerated, targetImage } = props;
   const [option, selectOption] = useState('');
   const [settings, setSettings] = useState<KeysOfString<string>>({});
+  const [loading, setLoading] = useState(false);
 
   function getOutputHandler(option: string) {
     switch(option) {
@@ -54,6 +55,7 @@ function SettingsSelect(props: Props) {
     const BASE_URI_GENERATE_ASCII = 'https://fm4779kzsc.execute-api.us-east-1.amazonaws.com/production/';
     const uriGenerateAscii = BASE_URI_GENERATE_ASCII + getOutputHandler(option);
 
+    setLoading(true);
     try {
       const params: { [key: string]: string | number | boolean } = {};
 
@@ -81,6 +83,7 @@ function SettingsSelect(props: Props) {
     } catch (e) {
       console.error(e);
     }
+    setLoading(false);
   }
 
   function handleSettingsInputUpdate(key: keyof AsciiSettings, target?: HTMLInputElement, isNumber?: boolean) {
@@ -102,6 +105,8 @@ function SettingsSelect(props: Props) {
         <S.Subtitle>Select between classic ascii which can also be used in terminals or colored ascii that uses HTML</S.Subtitle>
         <Select<SelectOption> placeholder="Select ascii type..." options={generateOptions} onSelect={selected => selectOption((selected as any).value || '')} isSearchable={false} className="generate-select" classNamePrefix="generate-select" instanceId="generate-select" value={generateOptions.find(o => o.value === option)} />
           <S.SettingsContainer onSubmit={handleOnAsciiGenerate} disabled={!option}>
+            
+            <S.Subtitle>*Optional*</S.Subtitle>
             <S.SettingsRow>
               <S.SettingsInput onChange={e => handleSettingsInputUpdate('pixelCountHorizontal', e.currentTarget, true)} bordered placeholder="Pixel Width" value={(settings.pixelCountHorizontal || "").toString()}/>
               <S.SettingsInput onChange={e => handleSettingsInputUpdate('pixelCountVertical', e.currentTarget, true)} bordered placeholder="Pixel Height" value={(settings.pixelCountVertical || "").toString()}/>
@@ -112,7 +117,7 @@ function SettingsSelect(props: Props) {
             <S.SettingsRow>
               <S.SettingsCharacterRamp onChange={e => handleSettingsInputUpdate('characterRamp', e.currentTarget)} bordered placeholder={`Optional custom ascii characters from the darkest to the lightest ex: "BS#&@$%*!:. "`} value={(settings.characterRamp || "").toString()} />
             </S.SettingsRow>
-            <Button loading submitButton>Generate</Button>
+            <Button loading={loading} disabled={loading} submitButton>Generate</Button>
           </S.SettingsContainer>
 
       </S.Container>

@@ -139,22 +139,6 @@ export function pageTitleFontSize() {
     ${({ theme }) =>
       css`
         font-size: ${math(`${theme.font.baseSize} * 1.4`)};
-
-        ${M.MEDIA_XSMALL} {
-          font-size: ${math(`${theme.font.baseSize} * 1.8`)};
-        }
-
-        ${M.MEDIA_SMALL} {
-          font-size: ${math(`${theme.font.baseSize} * 2`)};
-        }
-
-        ${M.MEDIA_MEDIUM} {
-          font-size: ${math(`${theme.font.baseSize} * 2.4`)};
-        }
-
-        ${M.MEDIA_XXLARGE} {
-          font-size: ${math(`${theme.font.baseSize} * 2.7`)};
-        }
       `};
   `;
 }
@@ -167,18 +151,6 @@ export function sectionFontSize() {
 
         ${M.MEDIA_XSMALL} {
           font-size: ${math(`${theme.font.baseSize} * 1.1`)};
-        }
-
-        ${M.MEDIA_SMALL} {
-          font-size: ${math(`${theme.font.baseSize} * 1.4`)};
-        }
-
-        ${M.MEDIA_MEDIUM} {
-          font-size: ${math(`${theme.font.baseSize} * 1.6`)};
-        }
-
-        ${M.MEDIA_XXLARGE} {
-          font-size: ${math(`${theme.font.baseSize} * 2`)};
         }
       `};
   `;
@@ -193,18 +165,6 @@ export function subsectionFontSize() {
         ${M.MEDIA_XSMALL} {
           font-size: ${math(`${theme.font.baseSize} * 1`)};
         }
-
-        ${M.MEDIA_SMALL} {
-          font-size: ${math(`${theme.font.baseSize} * 1.1`)};
-        }
-
-        ${M.MEDIA_MEDIUM} {
-          font-size: ${math(`${theme.font.baseSize} * 1.3`)};
-        }
-
-        ${M.MEDIA_XXLARGE} {
-          font-size: ${math(`${theme.font.baseSize} * 1.7`)};
-        }
       `};
   `;
 }
@@ -217,18 +177,6 @@ export function regularFontSize() {
 
         ${M.MEDIA_XSMALL} {
           font-size: ${math(`${theme.font.baseSize} * 0.8`)};
-        }
-
-        ${M.MEDIA_SMALL} {
-          font-size: ${math(`${theme.font.baseSize} * 0.9`)};
-        }
-
-        ${M.MEDIA_MEDIUM} {
-          font-size: ${math(`${theme.font.baseSize} * 1`)};
-        }
-
-        ${M.MEDIA_XXLARGE} {
-          font-size: ${math(`${theme.font.baseSize} * 1.1`)};
         }
       `};
   `;
@@ -243,18 +191,6 @@ export function smallFontSize() {
         ${M.MEDIA_XSMALL} {
           font-size: ${math(`${theme.font.baseSize} * 0.7`)};
         }
-
-        ${M.MEDIA_SMALL} {
-          font-size: ${math(`${theme.font.baseSize} * 0.8`)};
-        }
-
-        ${M.MEDIA_MEDIUM} {
-          font-size: ${math(`${theme.font.baseSize} * 0.9`)};
-        }
-
-        ${M.MEDIA_XXLARGE} {
-          font-size: ${math(`${theme.font.baseSize} * 0.9`)};
-        }
       `};
   `;
 }
@@ -267,18 +203,6 @@ export function xSmallFontSize() {
 
         ${M.MEDIA_XSMALL} {
           font-size: ${math(`${theme.font.baseSize} * 0.65`)};
-        }
-
-        ${M.MEDIA_SMALL} {
-          font-size: ${math(`${theme.font.baseSize} * 0.7`)};
-        }
-
-        ${M.MEDIA_MEDIUM} {
-          font-size: ${math(`${theme.font.baseSize} * 0.7`)};
-        }
-
-        ${M.MEDIA_XXLARGE} {
-          font-size: ${math(`${theme.font.baseSize} * 0.7`)};
         }
       `};
   `;

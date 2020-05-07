@@ -2,6 +2,7 @@ import styled, { css } from 'styled-components';
 import Input, { InputType } from '@components/atom/Input';
 import Switch from '@components/atom/Switch';
 import Text from '@components/atom/Text';
+import * as M from '@utilities/media';
 
 type SwitchableProps = {
   disabled?: boolean;
@@ -10,12 +11,17 @@ type SwitchableProps = {
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 1rem 1.8rem 2.8rem;
+  padding: 0rem 1.8rem 2.8rem;
   background: ${({ theme }) => theme.colors.backgroundSecondary};
   border-radius: 0 0 0.8rem 0.8rem;
   z-index: 2;
   position: relative;
   width: 100%;
+  
+  ${M.MEDIA_XSMALL} {
+    padding: 3rem;
+    padding-top: 0;
+  }
 `;
 
 export const SettingsContainer = styled.form<SwitchableProps>`
@@ -31,6 +37,7 @@ export const SettingsContainer = styled.form<SwitchableProps>`
     props.disabled && css`
       max-height: 0;
       opacity: 0;
+      overflow: hidden;
     `};
 `;
 

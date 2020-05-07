@@ -7,8 +7,8 @@ export type MenuItem = {
 
 export const mainMenu: MenuItem[] = [
   {
-    label: 'Help',
-    key: 'Help',
+    label: 'Demo',
+    key: 'demo',
     icon: false
   }
 ];

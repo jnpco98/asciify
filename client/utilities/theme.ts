@@ -3,27 +3,27 @@ import { lighten, transparentize } from 'polished';
 
 export const BaseTheme: DefaultTheme = {
   screen: {
-    innerMaxWidth: '1600px'
+    innerMaxWidth: '60rem'
   },
   gutterHorizontal: {
     base: '0.8rem',
-    xxsmall: '1.9rem',
-    xsmall: '2.6rem',
-    small: '5.6rem',
-    medium: '7rem',
-    large: '9rem',
-    xlarge: '10rem',
-    xxlarge: '10%'
+    xxsmall: '2.5rem',
+    xsmall: '4rem',
+    small: '5rem',
+    medium: '5rem',
+    large: '5rem',
+    xlarge: '5rem',
+    xxlarge: '5rem'
   },
   gutterVertical: {
     base: '1rem',
     xxsmall: '1rem',
     xsmall: '1rem',
     small: '3rem',
-    medium: '4rem',
-    large: '6rem',
-    xlarge: '10rem',
-    xxlarge: '12rem'
+    medium: '5rem',
+    large: '5rem',
+    xlarge: '5rem',
+    xxlarge: '5rem'
   },
   font: {
     baseSize: '1rem',
@@ -43,36 +43,36 @@ export const BaseTheme: DefaultTheme = {
   },
   colors: {
     // Standard Colors
-    default: '#e8e0f6',
+    default: '#343a40',
     defaultSubdued: 'lightgray',
 
     // Backgrounds
-    background: '#f8f9fa',
-    backgroundSecondary: '#ffffff',
-    backgroundTertiary: '#343a40',
+    background: 'linear-gradient(-45deg, #EE7752, #E73C7E, #23A6D5, #23DBAB)',
+    backgroundSecondary: 'rgba(255, 255, 255, 0.7)',
+    backgroundTertiary: '#fafafa',
 
     // Borders
-    border: '#b5b5b5',
-    borderHover: '#8e63d4',
+    border: 'rgba(52,58,64,0.7)',
+    borderHover: 'rgba(52,58,64,1)',
 
     // Scheme
-    primary: '#8e63d4',
-    primaryCompliment: '#5338a8',
+    primary: 'rgba(52,58,64,1)',
+    primaryCompliment: 'rgba(52,58,64,1)',
 
     // Hover
-    primaryHover: '#5338a8',
+    primaryHover: 'rgba(52,58,64,1)',
 
     // Disabled
     disabled: '#f8f9fa',
 
     selection: '#000',
 
-    backdrop: transparentize(0.7, '#8e63d4'),
+    backdrop: 'rgba(52,58,64,1)',
 
     // Form color sets
-    info: '#e8e0f6',
-    success: '#b5b5b5',
-    warning: '#ff1744',
-    error: '#ff1744'
+    info: '#EE7752',
+    success: '#23DBAB',
+    warning: '#E73C7E',
+    error: '#E73C7E'
   }
 };
