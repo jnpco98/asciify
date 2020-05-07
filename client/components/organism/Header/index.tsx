@@ -26,7 +26,7 @@ function Header(props: Props) {
   }, []);
 
   function handleScroll() {
-    setFloating(window.pageYOffset >= containerRef.current.scrollHeight);
+    setFloating(window.pageYOffset >= 30);
   }
 
   function handleSelect(key: string) {
@@ -57,9 +57,9 @@ function Header(props: Props) {
   }
 
   return (
-    <S.Container floating={false} ref={containerRef}>
+    <S.Container floating={floating} ref={containerRef}>
       <S.LeftMenu>
-        Asciify
+        <S.Logo/>
       </S.LeftMenu>
 
       <S.RightMenu>{mainMenu.map((item) => renderLinks(item, `main_${item.key}`))}</S.RightMenu>

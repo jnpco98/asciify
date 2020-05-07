@@ -1,7 +1,11 @@
 import styled, { css } from 'styled-components';
+import dynamic from 'next/dynamic';
 import Text, { TextType } from '@components/atom/Text';
 import { center, FLEX_ALIGN_MAIN } from '@utilities/mixins';
+import { logo } from '@icons';
 import * as M from '@utilities/media';
+
+const DynamicIcon = dynamic(() => import('@components/molecule/DynamicIcon'), { ssr: false });
 
 type HeaderMenuProps = {
   floating: boolean;
@@ -13,9 +17,7 @@ type HeaderMenuItemProps = {
 };
 
 export const LeftMenu = styled.ul`
-  ${M.MEDIA_XXSMALL} {
-    margin-left: 1rem;
-  }
+  margin-left: 1rem;
 
   ${M.MEDIA_XSMALL} {
     margin-left: 2rem;
@@ -52,7 +54,6 @@ export const MenuItem = styled.li<HeaderMenuItemProps>`
   cursor: pointer;
   text-transform: uppercase;
   margin: 0 0.9rem;
-  padding-top: 0.8rem;
 
   ${Link} {
     position: relative;
@@ -106,7 +107,6 @@ export const MenuItem = styled.li<HeaderMenuItemProps>`
 
   ${M.MEDIA_XSMALL} {
     margin: 0 1rem;
-    padding-top: 1.3rem;
 
     ${(props) =>
       props.icon &&
@@ -136,6 +136,7 @@ export const Container = styled.header<HeaderMenuProps>`
   transition: all 0.2s ease;
   z-index: 50;
   background: transparent;
+  color: ${({ theme }) => theme.colors.backgroundSecondary};
 
   ${LeftMenu}, ${RightMenu} {
     display: flex;
@@ -146,51 +147,14 @@ export const Container = styled.header<HeaderMenuProps>`
     css`
       font-size: 0.9rem;
       position: fixed;
-      background: linear-gradient(
-        to top,
-        rgba(245, 245, 245, 60%) 0%,
-        rgba(245, 245, 245, 1) 100%
-      );
       box-shadow: 0px 10px 13px -9px rgba(0, 0, 0, 0.75);
+      background: rgba(255, 255, 255, 0.3);
     `};
+`;
 
-  ${M.MEDIA_XSMALL} {
-    padding-top: 1rem;
-
-    ${(props) =>
-      props.floating &&
-      css`
-        padding: 2rem 0;
-      `};
-  }
-
-  ${M.MEDIA_SMALL} {
-    padding-top: 2rem;
-
-    ${(props) =>
-      props.floating &&
-      css`
-        padding: 2.5rem 0;
-      `};
-  }
-
-  ${M.MEDIA_XLARGE} {
-    height: 6rem;
-
-    ${(props) =>
-      props.floating &&
-      css`
-        padding: 3rem 0;
-      `};
-  }
-
-  ${M.MEDIA_XXLARGE} {
-    height: 8rem;
-
-    ${(props) =>
-      props.floating &&
-      css`
-        padding: 4rem 0;
-      `};
+export const Logo = styled(DynamicIcon).attrs({ SVGString: logo })`
+  width: 6rem;
+  path {
+    fill: ${({ theme }) => theme.colors.backgroundSecondary};
   }
 `;

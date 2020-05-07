@@ -1,5 +1,6 @@
 import React, { ReactNode } from 'react';
 import Header from '@components/organism/Header';
+import Footer from '@components/organism/Footer';
 
 type Props = {
   children: ReactNode;
@@ -8,8 +9,9 @@ type Props = {
 function Standard(props: Props) {
   return (
     <div>
-      {/* <Header /> */}
+      <Header />
       {props.children}
+      <Footer/>
     </div>
   );
 }
