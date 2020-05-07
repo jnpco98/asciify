@@ -9,6 +9,7 @@ export const mainMenu: MenuItem[] = [
   {
     label: 'Demo',
     key: 'demo',
-    icon: false
+    icon: false,
+    link: '/'
   }
 ];

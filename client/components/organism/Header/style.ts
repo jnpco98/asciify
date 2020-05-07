@@ -32,7 +32,7 @@ export const RightMenu = styled.ul`
   }
 `;
 
-export const Link = styled(Text).attrs({ textType: TextType.Anchor })<{ link: string }>`
+export const Link = styled(Text).attrs({ textType: TextType.Anchor })`
   overflow: hidden;
 
   &:after {
@@ -57,17 +57,6 @@ export const MenuItem = styled.li<HeaderMenuItemProps>`
 
   ${Link} {
     position: relative;
-
-    &:after {
-      content: '';
-      width: 100%;
-      height: 2px;
-      position: absolute;
-      background: black;
-      bottom: 0;
-      left: 0;
-      transform: translateX(-110%);
-    }
   }
 
   &:hover {

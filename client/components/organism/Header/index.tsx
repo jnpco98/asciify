@@ -3,6 +3,7 @@ import dynamic from 'next/dynamic';
 import { ENABLE_ACCOUNTS } from '@constants/environment';
 import { MenuItem, mainMenu } from '@constants/menu';
 import * as S from './style';
+import Link from 'next/link';
 
 const DynamicIcon = dynamic(() => import('@components/molecule/DynamicIcon'), { ssr: false });
 
@@ -59,7 +60,9 @@ function Header(props: Props) {
   return (
     <S.Container floating={floating} ref={containerRef}>
       <S.LeftMenu>
-        <S.Logo/>
+        <Link href="/">
+          <a><S.Logo/></a>
+        </Link>
       </S.LeftMenu>
 
       <S.RightMenu>{mainMenu.map((item) => renderLinks(item, `main_${item.key}`))}</S.RightMenu>
