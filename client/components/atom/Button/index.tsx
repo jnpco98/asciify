@@ -1,6 +1,7 @@
 import React, { ReactNode, MouseEvent } from 'react';
 import Link from 'next/link';
 import * as S from './style';
+import Loader from '../Loader';
 
 export enum ButtonType {
   Info,
@@ -32,7 +33,7 @@ function Button(props: Props) {
   }
   if (absolute) buttonProps.href = link;
 
-  const Element = <S.Container {...buttonProps}>{loading ? children : children}</S.Container>;
+  const Element = <S.Container {...buttonProps}>{loading ? <Loader/>: children}</S.Container>;
 
   if (link) return <Link href={link}>{Element}</Link>;
 

@@ -1,4 +1,4 @@
-import styled, { keyframes } from 'styled-components';
+import styled, { keyframes, css } from 'styled-components';
 
 const FulRotationKeyframes = keyframes`
   0% {
@@ -12,19 +12,25 @@ const FulRotationKeyframes = keyframes`
 export const Ring = styled.div`
   display: inline-block;
   position: relative;
-  width: 80px;
-  height: 80px;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   div {
     display: block;
     position: absolute;
-    width: 64px;
-    height: 64px;
-    margin: 8px;
-    border: 8px solid #fff;
+    width: 1.8rem;
+    height: 1.8rem;
+    margin: auto;
     border-radius: 50%;
     animation: ${FulRotationKeyframes} 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-    border-color: #fff transparent transparent transparent;
+    
+    ${({ theme }) => css`
+      border: 0.187rem solid ${theme.colors.default};
+      border-color: ${theme.colors.default} transparent transparent transparent;
+    `}
   }
 
   div:nth-child(1) {
