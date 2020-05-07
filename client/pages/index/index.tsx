@@ -27,7 +27,7 @@ function Index() {
         targetImage ?
           <>
             <Preview background={background} setBackground={setBackground} targetImage={targetImage} setTargetImage={setTargetImage} generatedAscii={generatedAscii} setGeneratedAscii={setGeneratedAscii} />
-            <SettingsSelect onAsciiGenerated={handleOnGenerateAscii} targetImage={targetImage} />
+            <SettingsSelect onAsciiGenerated={handleOnGenerateAscii} targetImage={targetImage} ascii={generatedAscii} />
           </>
           :
           <FileHandler onFileSelect={handleOnFileSelect}/>

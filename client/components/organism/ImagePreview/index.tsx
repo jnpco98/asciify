@@ -45,7 +45,7 @@ function Preview(props: Props) {
         <S.CloseIcon onClick={() => setTargetImage('')}/>
         <Text textType={TextType.SectionTitle}>Image Preview</Text>
         <S.Wrapper>
-            <Text>Preview what the ascii will look like in your terminal / website. You can change the preview background color below.</Text>
+            <Text>Preview what the ascii art will look like in your terminal / website. You can change the preview background color below.</Text>
           <S.PrimaryContent>
             <S.PreviewImageWrapper><S.PreviewImage src={targetImage} visible={!!targetImage}/></S.PreviewImageWrapper>
             <S.SecondardContent>

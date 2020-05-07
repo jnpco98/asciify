@@ -7,6 +7,7 @@ import Button from '@components/atom/Button';
 import { KeysOfString } from '@utilities/types';
 import { AsciiResult } from '../AsciiPreview';
 import * as S from './style';
+import { saveFile } from '@utilities/file';
 
 export type SelectOption = { value: string; label: string };
 
@@ -32,10 +33,11 @@ export type AsciiSettings = {
 type Props = {
   onAsciiGenerated?: (ascii: AsciiResult) => void;
   targetImage?: string;
+  ascii?: AsciiResult;
 }
 
 function SettingsSelect(props: Props) {
-  const { onAsciiGenerated, targetImage } = props;
+  const { onAsciiGenerated, targetImage, ascii } = props;
   const [option, selectOption] = useState('');
   const [settings, setSettings] = useState<KeysOfString<string>>({});
   const [loading, setLoading] = useState(false);
@@ -50,7 +52,7 @@ function SettingsSelect(props: Props) {
     }
   }
 
-  async function handleOnAsciiGenerate(e: React.FormEvent) {
+  async function handleOnAsciiGenerated(e: React.FormEvent) {
     e.preventDefault();
     const BASE_URI_GENERATE_ASCII = 'https://fm4779kzsc.execute-api.us-east-1.amazonaws.com/production/';
     const uriGenerateAscii = BASE_URI_GENERATE_ASCII + getOutputHandler(option);
@@ -86,6 +88,16 @@ function SettingsSelect(props: Props) {
     setLoading(false);
   }
 
+  function handleFileSave() {
+    if(!ascii) return;
+    if(ascii.style) {
+      saveFile('ascii.html', `<html><head><style>${ascii.style}</style></head><body>${ascii.ascii}</body></html>`);
+      return;
+    }
+
+    saveFile('ascii.txt', ascii.ascii);
+  }
+
   function handleSettingsInputUpdate(key: keyof AsciiSettings, target?: HTMLInputElement, isNumber?: boolean) {
     if(!target) return;
 
@@ -104,7 +116,7 @@ function SettingsSelect(props: Props) {
       <S.Container>
         <S.Subtitle>Select between classic ascii which can also be used in terminals or colored ascii that uses HTML</S.Subtitle>
         <Select<SelectOption> placeholder="Select ascii type..." options={generateOptions} onSelect={selected => selectOption((selected as any).value || '')} isSearchable={false} className="generate-select" classNamePrefix="generate-select" instanceId="generate-select" value={generateOptions.find(o => o.value === option)} />
-          <S.SettingsContainer onSubmit={handleOnAsciiGenerate} disabled={!option}>
+          <S.SettingsContainer onSubmit={handleOnAsciiGenerated} disabled={!option}>
             
             <S.Subtitle>*Optional*</S.Subtitle>
             <S.SettingsRow>
@@ -118,8 +130,10 @@ function SettingsSelect(props: Props) {
               <S.SettingsCharacterRamp onChange={e => handleSettingsInputUpdate('characterRamp', e.currentTarget)} bordered placeholder={`Optional custom ascii characters from the darkest to the lightest ex: "BS#&@$%*!:. "`} value={(settings.characterRamp || "").toString()} />
             </S.SettingsRow>
             <Button loading={loading} disabled={loading} submitButton>Generate</Button>
+
           </S.SettingsContainer>
 
+          <S.DownloadButton onClick={handleFileSave} visible={!!ascii}>Download ascii</S.DownloadButton>
       </S.Container>
     </Section>
   );

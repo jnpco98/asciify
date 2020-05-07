@@ -1,8 +1,11 @@
 import styled, { css } from 'styled-components';
 import Input, { InputType } from '@components/atom/Input';
 import Switch from '@components/atom/Switch';
-import Text from '@components/atom/Text';
+import Text, { TextType } from '@components/atom/Text';
 import * as M from '@utilities/media';
+import Button from '@components/atom/Button';
+import { margin } from 'polished';
+import { regularFontSize } from '@utilities/mixins';
 
 type SwitchableProps = {
   disabled?: boolean;
@@ -20,6 +23,7 @@ export const Container = styled.div`
   
   ${M.MEDIA_XSMALL} {
     padding: 3rem;
+    padding-bottom: 2rem;
     padding-top: 0;
   }
 `;
@@ -110,5 +114,49 @@ export const SettingsRow = styled.div<SwitchableProps>`
       opacity: 0;
       max-height: 0;
       overflow: hidden;
+    `};
+`;
+
+export const DownloadButton = styled(Button)<{ onClick?: Function, visible?: boolean; }>`
+  align-self: center;
+  margin-top: 1rem;
+  margin-bottom: 0;
+  ${regularFontSize};
+  color: ${({ theme }) => theme.colors.primary};
+  position: relative;
+  transition: all 0.3s ease;
+  opacity: 0;
+  pointer-events: none;
+
+  &:after {
+    width: 100%;
+    height: 0.0625rem;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    content: '';
+    background: ${({ theme }) => theme.colors.primary};
+  }
+
+  &:hover {
+    color: ${({ theme }) => theme.colors.primaryCompliment};
+  }
+
+  ${margin('0.2rem', null, '0.2rem', null)};
+  
+  padding: 0;
+  padding-top: 0.3rem;
+  background: none;
+  text-transform: initial;
+  font-weight: 400;
+
+  &:hover {
+    background: none;
+  }
+
+  ${props =>
+    props.visible && css`
+      opacity: 1;
+      pointer-events: all;
     `};
 `;
