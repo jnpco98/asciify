@@ -59,7 +59,7 @@ class Document extends NextDocument {
           />
           <meta name="description" content={SITE_DESCRIPTION} />
           <meta name="keywords" content={SITE_KEYWORDS}/>
-          <meta name="theme-color" content="#343a40"/>
+          <meta name="theme-color" content="#343A40"/>
 
           <meta property="og:type" content="website" />
           <meta property="og:site_name" content={SITE_NAME} />
@@ -71,6 +71,11 @@ class Document extends NextDocument {
           <link
             href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;700&display=swap"
             rel="stylesheet"
+          />
+          <link
+            href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;700&display=swap"
+            rel="preload"
+            as="style"
           />
 
           <link rel="preconnect" href="https://www.google-analytics.com"/>

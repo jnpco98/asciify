@@ -7,7 +7,7 @@ import Reset from '@utilities/reset';
 import Animate from '@utilities/animate';
 import Trumps from '@utilities/trumps';
 import { initializeGoogleAnalytics } from '@utilities/analytics';
-import { SITE_NAME } from '@constants/environment';
+import { SITE_TITLE } from '@constants/environment';
 
 type Props = {
   Component: NextComponentType<NextPageContext, any, {}>;
@@ -27,7 +27,7 @@ function App(props: Props) {
       <Animate />
       <Trumps />
       <Head>
-        <title>{SITE_NAME}</title>     
+        <title>{SITE_TITLE}</title>     
       </Head>
       <Component {...pageProps} />
     </ThemeProvider>

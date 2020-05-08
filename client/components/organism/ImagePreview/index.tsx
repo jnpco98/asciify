@@ -16,23 +16,25 @@ type Props = {
 
 export const previewColors = [
   'transparent',
-  '#fff',
-  '#fdf6e3',
-  '#eee8d5',
-  '#f2ae49',
-  '#95e6cb',
-  '#2aa198',
-  '#f07178',
-  '#99bf4d',
+  '#FFFFFF',
+  '#EEE8D5',
+  '#F2AE49',
+  '#EE7752',
+  '#23DBAB',
+  '#95E6CB',
+  '#2AA198',
+  '#F07178',
+  '#E73C7E',
+  '#99BF4D',
   '#859900',
-  '#709ecc',
-  '#268bd2',
-  '#002b36',
+  '#709ECC',
+  '#23A6D5',
+  '#002B36',
   '#073642',
-  '#657b83',
+  '#657B83',
   '#839496',
-  '#93a1a1',
-  '#343a40'
+  '#93A1A1',
+  '#343A40'
 ]
 
 function Preview(props: Props) {

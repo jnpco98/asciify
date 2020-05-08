@@ -43,13 +43,13 @@ export const BaseTheme: DefaultTheme = {
   },
   colors: {
     // Standard Colors
-    default: '#343a40',
+    default: '#343A40',
     defaultSubdued: 'lightgray',
 
     // Backgrounds
     background: 'linear-gradient(-45deg, #EE7752, #E73C7E, #23A6D5, #23DBAB)',
     backgroundSecondary: 'rgba(255, 255, 255, 0.7)',
-    backgroundTertiary: '#fafafa',
+    backgroundTertiary: '#FAFAFA',
 
     // Borders
     border: 'rgba(52,58,64,0.7)',
@@ -63,7 +63,7 @@ export const BaseTheme: DefaultTheme = {
     primaryHover: 'rgba(52,58,64,1)',
 
     // Disabled
-    disabled: '#f8f9fa',
+    disabled: '#F8F9FA',
 
     selection: 'lightgray',
 
