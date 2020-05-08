@@ -23,10 +23,7 @@ export function useInterval(callback: Function, delay: number) {
 
 export function useOnClickOutside(ref: MutableRefObject<Node>, handler: Function) {
   function listener(event: Event) {
-    if (
-      !ref.current ||
-      (event.target instanceof Node && ref.current.contains(event.target))
-    ) {
+    if (!ref.current || (event.target instanceof Node && ref.current.contains(event.target))) {
       return;
     }
     handler(event);
@@ -70,10 +67,7 @@ export function useOnResize(handler?: Function) {
   return containerSize;
 }
 
-export function useOnElementResize(
-  container?: MutableRefObject<HTMLElement>,
-  handler?: Function
-) {
+export function useOnElementResize(container?: MutableRefObject<HTMLElement>, handler?: Function) {
   function getSize() {
     if (container && container.current) {
       return {

@@ -8,8 +8,7 @@ export function truncate(str: string, length: number) {
 
 export function truncateNumber(num: number, places: number) {
   const suffix = 'k';
-  const truncated =
-    num > 999 ? `${(num / 1000).toFixed(places)}${suffix}` : num.toString();
+  const truncated = num > 999 ? `${(num / 1000).toFixed(places)}${suffix}` : num.toString();
   const lastDigit = truncated.slice(-2);
 
   if (lastDigit === `0${suffix}` && places === 1) {

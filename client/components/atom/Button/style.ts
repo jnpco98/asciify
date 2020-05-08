@@ -55,24 +55,24 @@ export const Container = styled.a.withConfig({
   text-align: center;
   justify-content: center;
 
-  ${props =>
-    props.loading ? css`
-      padding: 0.3rem 1.4rem;
-    ` :
-    css`
-      padding: 0.6rem 1.4rem;
+  ${(props) =>
+    props.loading
+      ? css`
+          padding: 0.3rem 1.4rem;
+        `
+      : css`
+          padding: 0.6rem 1.4rem;
 
-      ${M.MEDIA_SMALL} {
-        padding: 0.7rem 1.5rem;
-        font-size: 0.75rem;
-      }
+          ${M.MEDIA_SMALL} {
+            padding: 0.7rem 1.5rem;
+            font-size: 0.75rem;
+          }
 
-      ${M.MEDIA_LARGE} {
-        padding: 0.75rem 2rem;
-        font-size: 0.8rem;
-      }
-    `
-  };
+          ${M.MEDIA_LARGE} {
+            padding: 0.75rem 2rem;
+            font-size: 0.8rem;
+          }
+        `};
 
   ${(props) => props.buttonType === ButtonType.Success && Success};
   ${(props) => props.buttonType === ButtonType.Warning && Warning};
@@ -80,15 +80,16 @@ export const Container = styled.a.withConfig({
 
   border: none;
 
-  ${props =>
-    props.disabled ? css`
-      background: none;
-      border: 1px solid ${({ theme }) => theme.colors.default};
-    ` : css`
-      &:hover {
-        color: ${({ theme }) => theme.colors.backgroundSecondary};
-        background-color: ${({ theme }) => theme.colors.primaryCompliment};
-      }
-    `};
-
+  ${(props) =>
+    props.disabled
+      ? css`
+          background: none;
+          border: 1px solid ${({ theme }) => theme.colors.default};
+        `
+      : css`
+          &:hover {
+            color: ${({ theme }) => theme.colors.backgroundSecondary};
+            background-color: ${({ theme }) => theme.colors.primaryCompliment};
+          }
+        `};
 `;

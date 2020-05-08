@@ -27,4 +27,4 @@ export const footerMenu: MenuItem[] = [
     icon: false,
     link: '/'
   }
-]
+];

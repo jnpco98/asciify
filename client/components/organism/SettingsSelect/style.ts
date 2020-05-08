@@ -9,7 +9,7 @@ import { regularFontSize } from '@utilities/mixins';
 
 type SwitchableProps = {
   disabled?: boolean;
-}
+};
 
 export const Container = styled.div`
   display: flex;
@@ -20,7 +20,7 @@ export const Container = styled.div`
   z-index: 2;
   position: relative;
   width: 100%;
-  
+
   ${M.MEDIA_XSMALL} {
     padding: 3rem;
     padding-bottom: 2rem;
@@ -37,8 +37,9 @@ export const SettingsContainer = styled.form<SwitchableProps>`
   opacity: 1;
   margin-top: 0.5rem;
 
-  ${props =>
-    props.disabled && css`
+  ${(props) =>
+    props.disabled &&
+    css`
       max-height: 0;
       opacity: 0;
       overflow: hidden;
@@ -61,8 +62,9 @@ export const SettingsDivider = styled.div`
 
 export const SettingsInput = styled(Input)<InputProps & SwitchableProps>`
   transition: all 0.3s ease;
-  ${props =>
-    props.disabled && css`
+  ${(props) =>
+    props.disabled &&
+    css`
       max-height: 0;
       max-width: 0;
       padding: 0;
@@ -108,8 +110,9 @@ export const SettingsRow = styled.div<SwitchableProps>`
     }
   }
 
-  ${props =>
-    props.disabled && css`
+  ${(props) =>
+    props.disabled &&
+    css`
       margin-bottom: 0;
       opacity: 0;
       max-height: 0;
@@ -117,7 +120,7 @@ export const SettingsRow = styled.div<SwitchableProps>`
     `};
 `;
 
-export const DownloadButton = styled(Button)<{ onClick?: Function, visible?: boolean; }>`
+export const DownloadButton = styled(Button)<{ onClick?: Function; visible?: boolean }>`
   align-self: center;
   margin-top: 1rem;
   margin-bottom: 0;
@@ -143,7 +146,7 @@ export const DownloadButton = styled(Button)<{ onClick?: Function, visible?: boo
   }
 
   ${margin('0.2rem', null, '0.2rem', null)};
-  
+
   padding: 0;
   padding-top: 0.3rem;
   background: none;
@@ -154,8 +157,9 @@ export const DownloadButton = styled(Button)<{ onClick?: Function, visible?: boo
     background: none;
   }
 
-  ${props =>
-    props.visible && css`
+  ${(props) =>
+    props.visible &&
+    css`
       opacity: 1;
       pointer-events: all;
     `};

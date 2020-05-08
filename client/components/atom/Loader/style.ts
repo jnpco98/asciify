@@ -26,7 +26,7 @@ export const Ring = styled.div`
     margin: auto;
     border-radius: 50%;
     animation: ${FulRotationKeyframes} 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-    
+
     ${({ theme }) => css`
       border: 0.187rem solid ${theme.colors.default};
       border-color: ${theme.colors.default} transparent transparent transparent;

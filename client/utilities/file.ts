@@ -11,6 +11,6 @@ export async function readFileAsync(file: Blob): Promise<string | ArrayBuffer | 
 }
 
 export async function saveFile(filename: string, data: string) {
-  const blob = new Blob([data], { type: "text/plain;charset=utf-8" });
+  const blob = new Blob([data], { type: 'text/plain;charset=utf-8' });
   FileSaver.saveAs(blob, filename);
 }

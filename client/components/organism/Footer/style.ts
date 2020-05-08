@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { Anchor } from "@components/atom/Text/style";
+import styled from 'styled-components';
+import { Anchor } from '@components/atom/Text/style';
 import * as M from '@utilities/media';
 
 export const Container = styled.div`

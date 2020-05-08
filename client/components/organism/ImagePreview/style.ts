@@ -16,7 +16,7 @@ export const Container = styled.div`
   z-index: 2;
   position: relative;
   width: 100%;
-  
+
   ${M.MEDIA_XSMALL} {
     padding: 3rem;
     padding-bottom: 0;
@@ -42,7 +42,7 @@ export const SecondardContent = styled.div`
   display: flex;
   margin-left: 0.5rem;
   flex: 0.7;
-  
+
   ${M.MEDIA_XSMALL} {
     margin-left: 1rem;
     flex: 0.9;
@@ -61,7 +61,7 @@ export const PreviewImageWrapper = styled.div`
   border-radius: 0.2rem;
   border: 0.0625rem solid ${({ theme }) => theme.colors.border};
   flex: 1;
-  
+
   ${M.MEDIA_XSMALL} {
     flex: 1.3;
     height: 18rem;

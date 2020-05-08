@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled, { css } from 'styled-components';
 import * as M from '@utilities/media';
 
 const preStyling = css`
@@ -13,7 +13,7 @@ const preStyling = css`
     font-size: 0.7rem;
   }
 
-  ${M.MEDIA_MEDIUM}{
+  ${M.MEDIA_MEDIUM} {
     font-size: 0.8rem;
   }
 `;
@@ -24,7 +24,7 @@ export const AsciiHtmlPreview = styled.div<{ background: string }>`
 
   .ascii {
     ${preStyling};
-    background: ${props => props.background};
+    background: ${(props) => props.background};
 
     span {
       display: inline-block;
@@ -36,6 +36,6 @@ export const AsciiPreview = styled.pre<{ background: string }>`
   ${preStyling};
   position: relative;
   white-space: pre;
-  background: ${props => props.background};
+  background: ${(props) => props.background};
   margin-top: 2rem;
 `;

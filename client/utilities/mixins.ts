@@ -209,11 +209,7 @@ export function xSmallFontSize() {
 }
 
 export function gutter(
-  pos:
-    | typeof GUTTER_TOP
-    | typeof GUTTER_RIGHT
-    | typeof GUTTER_BOTTOM
-    | typeof GUTTER_LEFT,
+  pos: typeof GUTTER_TOP | typeof GUTTER_RIGHT | typeof GUTTER_BOTTOM | typeof GUTTER_LEFT,
   useMargin?: boolean
 ) {
   const gutterFn = useMargin ? margin : padding;
