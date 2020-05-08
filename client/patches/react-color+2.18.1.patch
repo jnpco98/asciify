@@ -1,0 +1,12 @@
+diff --git a/node_modules/react-color/lib/helpers/color.js b/node_modules/react-color/lib/helpers/color.js
+index fcc2baa..77db99e 100644
+--- a/node_modules/react-color/lib/helpers/color.js
++++ b/node_modules/react-color/lib/helpers/color.js
+@@ -59,6 +59,7 @@ var toState = exports.toState = function toState(data, oldHue) {
+ };
+ 
+ var isValidHex = exports.isValidHex = function isValidHex(hex) {
++  if (hex && typeof hex === 'string' && hex.toLowerCase() === 'transparent') return true;
+   // disable hex4 and hex8
+   var lh = String(hex).charAt(0) === '#' ? 1 : 0;
+   return hex.length !== 4 + lh && hex.length < 7 + lh && (0, _tinycolor2.default)(hex).isValid();
