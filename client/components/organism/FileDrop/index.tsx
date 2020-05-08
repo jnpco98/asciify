@@ -1,10 +1,9 @@
 import React, { useState, useRef } from 'react';
-// import dynamic from 'next/dynamic';
 import Dropzone from 'react-dropzone';
 import { readFileAsync } from '@utilities/file';
+import { FILE_DROP } from '@settings';
 import * as S from './style';
 
-// const DynamicIcon = dynamic(() => import('@components/molecule/DynamicIcon'), { ssr: false });
 export interface FileDropFormat { name: string; data: string | ArrayBuffer | null, size: number }
 
 export const FILE_DROP_MAX_SIZE = 5242880;
@@ -35,7 +34,7 @@ function FileDrop(props: Props) {
       {({ getRootProps, getInputProps, isDragAccept, isDragReject }) => (
           <S.Container className={className} {...getRootProps()} isDragAccept={isDragAccept} isDragReject={isDragReject}>
             <input {...getInputProps()} />
-            <S.FileNotif>or Drag 'n' drop an image</S.FileNotif>
+            <S.FileNotif>{FILE_DROP.label}</S.FileNotif>
           </S.Container>
         )
       }

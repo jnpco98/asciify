@@ -2,6 +2,7 @@ import React from 'react';
 import Section from '@layout/Section';
 import Text, { TextType } from '@components/atom/Text';
 import { AsciiResult } from '../AsciiPreview';
+import { IMAGE_PREVIEW } from '@settings';
 import * as S from './style'
 
 type Props = {
@@ -13,10 +14,8 @@ type Props = {
   setBackground?: Function;
 }
 
-export const DEFAULT_PREVIEW_COLOR = 'transparent'
-
 export const previewColors = [
-  DEFAULT_PREVIEW_COLOR,
+  'transparent',
   '#fff',
   '#fdf6e3',
   '#eee8d5',
@@ -43,9 +42,9 @@ function Preview(props: Props) {
     <Section navOffset>
       <S.Container>
         <S.CloseIcon onClick={() => setTargetImage('')}/>
-        <Text textType={TextType.SectionTitle}>Image Preview</Text>
+        <Text textType={TextType.SectionTitle}>{IMAGE_PREVIEW.heading}</Text>
         <S.Wrapper>
-            <Text>Preview what the ascii art will look like in your terminal / website. You can change the preview background color below.</Text>
+          <Text>{IMAGE_PREVIEW.subheading}</Text>
           <S.PrimaryContent>
             <S.PreviewImageWrapper><S.PreviewImage src={targetImage} visible={!!targetImage}/></S.PreviewImageWrapper>
             <S.SecondardContent>

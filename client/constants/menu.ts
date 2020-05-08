@@ -13,3 +13,18 @@ export const mainMenu: MenuItem[] = [
     link: '/'
   }
 ];
+
+export const footerMenu: MenuItem[] = [
+  {
+    label: 'Terms and conditions',
+    key: 'terms-and-conditions',
+    icon: false,
+    link: '/'
+  },
+  {
+    label: 'Contact',
+    key: 'contact',
+    icon: false,
+    link: '/'
+  }
+]

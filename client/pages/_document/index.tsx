@@ -1,7 +1,7 @@
 import React from 'react';
 import NextDocument, { Head, Main, NextScript, DocumentContext } from 'next/document';
 import { ServerStyleSheet } from 'styled-components';
-import { SITE_NAME, SITE_TITLE, SITE_DESCRIPTION } from '@constants/environment';
+import { SITE_NAME, SITE_TITLE, SITE_DESCRIPTION, SITE_IMAGE } from '@constants/environment';
 
 class Document extends NextDocument {
   static async getInitialProps(ctx: DocumentContext) {
@@ -61,11 +61,13 @@ class Document extends NextDocument {
           <meta property="og:site_name" content={SITE_NAME} />
           <meta property="og:title" content={SITE_TITLE} />
           <meta property="og:description" content={SITE_DESCRIPTION} />
+          <meta property="og:image" content={SITE_IMAGE}/>
           <link
             href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;700&display=swap"
             rel="stylesheet"
           />
           <link rel="shortcut icon" href="/favicon.png" />
+          <title>{SITE_NAME}</title>          
           {this.props.styles}
         </Head>
         <body>

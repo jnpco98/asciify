@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { OptionsType } from 'react-select';
 import axios from 'axios';
+import ReactGa from 'react-ga';
 import Section from '@layout/Section';
 import Select from '@components/atom/Select';
 import Button from '@components/atom/Button';
+import { AsciiResult } from '@components/organism/AsciiPreview';
 import { KeysOfString } from '@utilities/types';
-import { AsciiResult } from '../AsciiPreview';
-import * as S from './style';
 import { saveFile } from '@utilities/file';
+import { ASCII_SETTING_SELECT } from '@settings';
+import * as S from './style';
 
 export type SelectOption = { value: string; label: string };
 
@@ -46,16 +48,16 @@ function SettingsSelect(props: Props) {
     switch(option) {
       default:
       case 'text':
-        return 'generate-ascii-text';
+        return ASCII_SETTING_SELECT.asciiText;
       case 'html':
-        return 'generate-ascii-html';
+        return ASCII_SETTING_SELECT.asciiHtml;
     }
   }
 
   async function handleOnAsciiGenerated(e: React.FormEvent) {
     e.preventDefault();
-    const BASE_URI_GENERATE_ASCII = 'https://fm4779kzsc.execute-api.us-east-1.amazonaws.com/production/';
-    const uriGenerateAscii = BASE_URI_GENERATE_ASCII + getOutputHandler(option);
+    ReactGa.event({ category: 'Form', action: 'Generated ascii art' });
+    const uriGenerateAscii = ASCII_SETTING_SELECT.baseUri + getOutputHandler(option);
 
     setLoading(true);
     try {
@@ -95,6 +97,7 @@ function SettingsSelect(props: Props) {
       return;
     }
 
+    ReactGa.event({ category: 'Button', action: 'Saved generated ascii art' });
     saveFile('ascii.txt', ascii.ascii);
   }
 
@@ -114,26 +117,23 @@ function SettingsSelect(props: Props) {
   return(
     <Section>
       <S.Container>
-        <S.Subtitle>Select between classic ascii which can also be used in terminals or colored ascii that uses HTML</S.Subtitle>
-        <Select<SelectOption> placeholder="Select ascii type..." options={generateOptions} onSelect={selected => selectOption((selected as any).value || '')} isSearchable={false} className="generate-select" classNamePrefix="generate-select" instanceId="generate-select" value={generateOptions.find(o => o.value === option)} />
-          <S.SettingsContainer onSubmit={handleOnAsciiGenerated} disabled={!option}>
-            
-            <S.Subtitle>*Optional*</S.Subtitle>
-            <S.SettingsRow>
-              <S.SettingsInput onChange={e => handleSettingsInputUpdate('pixelCountHorizontal', e.currentTarget, true)} bordered placeholder="Pixel Width" value={(settings.pixelCountHorizontal || "").toString()}/>
-              <S.SettingsInput onChange={e => handleSettingsInputUpdate('pixelCountVertical', e.currentTarget, true)} bordered placeholder="Pixel Height" value={(settings.pixelCountVertical || "").toString()}/>
-            </S.SettingsRow>
-            <S.SettingsRow disabled={option === 'text'}>
-              <Select placeholder="Select color mode" options={colorModeOptions} onSelect={selected => setSettings(s => ({ ...s, colorMode: (selected as any).value || '' }))} isSearchable={false} className="color-mode" classNamePrefix="color-mode" instanceId="color-mode"/>
-            </S.SettingsRow>
-            <S.SettingsRow>
-              <S.SettingsCharacterRamp onChange={e => handleSettingsInputUpdate('characterRamp', e.currentTarget)} bordered placeholder={`Optional custom ascii characters from the darkest to the lightest ex: "BS#&@$%*!:. "`} value={(settings.characterRamp || "").toString()} />
-            </S.SettingsRow>
-            <Button loading={loading} disabled={loading} submitButton>Generate</Button>
-
-          </S.SettingsContainer>
-
-          <S.DownloadButton onClick={handleFileSave} visible={!!ascii}>Download ascii</S.DownloadButton>
+        <S.Subtitle>{ASCII_SETTING_SELECT.heading}</S.Subtitle>
+        <Select<SelectOption> placeholder={ASCII_SETTING_SELECT.optionPlaceholder} options={generateOptions} onSelect={selected => selectOption((selected as any).value || '')} isSearchable={false} className="generate-select" classNamePrefix="generate-select" instanceId="generate-select" value={generateOptions.find(o => o.value === option)} />
+        <S.SettingsContainer onSubmit={handleOnAsciiGenerated} disabled={!option}>
+          <S.Subtitle>*Optional*</S.Subtitle>
+          <S.SettingsRow>
+            <S.SettingsInput onChange={e => handleSettingsInputUpdate('pixelCountHorizontal', e.currentTarget, true)} bordered placeholder={ASCII_SETTING_SELECT.pixelWidthPlaceholder} value={(settings.pixelCountHorizontal || "").toString()}/>
+            <S.SettingsInput onChange={e => handleSettingsInputUpdate('pixelCountVertical', e.currentTarget, true)} bordered placeholder={ASCII_SETTING_SELECT.pixelHeightPlaceholder} value={(settings.pixelCountVertical || "").toString()}/>
+          </S.SettingsRow>
+          <S.SettingsRow disabled={option === 'text'}>
+            <Select placeholder={ASCII_SETTING_SELECT.colorModePlaceholder} options={colorModeOptions} onSelect={selected => setSettings(s => ({ ...s, colorMode: (selected as any).value || '' }))} isSearchable={false} className="color-mode" classNamePrefix="color-mode" instanceId="color-mode"/>
+          </S.SettingsRow>
+          <S.SettingsRow>
+            <S.SettingsCharacterRamp onChange={e => handleSettingsInputUpdate('characterRamp', e.currentTarget)} bordered placeholder={ASCII_SETTING_SELECT.characterRampPlaceholder} value={(settings.characterRamp || "").toString()} />
+          </S.SettingsRow>
+          <Button loading={loading} disabled={loading} submitButton>{ASCII_SETTING_SELECT.generate}</Button>
+        </S.SettingsContainer>
+        <S.DownloadButton onClick={handleFileSave} visible={!!ascii}>{ASCII_SETTING_SELECT.download}</S.DownloadButton>
       </S.Container>
     </Section>
   );

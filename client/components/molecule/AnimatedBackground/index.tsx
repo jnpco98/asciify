@@ -9,7 +9,7 @@ function AnimatedBackground(props: Props) {
   const { className } = props;
 
   return (
-    <S.Container className={className}></S.Container>
+    <S.Container className={className}/>
   );
 }
 
