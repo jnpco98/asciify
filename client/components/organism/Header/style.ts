@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 import dynamic from 'next/dynamic';
 import Text, { TextType } from '@components/atom/Text';
 import { center, FLEX_ALIGN_MAIN } from '@utilities/mixins';
-import { logo } from '@icons';
+import { logo, logoImage } from '@icons';
 import * as M from '@utilities/media';
 
 const DynamicIcon = dynamic(() => import('@components/molecule/DynamicIcon'), { ssr: false });
@@ -120,7 +120,7 @@ export const Container = styled.header<HeaderMenuProps>`
   top: 0;
   left: 0;
   width: 100%;
-  height: 4rem;
+  height: 5rem;
   position: fixed;
   transition: all 0.2s ease;
   z-index: 50;
@@ -141,8 +141,21 @@ export const Container = styled.header<HeaderMenuProps>`
     `};
 `;
 
+export const LogoWrapper = styled.a`
+  display: flex;
+`;
+
 export const Logo = styled(DynamicIcon).attrs({ SVGString: logo })`
-  width: 6rem;
+  width: 5rem;
+  path {
+    fill: ${({ theme }) => theme.colors.backgroundSecondary};
+  }
+`;
+
+export const LogoImage = styled(DynamicIcon).attrs({ SVGString: logoImage })`
+  width: 2rem;
+  margin-bottom: 0.5rem;
+  margin-right: 0.4rem;
   path {
     fill: ${({ theme }) => theme.colors.backgroundSecondary};
   }

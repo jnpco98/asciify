@@ -65,6 +65,7 @@ class Document extends NextDocument {
             href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;700&display=swap"
             rel="stylesheet"
           />
+          <link rel="shortcut icon" href="/favicon.png" />
           {this.props.styles}
         </Head>
         <body>

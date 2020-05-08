@@ -60,8 +60,8 @@ function Header(props: Props) {
   return (
     <S.Container floating={floating} ref={containerRef}>
       <S.LeftMenu>
-        <Link href="/">
-          <a><S.Logo/></a>
+        <Link href="/" passHref>
+          <S.LogoWrapper><S.LogoImage/><S.Logo/></S.LogoWrapper>
         </Link>
       </S.LeftMenu>
 
