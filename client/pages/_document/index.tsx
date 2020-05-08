@@ -1,7 +1,13 @@
 import React from 'react';
 import NextDocument, { Head, Main, NextScript, DocumentContext } from 'next/document';
 import { ServerStyleSheet } from 'styled-components';
-import { SITE_NAME, SITE_TITLE, SITE_DESCRIPTION, SITE_IMAGE, SITE_KEYWORDS } from '@constants/environment';
+import {
+  SITE_NAME,
+  SITE_TITLE,
+  SITE_DESCRIPTION,
+  SITE_IMAGE,
+  SITE_KEYWORDS
+} from '@constants/environment';
 
 class Document extends NextDocument {
   static async getInitialProps(ctx: DocumentContext) {
@@ -58,16 +64,16 @@ class Document extends NextDocument {
             content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=5.0"
           />
           <meta name="description" content={SITE_DESCRIPTION} />
-          <meta name="keywords" content={SITE_KEYWORDS}/>
-          <meta name="theme-color" content="#343A40"/>
+          <meta name="keywords" content={SITE_KEYWORDS} />
+          <meta name="theme-color" content="#343A40" />
 
           <meta property="og:type" content="website" />
           <meta property="og:site_name" content={SITE_NAME} />
           <meta property="og:title" content={SITE_TITLE} />
           <meta property="og:description" content={SITE_DESCRIPTION} />
-          <meta property="og:image" content={SITE_IMAGE}/>
+          <meta property="og:image" content={SITE_IMAGE} />
 
-          <link rel="preconnect" href="https://fonts.gstatic.com/"/>
+          <link rel="preconnect" href="https://fonts.gstatic.com/" />
           <link
             href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;700&display=swap"
             rel="stylesheet"
@@ -78,12 +84,12 @@ class Document extends NextDocument {
             as="style"
           />
 
-          <link rel="preconnect" href="https://www.google-analytics.com"/>
-          <link rel="dns-prefetch" href="https://www.google-analytics.com"/>
+          <link rel="preconnect" href="https://www.google-analytics.com" />
+          <link rel="dns-prefetch" href="https://www.google-analytics.com" />
 
           <link rel="shortcut icon" href={SITE_IMAGE} />
           <link rel="apple-touch-icon" href={SITE_IMAGE}></link>
-               
+
           {this.props.styles}
         </Head>
         <body>

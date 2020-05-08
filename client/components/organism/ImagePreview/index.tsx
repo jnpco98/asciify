@@ -3,7 +3,7 @@ import Section from '@layout/Section';
 import Text, { TextType } from '@components/atom/Text';
 import { AsciiResult } from '../AsciiPreview';
 import { IMAGE_PREVIEW } from '@settings';
-import * as S from './style'
+import * as S from './style';
 
 type Props = {
   background: string;
@@ -12,7 +12,7 @@ type Props = {
   setTargetImage?: Function;
   setGeneratedAscii?: Function;
   setBackground?: Function;
-}
+};
 
 export const previewColors = [
   'transparent',
@@ -35,7 +35,7 @@ export const previewColors = [
   '#839496',
   '#93A1A1',
   '#343A40'
-]
+];
 
 function Preview(props: Props) {
   const { background, targetImage, setTargetImage, setBackground } = props;
@@ -43,14 +43,21 @@ function Preview(props: Props) {
   return (
     <Section navOffset>
       <S.Container>
-        <S.CloseIcon onClick={() => setTargetImage('')}/>
+        <S.CloseIcon onClick={() => setTargetImage('')} />
         <Text textType={TextType.SectionTitle}>{IMAGE_PREVIEW.heading}</Text>
         <S.Wrapper>
           <Text>{IMAGE_PREVIEW.subheading}</Text>
           <S.PrimaryContent>
-            <S.PreviewImageWrapper><S.PreviewImage src={targetImage} visible={!!targetImage}/></S.PreviewImageWrapper>
+            <S.PreviewImageWrapper>
+              <S.PreviewImage src={targetImage} visible={!!targetImage} />
+            </S.PreviewImageWrapper>
             <S.SecondardContent>
-              <S.ColorPicker color={background} onChangeComplete={color => setBackground(color.hex)} triangle='hide' colors={previewColors} />
+              <S.ColorPicker
+                color={background}
+                onChangeComplete={(color) => setBackground(color.hex)}
+                triangle="hide"
+                colors={previewColors}
+              />
             </S.SecondardContent>
           </S.PrimaryContent>
         </S.Wrapper>

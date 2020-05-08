@@ -30,13 +30,13 @@ export type AsciiSettings = {
   pixelCountVertical?: number;
   gap?: number;
   colorMode?: string;
-}
+};
 
 type Props = {
   onAsciiGenerated?: (ascii: AsciiResult) => void;
   targetImage?: string;
   ascii?: AsciiResult;
-}
+};
 
 function SettingsSelect(props: Props) {
   const { onAsciiGenerated, targetImage, ascii } = props;
@@ -45,7 +45,7 @@ function SettingsSelect(props: Props) {
   const [loading, setLoading] = useState(false);
 
   function getOutputHandler(option: string) {
-    switch(option) {
+    switch (option) {
       default:
       case 'text':
         return ASCII_SETTING_SELECT.asciiText;
@@ -63,11 +63,11 @@ function SettingsSelect(props: Props) {
     try {
       const params: { [key: string]: string | number | boolean } = {};
 
-      Object.keys(settings).forEach(key => {
-        if(!settings[key]) return;
-        if(['pixelCountHorizontal', 'pixelCountVertical', 'gap'].includes(key)) {
+      Object.keys(settings).forEach((key) => {
+        if (!settings[key]) return;
+        if (['pixelCountHorizontal', 'pixelCountVertical', 'gap'].includes(key)) {
           const setting = parseInt(settings[key]);
-          if(!isNaN(setting)) params[key] = setting;
+          if (!isNaN(setting)) params[key] = setting;
         } else {
           params[key] = settings[key];
         }
@@ -77,11 +77,12 @@ function SettingsSelect(props: Props) {
         url: uriGenerateAscii,
         method: 'POST',
         data: {
-          image: targetImage, options: params
+          image: targetImage,
+          options: params
         }
       });
 
-      if(data.ascii && typeof onAsciiGenerated === 'function') {
+      if (data.ascii && typeof onAsciiGenerated === 'function') {
         onAsciiGenerated(data);
       }
     } catch (e) {
@@ -91,9 +92,12 @@ function SettingsSelect(props: Props) {
   }
 
   function handleFileSave() {
-    if(!ascii) return;
-    if(ascii.style) {
-      saveFile('ascii.html', `<html><head><style>${ascii.style}</style></head><body>${ascii.ascii}</body></html>`);
+    if (!ascii) return;
+    if (ascii.style) {
+      saveFile(
+        'ascii.html',
+        `<html><head><style>${ascii.style}</style></head><body>${ascii.ascii}</body></html>`
+      );
       return;
     }
 
@@ -101,39 +105,85 @@ function SettingsSelect(props: Props) {
     saveFile('ascii.txt', ascii.ascii);
   }
 
-  function handleSettingsInputUpdate(key: keyof AsciiSettings, target?: HTMLInputElement, isNumber?: boolean) {
-    if(!target) return;
+  function handleSettingsInputUpdate(
+    key: keyof AsciiSettings,
+    target?: HTMLInputElement,
+    isNumber?: boolean
+  ) {
+    if (!target) return;
 
     let value: string | number = target.value;
 
-    if(isNumber) {
+    if (isNumber) {
       value = value.replace(/\D+/g, '');
-      if(isNaN(parseInt(value))) value = '';
+      if (isNaN(parseInt(value))) value = '';
     }
-    
-    setSettings(s => ({ ...s, [key]: value as string }));
+
+    setSettings((s) => ({ ...s, [key]: value as string }));
   }
-  
-  return(
+
+  return (
     <Section>
       <S.Container>
         <S.Subtitle>{ASCII_SETTING_SELECT.heading}</S.Subtitle>
-        <Select<SelectOption> placeholder={ASCII_SETTING_SELECT.optionPlaceholder} options={generateOptions} onSelect={selected => selectOption((selected as any).value || '')} isSearchable={false} className="generate-select" classNamePrefix="generate-select" instanceId="generate-select" value={generateOptions.find(o => o.value === option)} />
+        <Select<SelectOption>
+          placeholder={ASCII_SETTING_SELECT.optionPlaceholder}
+          options={generateOptions}
+          onSelect={(selected) => selectOption((selected as any).value || '')}
+          isSearchable={false}
+          className="generate-select"
+          classNamePrefix="generate-select"
+          instanceId="generate-select"
+          value={generateOptions.find((o) => o.value === option)}
+        />
         <S.SettingsContainer onSubmit={handleOnAsciiGenerated} disabled={!option}>
           <S.Subtitle>*Optional*</S.Subtitle>
           <S.SettingsRow>
-            <S.SettingsInput onChange={e => handleSettingsInputUpdate('pixelCountHorizontal', e.currentTarget, true)} bordered placeholder={ASCII_SETTING_SELECT.pixelWidthPlaceholder} value={(settings.pixelCountHorizontal || "").toString()}/>
-            <S.SettingsInput onChange={e => handleSettingsInputUpdate('pixelCountVertical', e.currentTarget, true)} bordered placeholder={ASCII_SETTING_SELECT.pixelHeightPlaceholder} value={(settings.pixelCountVertical || "").toString()}/>
+            <S.SettingsInput
+              onChange={(e) =>
+                handleSettingsInputUpdate('pixelCountHorizontal', e.currentTarget, true)
+              }
+              bordered
+              placeholder={ASCII_SETTING_SELECT.pixelWidthPlaceholder}
+              value={(settings.pixelCountHorizontal || '').toString()}
+            />
+            <S.SettingsInput
+              onChange={(e) =>
+                handleSettingsInputUpdate('pixelCountVertical', e.currentTarget, true)
+              }
+              bordered
+              placeholder={ASCII_SETTING_SELECT.pixelHeightPlaceholder}
+              value={(settings.pixelCountVertical || '').toString()}
+            />
           </S.SettingsRow>
           <S.SettingsRow disabled={option === 'text'}>
-            <Select placeholder={ASCII_SETTING_SELECT.colorModePlaceholder} options={colorModeOptions} onSelect={selected => setSettings(s => ({ ...s, colorMode: (selected as any).value || '' }))} isSearchable={false} className="color-mode" classNamePrefix="color-mode" instanceId="color-mode"/>
+            <Select
+              placeholder={ASCII_SETTING_SELECT.colorModePlaceholder}
+              options={colorModeOptions}
+              onSelect={(selected) =>
+                setSettings((s) => ({ ...s, colorMode: (selected as any).value || '' }))
+              }
+              isSearchable={false}
+              className="color-mode"
+              classNamePrefix="color-mode"
+              instanceId="color-mode"
+            />
           </S.SettingsRow>
           <S.SettingsRow>
-            <S.SettingsCharacterRamp onChange={e => handleSettingsInputUpdate('characterRamp', e.currentTarget)} bordered placeholder={ASCII_SETTING_SELECT.characterRampPlaceholder} value={(settings.characterRamp || "").toString()} />
+            <S.SettingsCharacterRamp
+              onChange={(e) => handleSettingsInputUpdate('characterRamp', e.currentTarget)}
+              bordered
+              placeholder={ASCII_SETTING_SELECT.characterRampPlaceholder}
+              value={(settings.characterRamp || '').toString()}
+            />
           </S.SettingsRow>
-          <Button loading={loading} disabled={loading} submitButton>{ASCII_SETTING_SELECT.generate}</Button>
+          <Button loading={loading} disabled={loading} submitButton>
+            {ASCII_SETTING_SELECT.generate}
+          </Button>
         </S.SettingsContainer>
-        <S.DownloadButton onClick={handleFileSave} visible={!!ascii}>{ASCII_SETTING_SELECT.download}</S.DownloadButton>
+        <S.DownloadButton onClick={handleFileSave} visible={!!ascii}>
+          {ASCII_SETTING_SELECT.download}
+        </S.DownloadButton>
       </S.Container>
     </Section>
   );

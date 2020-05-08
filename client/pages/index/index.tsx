@@ -22,16 +22,26 @@ function Index() {
 
   return (
     <Standard>
-      <AnimatedBackground/>
-      {
-        targetImage ?
-          <>
-            <Preview background={background} setBackground={setBackground} targetImage={targetImage} setTargetImage={setTargetImage} generatedAscii={generatedAscii} setGeneratedAscii={setGeneratedAscii} />
-            <SettingsSelect onAsciiGenerated={handleOnGenerateAscii} targetImage={targetImage} ascii={generatedAscii} />
-          </>
-          :
-          <FileHandler onFileSelect={handleOnFileSelect}/>
-      }
+      <AnimatedBackground />
+      {targetImage ? (
+        <>
+          <Preview
+            background={background}
+            setBackground={setBackground}
+            targetImage={targetImage}
+            setTargetImage={setTargetImage}
+            generatedAscii={generatedAscii}
+            setGeneratedAscii={setGeneratedAscii}
+          />
+          <SettingsSelect
+            onAsciiGenerated={handleOnGenerateAscii}
+            targetImage={targetImage}
+            ascii={generatedAscii}
+          />
+        </>
+      ) : (
+        <FileHandler onFileSelect={handleOnFileSelect} />
+      )}
       {generatedAscii && <AsciiPreview ascii={generatedAscii} background={background} />}
     </Standard>
   );

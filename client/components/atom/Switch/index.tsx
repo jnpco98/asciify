@@ -5,14 +5,14 @@ type Props<T> = {
   className?: string;
   name: string;
   label?: string;
-}
+};
 
 function Switch<T>(props: Props<T>, ref: React.RefObject<HTMLInputElement>) {
   const { className, name, label } = props;
-  return(
+  return (
     <S.Container className={className}>
       <S.Label htmlFor={name}>${label}</S.Label>
-      <S.Checkbox ref={ref} id={name} name={name}/>
+      <S.Checkbox ref={ref} id={name} name={name} />
     </S.Container>
   );
 }

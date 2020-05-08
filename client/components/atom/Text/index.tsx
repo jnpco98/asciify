@@ -56,7 +56,12 @@ function Text(props: Props) {
   if (absolute) textProps.href = link;
 
   const Element = <StyledText {...textProps}>{children || ''}</StyledText>;
-  if (link) return <Link href={link} passHref>{Element}</Link>;
+  if (link)
+    return (
+      <Link href={link} passHref>
+        {Element}
+      </Link>
+    );
   return Element;
 }
 

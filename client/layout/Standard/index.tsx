@@ -11,7 +11,7 @@ function Standard(props: Props) {
     <div>
       <Header />
       {props.children}
-      <Footer/>
+      <Footer />
     </div>
   );
 }

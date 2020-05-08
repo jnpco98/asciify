@@ -42,7 +42,9 @@ function Header(props: Props) {
         key={key}
         active={menuItem.key === activeMenuItem}
         icon={!!menuItem.icon}
-        onClick={() => { handleSelect(menuItem.key); }}
+        onClick={() => {
+          handleSelect(menuItem.key);
+        }}
       >
         {menuItem.link ? (
           <S.Link link={menuItem.link}>
@@ -62,7 +64,10 @@ function Header(props: Props) {
       <S.LeftMenu>
         <li>
           <Link href="/" passHref>
-            <S.LogoWrapper aria-label={SITE_TITLE}><S.LogoImage/><S.Logo/></S.LogoWrapper>
+            <S.LogoWrapper aria-label={SITE_TITLE}>
+              <S.LogoImage />
+              <S.Logo />
+            </S.LogoWrapper>
           </Link>
         </li>
       </S.LeftMenu>

@@ -4,7 +4,11 @@ import { readFileAsync } from '@utilities/file';
 import { FILE_DROP } from '@settings';
 import * as S from './style';
 
-export interface FileDropFormat { name: string; data: string | ArrayBuffer | null, size: number }
+export interface FileDropFormat {
+  name: string;
+  data: string | ArrayBuffer | null;
+  size: number;
+}
 
 export const FILE_DROP_MAX_SIZE = 5242880;
 
@@ -16,9 +20,9 @@ type Props = {
 function FileDrop(props: Props) {
   const { className, onFileSelect } = props;
   const [file, setFile] = useState<FileDropFormat>();
-  
+
   async function handleDrop(acceptedFiles: File[]) {
-    if(!acceptedFiles || !Array.isArray(acceptedFiles)) return;
+    if (!acceptedFiles || !Array.isArray(acceptedFiles)) return;
 
     const data = await readFileAsync(acceptedFiles[0]);
     const { name, size } = acceptedFiles[0];
@@ -30,14 +34,24 @@ function FileDrop(props: Props) {
   const dropzoneRef = useRef(null);
 
   return (
-    <Dropzone ref={dropzoneRef} accept='image/*' onDropAccepted={handleDrop} maxSize={FILE_DROP_MAX_SIZE} multiple={false}>
+    <Dropzone
+      ref={dropzoneRef}
+      accept="image/*"
+      onDropAccepted={handleDrop}
+      maxSize={FILE_DROP_MAX_SIZE}
+      multiple={false}
+    >
       {({ getRootProps, getInputProps, isDragAccept, isDragReject }) => (
-          <S.Container className={className} {...getRootProps()} isDragAccept={isDragAccept} isDragReject={isDragReject}>
-            <input {...getInputProps()} />
-            <S.FileNotif>{FILE_DROP.label}</S.FileNotif>
-          </S.Container>
-        )
-      }
+        <S.Container
+          className={className}
+          {...getRootProps()}
+          isDragAccept={isDragAccept}
+          isDragReject={isDragReject}
+        >
+          <input {...getInputProps()} />
+          <S.FileNotif>{FILE_DROP.label}</S.FileNotif>
+        </S.Container>
+      )}
     </Dropzone>
   );
 }

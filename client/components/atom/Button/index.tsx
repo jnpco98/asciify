@@ -23,17 +23,27 @@ type Props = {
 };
 
 function Button(props: Props) {
-  const { children, className, onClick, buttonType, submitButton, link, absolute, disabled, loading } = props;
+  const {
+    children,
+    className,
+    onClick,
+    buttonType,
+    submitButton,
+    link,
+    absolute,
+    disabled,
+    loading
+  } = props;
 
   const buttonProps: any = { className, buttonType, onClick, disabled, loading };
-  
+
   if (!link) {
     buttonProps.as = 'button';
     if (submitButton) buttonProps.type = 'submit';
   }
   if (absolute) buttonProps.href = link;
 
-  const Element = <S.Container {...buttonProps}>{loading ? <Loader/>: children}</S.Container>;
+  const Element = <S.Container {...buttonProps}>{loading ? <Loader /> : children}</S.Container>;
 
   if (link) return <Link href={link}>{Element}</Link>;
 

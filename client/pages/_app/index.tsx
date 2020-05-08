@@ -19,7 +19,7 @@ function App(props: Props) {
 
   useEffect(() => {
     initializeGoogleAnalytics();
-  }, [])
+  }, []);
 
   return (
     <ThemeProvider theme={BaseTheme}>
@@ -27,7 +27,7 @@ function App(props: Props) {
       <Animate />
       <Trumps />
       <Head>
-        <title>{SITE_TITLE}</title>     
+        <title>{SITE_TITLE}</title>
       </Head>
       <Component {...pageProps} />
     </ThemeProvider>

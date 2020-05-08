@@ -8,9 +8,7 @@ type Props = {
 function AnimatedBackground(props: Props) {
   const { className } = props;
 
-  return (
-    <S.Container className={className}/>
-  );
+  return <S.Container className={className} />;
 }
 
 export default AnimatedBackground;
