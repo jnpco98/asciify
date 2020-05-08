@@ -66,6 +66,8 @@ class Document extends NextDocument {
           <meta property="og:title" content={SITE_TITLE} />
           <meta property="og:description" content={SITE_DESCRIPTION} />
           <meta property="og:image" content={SITE_IMAGE}/>
+
+          <link rel="preconnect" href="https://fonts.gstatic.com/"/>
           <link
             href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;700&display=swap"
             rel="stylesheet"
@@ -76,8 +78,7 @@ class Document extends NextDocument {
 
           <link rel="shortcut icon" href={SITE_IMAGE} />
           <link rel="apple-touch-icon" href={SITE_IMAGE}></link>
-          
-          <title>{SITE_NAME}</title>          
+               
           {this.props.styles}
         </Head>
         <body>

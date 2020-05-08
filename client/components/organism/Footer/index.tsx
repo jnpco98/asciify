@@ -14,8 +14,8 @@ function Footer() {
           <Text>{FOOTER.copyright}</Text>
           <S.TermsGroup>
             {
-              footerMenu.map(({ label, link }) =>
-                <Text textType={TextType.Anchor} link={link}>{label}</Text>
+              footerMenu.map(({ label, link, key }) =>
+                <Text textType={TextType.Anchor} link={link} key={key}>{label}</Text>
               )
             }
           </S.TermsGroup>
