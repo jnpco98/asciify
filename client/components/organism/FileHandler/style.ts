@@ -61,30 +61,6 @@ export const ImageDrop = styled(FileDrop)`
   margin-bottom: 0.4rem;
 `;
 
-type BoxActive = {
-  active?: boolean;
-};
-
-export const InstructionBox = styled.div<BoxActive>`
-  width: 100%;
-  border: 0.0625rem solid ${({ theme }) => theme.colors.border};
-  border-radius: 0.2rem;
-
-  height: 0;
-  opacity: 0;
-  margin: 0;
-
-  transition: all 0.3s ease;
-
-  ${(props) =>
-    props.active &&
-    css`
-      height: 10rem;
-      opacity: 1;
-      margin: 1rem 0;
-    `};
-`;
-
 export const DemoLink = styled(Text).attrs({ textType: TextType.Anchor })`
   align-self: flex-start;
 `;

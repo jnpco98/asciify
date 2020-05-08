@@ -11,7 +11,6 @@ export const Container = styled.div`
   flex-direction: column;
   padding: 1.8rem;
   padding-bottom: 0;
-  /* margin-top: 9rem; */
   background: ${({ theme }) => theme.colors.backgroundSecondary};
   border-radius: 0.8rem 0.8rem 0 0;
   z-index: 2;
@@ -37,22 +36,10 @@ export const PrimaryContent = styled.div`
   ${M.MEDIA_XSMALL} {
     max-width: 28rem;
   }
-  /* flex-direction: column;
-  align-items: center; */
-  /* margin: 1rem 0 1.5rem;
-  max-width: 24rem;
-  margin-left: auto;
-  margin-right: auto; */
-/* 
-  & > * {
-    width: 100%;
-    margin-right: 0.7rem;
-  } */
 `;
 
 export const SecondardContent = styled.div`
   display: flex;
-  /* flex-direction: column; */
   margin-left: 0.5rem;
   flex: 0.7;
   
@@ -64,7 +51,6 @@ export const SecondardContent = styled.div`
 
 export const ColorPicker = styled(BlockPicker)`
   background: ${({ theme }) => theme.colors.background} !important;
-  /* width: 100% !important; */
   height: 100%;
   width: 50%;
   width: 100% !important;
@@ -72,7 +58,6 @@ export const ColorPicker = styled(BlockPicker)`
 
 export const PreviewImageWrapper = styled.div`
   position: relative;
-  /* padding-bottom: calc(50% - 0.7rem); */
   border-radius: 0.2rem;
   border: 0.0625rem solid ${({ theme }) => theme.colors.border};
   flex: 1;
@@ -93,7 +78,6 @@ export const PreviewImage = styled.img<PreviewProps>`
   width: 100%;
   height: 100%;
   object-fit: contain;
-  /* position: absolute; */
   padding: 0.7rem;
   opacity: 0;
 

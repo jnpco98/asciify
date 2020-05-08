@@ -1,6 +1,7 @@
 export const SITE_NAME = 'Asciify';
 export const SITE_TITLE = 'Asciify';
-export const SITE_DESCRIPTION = '';
+export const SITE_DESCRIPTION = 'Generate beautiful ASCII art from images and make your website / app stand out!';
+export const SITE_KEYWORDS = 'ascii,word art,art,ascii image,wallpaper,coding,developer,terminal,website'
 export const SITE_IMAGE = '/favicon.png';
 
 export const GA_TRACKING_ID = 'UA-165896975-1';

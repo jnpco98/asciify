@@ -12,7 +12,7 @@ export const FILE_HANDLER = {
 }
 
 export const FOOTER = {
-  copyright: 'Copyright &copy; 2020 by Ukiyo'
+  copyright: 'Copyright © 2020 by Ukiyo'
 }
 
 export const NOT_FOUND = {

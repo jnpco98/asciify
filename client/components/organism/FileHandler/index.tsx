@@ -47,13 +47,12 @@ function FileHandler(props: Props) {
         <S.Wrapper>
           <S.PrimaryContent>
             <S.UrlWrapper onSubmit={handleOnUrlSubmit}>
-              <S.UrlInput ref={urlInputRef} bordered placeholder={FILE_HANDLER.urlInputPlaceholder}/>
+              <S.UrlInput ref={urlInputRef} bordered placeholder={FILE_HANDLER.urlInputPlaceholder} aria-label="Url Input"/>
               <S.UrlButton submitButton loading={loading} disabled={loading}>{FILE_HANDLER.loading}</S.UrlButton>
             </S.UrlWrapper>
             <S.ImageDrop onFileSelect={onFileSelect}/>
           </S.PrimaryContent>
           <S.SecondardContent>
-            <S.InstructionBox/>
             <S.DemoLink link={FILE_HANDLER.demoLink}>{FILE_HANDLER.demoLabel}</S.DemoLink>
           </S.SecondardContent>
         </S.Wrapper>

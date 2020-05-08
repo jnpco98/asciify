@@ -113,8 +113,6 @@ const animate = css`
     animation-name: flash;
   }
 
-  /* originally authored by Nick Pettit - https://github.com/nickpettit/glide */
-
   @-webkit-keyframes pulse {
     from {
       -webkit-transform: scale3d(1, 1, 1);
@@ -490,8 +488,6 @@ const animate = css`
     -webkit-animation-name: tada;
     animation-name: tada;
   }
-
-  /* originally authored by Nick Pettit - https://github.com/nickpettit/glide */
 
   @-webkit-keyframes wobble {
     from {
@@ -2849,8 +2845,6 @@ const animate = css`
     animation-name: jackInTheBox;
   }
 
-  /* originally authored by Nick Pettit - https://github.com/nickpettit/glide */
-
   @-webkit-keyframes rollIn {
     from {
       opacity: 0;
@@ -2883,8 +2877,6 @@ const animate = css`
     -webkit-animation-name: rollIn;
     animation-name: rollIn;
   }
-
-  /* originally authored by Nick Pettit - https://github.com/nickpettit/glide */
 
   @-webkit-keyframes rollOut {
     from {
