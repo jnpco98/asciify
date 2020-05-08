@@ -1,7 +1,11 @@
 import sharp from 'sharp';
 import { minify, Options as MinifyOptions } from 'html-minifier';
 import { AsciiOptions } from './ascii-options';
-import { AsciiOutputModifier, AsciiOutputModifierApplyParams, AsciiOutputModifierResult } from './modifiers/ascii-output-modifier';
+import {
+  AsciiOutputModifier,
+  AsciiOutputModifierApplyParams,
+  AsciiOutputModifierResult,
+} from './modifiers/ascii-output-modifier';
 import { AsciiText } from './modifiers/ascii-text';
 
 export class AsciiGenerator {
@@ -23,17 +27,17 @@ export class AsciiGenerator {
       collapseWhitespace: true,
       collapseInlineTagWhitespace: true,
       removeTagWhitespace: true,
-    }
+    };
     this.setImage(image);
     this.setAsciiOptions(asciiOptions);
-    this.setOutputModifier(
-      outputModifier || new AsciiText()
-    );
+    this.setOutputModifier(outputModifier || new AsciiText());
   }
 
   public async generate(minifyHtml: boolean = true): Promise<AsciiOutputModifierResult> {
     const asciiImageData = await this.getAsciiImageData();
-    const characterRamp = this.asciiOptions.getInverted() ? this.asciiOptions.getCharacterRamp().split('').reverse().join('') : this.asciiOptions.getCharacterRamp();
+    const characterRamp = this.asciiOptions.getInverted()
+      ? this.asciiOptions.getCharacterRamp().split('').reverse().join('')
+      : this.asciiOptions.getCharacterRamp();
     const output = this.getOutputModifier().apply(asciiImageData, characterRamp);
 
     return {
@@ -57,9 +61,7 @@ export class AsciiGenerator {
 
     const { data, info } = await sharp(this.image)
       .resize(width, height, {
-        fit: this.asciiOptions.getPreserveAspectRatio()
-          ? sharp.fit.inside
-          : sharp.fit.fill,
+        fit: this.asciiOptions.getPreserveAspectRatio() ? sharp.fit.inside : sharp.fit.fill,
       })
       .linear(contrast, -(128 * contrast) + 128)
       .flatten({ background })

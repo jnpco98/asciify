@@ -1,7 +1,7 @@
 import {
   AsciiOutputModifier,
   AsciiOutputModifierApplyParams,
-  AsciiOutputModifierResult
+  AsciiOutputModifierResult,
 } from './ascii-output-modifier';
 
 export class AsciiText implements AsciiOutputModifier {
@@ -9,7 +9,10 @@ export class AsciiText implements AsciiOutputModifier {
     return characterRamp[Math.ceil(((characterRamp.length - 1) * color) / 255)];
   }
 
-  public apply(params: AsciiOutputModifierApplyParams, characterRamp: string): AsciiOutputModifierResult {
+  public apply(
+    params: AsciiOutputModifierApplyParams,
+    characterRamp: string
+  ): AsciiOutputModifierResult {
     const { luminance, info } = params;
 
     // prettier-ignore

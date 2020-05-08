@@ -1,4 +1,4 @@
-import { getMaxDimension } from "./utilities/scale";
+import { getMaxDimension } from './utilities/scale';
 
 export interface Size {
   width: number;
@@ -15,14 +15,14 @@ export class AsciiOptions {
     CLEAN_2: `BS#&@$%*!:. `,
     MINIMAL: `@#8&o:*. `,
     DETAILED: `$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\|()1{}[]?-_+~<>i!lI;:," ^\`'. `,
-    COLORED: `@`
-  }
+    COLORED: `@`,
+  };
 
   public static readonly COLOR_SET = {
     DARK: '#191e2a',
     GREY: '#343a40',
-    LIGHT: '#fff'
-  }
+    LIGHT: '#fff',
+  };
 
   private characterRamp: string;
 
@@ -44,9 +44,9 @@ export class AsciiOptions {
     this.setInverted(false);
     this.widthAdjustment = 2;
 
-    this.setSize({ 
-      width: AsciiOptions.MAX_DIMENSION_SQRT, 
-      height: AsciiOptions.MAX_DIMENSION_SQRT 
+    this.setSize({
+      width: AsciiOptions.MAX_DIMENSION_SQRT,
+      height: AsciiOptions.MAX_DIMENSION_SQRT,
     });
   }
 

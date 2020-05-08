@@ -1,7 +1,11 @@
 import escapeHTML from 'escape-html';
 import tinyColor from 'tinycolor2';
 import { AsciiText } from './ascii-text';
-import { AsciiOutputModifierApplyParams, Color, AsciiOutputModifierResult } from './ascii-output-modifier';
+import {
+  AsciiOutputModifierApplyParams,
+  Color,
+  AsciiOutputModifierResult,
+} from './ascii-output-modifier';
 import { AsciiOptions } from '../ascii-options';
 
 export interface StyleSheetProperty {
@@ -38,12 +42,12 @@ export class AsciiHtml extends AsciiText {
         ['white-space']: 'pre',
         ['box-sizing']: 'border-box',
         ['line-height']: 1.2,
-        ['font-family']: 'monospace'
+        ['font-family']: 'monospace',
       },
       [`${this.getContainerClass()} span`]: {
         display: 'inline-block',
         ['box-sizing']: 'border-box',
-      }
+      },
     });
 
     // Update settings
@@ -62,41 +66,46 @@ export class AsciiHtml extends AsciiText {
     return { r, g, b, a };
   }
 
-  public apply(params: AsciiOutputModifierApplyParams, characterRamp: string): AsciiOutputModifierResult {
+  public apply(
+    params: AsciiOutputModifierApplyParams,
+    characterRamp: string
+  ): AsciiOutputModifierResult {
     const { luminance, colors, info } = params;
 
     let html = `<pre class="${this.getContainerClass()}">`;
 
     for (let i = 0; i < luminance.length; i++) {
       let { r, g, b, a } = this.transformColor({ ...colors[i] }, this.getColorMode());
-      
+
       const color = tinyColor({ r, g, b, a: a }).toHexString();
 
-      html += `<span style="color:${color}">${escapeHTML(this.getColorCharacter(characterRamp, luminance[i]))}</span>`;
-      if((i + 1) % info.width === 0) html += '\n';
+      html += `<span style="color:${color}">${escapeHTML(
+        this.getColorCharacter(characterRamp, luminance[i])
+      )}</span>`;
+      if ((i + 1) % info.width === 0) html += '\n';
     }
 
     html += `</pre>`;
 
     return {
       style: this.createCssStyleSheet([this.getStyleSheet()]),
-      ascii: html
+      ascii: html,
     };
   }
 
   protected createCssStyleSheet(styleSheets: StyleSheet[]): string {
     let accumulatedStyles = '';
-    
-    styleSheets.forEach(styleSheet => {
+
+    styleSheets.forEach((styleSheet) => {
       let styles = '';
 
-      Object.keys(styleSheet).forEach(selector => {
+      Object.keys(styleSheet).forEach((selector) => {
         let selectorStyles = '';
 
-        Object.keys(styleSheet[selector]).forEach(property => {
+        Object.keys(styleSheet[selector]).forEach((property) => {
           selectorStyles += `${property}:${styleSheet[selector][property]};`;
         });
-        
+
         styles += `.${selector}{${selectorStyles}}`;
       });
 
@@ -119,8 +128,7 @@ export class AsciiHtml extends AsciiText {
   }
 
   public setColorMode(colorMode: ColorMode): void {
-    if (colorMode === 'black' || colorMode === 'monochromatic')
-      this.colorMode = colorMode;
+    if (colorMode === 'black' || colorMode === 'monochromatic') this.colorMode = colorMode;
     else this.colorMode = 'default';
   }
 
@@ -135,9 +143,9 @@ export class AsciiHtml extends AsciiText {
 
   public getGap(): number {
     let gap = this.styleSheet[`${this.getContainerClass()} span`]['margin-right'];
-    if(typeof gap === 'number') return gap;
+    if (typeof gap === 'number') return gap;
 
-    if(gap && typeof gap === 'string') {
+    if (gap && typeof gap === 'string') {
       const pixel = gap.split('px').shift() || '';
       return !isNaN(parseInt(pixel)) ? parseInt(pixel) : 0;
     }

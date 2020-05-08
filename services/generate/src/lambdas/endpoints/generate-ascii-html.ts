@@ -13,7 +13,7 @@ interface RequestBody {
     gap?: number;
     colorMode?: ColorMode;
   };
-};
+}
 
 export async function handler(event: APIGatewayEvent, context: Context): Promise<Response> {
   const body = JSON.parse(event.body || '{}') as RequestBody;
@@ -25,19 +25,21 @@ export async function handler(event: APIGatewayEvent, context: Context): Promise
     colorMode,
     pixelCountHorizontal,
     pixelCountVertical,
-    inverted
+    inverted,
   } = body.options || {};
 
   try {
     if (!body.image || !body.image.includes(';base64,') || !image.trim().length)
       return createResponse(422, { error: 'Invalid image data' });
-  
+
     const buffer = Buffer.from(image, 'base64');
 
     const { info } = await sharp(buffer).raw().toBuffer({ resolveWithObject: true });
-    const adjustedPixelCountHorizontal = pixelCountHorizontal ? pixelCountHorizontal / 2 : pixelCountHorizontal;
+    const adjustedPixelCountHorizontal = pixelCountHorizontal
+      ? pixelCountHorizontal / 2
+      : pixelCountHorizontal;
     const adjustedSize = getAdjustedRatio(
-      { width: info.width, height: info.height }, 
+      { width: info.width, height: info.height },
       { width: adjustedPixelCountHorizontal, height: pixelCountVertical }
     );
 
@@ -53,24 +55,25 @@ export async function handler(event: APIGatewayEvent, context: Context): Promise
     /**
      * If pixelCountHorizontal or pixelCountVertical were specified,
      * Use those values and cap it with the max dimensions
-     * 
+     *
      * If pixel count are not specified, use the default dimensions
      */
-    if(pixelCountHorizontal || pixelCountVertical) options.setSize(adjustedSize, AsciiOptions.MAX_DIMENSION);
+    if (pixelCountHorizontal || pixelCountVertical)
+      options.setSize(adjustedSize, AsciiOptions.MAX_DIMENSION);
     else options.setSize(adjustedSize, AsciiOptions.DEFAULT_DIMENSION);
-  
+
     /**
      * Setting up the modifier
      */
     const htmlOutputModifier = new AsciiHtml();
     htmlOutputModifier.setColorMode(colorMode || 'default');
     htmlOutputModifier.setGap(gap ? Math.abs(gap) : 0);
-  
+
     const asciiGenerator = new AsciiGenerator(buffer, options, htmlOutputModifier);
     const { ascii, style } = await asciiGenerator.generate(true);
     return createResponse(200, { ascii, style, size: options.getSize() });
-  } catch(e) {
-    console.error(e)
-    return createResponse(422, { error: 'Invalid image data'});
+  } catch (e) {
+    console.error(e);
+    return createResponse(422, { error: 'Invalid image data' });
   }
 }
