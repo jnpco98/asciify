@@ -52,22 +52,22 @@ export const BaseTheme: DefaultTheme = {
     backgroundTertiary: '#FAFAFA',
 
     // Borders
-    border: 'rgba(52,58,64,0.7)',
-    borderHover: 'rgba(52,58,64,1)',
+    border: '#343A40',
+    borderHover: '#343A40',
 
     // Scheme
-    primary: 'rgba(52,58,64,1)',
-    primaryCompliment: 'rgba(52,58,64,1)',
+    primary: '#343A40',
+    primaryCompliment: 'rgba(52,58,64,0.5)',
 
     // Hover
-    primaryHover: 'rgba(52,58,64,1)',
+    primaryHover: 'rgba(52,58,64,0.5)',
 
     // Disabled
     disabled: '#F8F9FA',
 
     selection: 'lightgray',
 
-    backdrop: 'rgba(52,58,64,1)',
+    backdrop: '#343A40',
 
     // Form color sets
     info: '#EE7752',

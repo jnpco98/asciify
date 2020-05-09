@@ -1,7 +1,7 @@
 export const SITE_NAME = 'Asciify';
 export const SITE_TITLE = 'Asciify - Word Art';
 export const SITE_DESCRIPTION =
-  'Generate beautiful ASCII art from images and make your website stand out easily. Supports multiple image types and can be saved as a text file or an html';
+  'Generate beautiful ASCII art from images and make your site stand out. Supports jpg, png, webp, svg and many more! Pick an image and save as a text or html.';
 export const SITE_KEYWORDS =
   'ascii,word art,art,ascii image,wallpaper,coding,developer,terminal,website';
 export const SITE_IMAGE = '/favicon.png';

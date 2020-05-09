@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 import dynamic from 'next/dynamic';
 import Text, { TextType } from '@components/atom/Text';
 import { center, FLEX_ALIGN_MAIN } from '@utilities/mixins';
-import { logo, logoImage } from '@icons';
+import { logo } from '@icons';
 import * as M from '@utilities/media';
 
 const DynamicIcon = dynamic(() => import('@components/molecule/DynamicIcon'), { ssr: false });
@@ -146,16 +146,7 @@ export const LogoWrapper = styled.a`
 `;
 
 export const Logo = styled(DynamicIcon).attrs({ SVGString: logo })`
-  width: 5rem;
-  path {
-    fill: ${({ theme }) => theme.colors.backgroundSecondary};
-  }
-`;
-
-export const LogoImage = styled(DynamicIcon).attrs({ SVGString: logoImage })`
-  width: 2rem;
-  margin-bottom: 0.5rem;
-  margin-right: 0.4rem;
+  width: 7rem;
   path {
     fill: ${({ theme }) => theme.colors.backgroundSecondary};
   }

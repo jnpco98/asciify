@@ -48,12 +48,12 @@ export const Container = styled.a.withConfig({
   padding: 0.6rem 1.4rem;
   font-size: 0.75rem;
   text-transform: uppercase;
-  transition: color background-color 0.1s ease-in;
   font-weight: 600;
   font-family: ${({ theme }) => theme.font.secondary};
   border-radius: 0.3rem;
   text-align: center;
   justify-content: center;
+  transition: background 0.2s ease;
 
   ${(props) =>
     props.loading
@@ -88,8 +88,7 @@ export const Container = styled.a.withConfig({
         `
       : css`
           &:hover {
-            color: ${({ theme }) => theme.colors.backgroundSecondary};
-            background-color: ${({ theme }) => theme.colors.primaryCompliment};
+            background-color: ${({ theme }) => theme.colors.primaryHover};
           }
         `};
 `;

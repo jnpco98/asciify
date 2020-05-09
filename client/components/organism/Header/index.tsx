@@ -65,7 +65,6 @@ function Header(props: Props) {
         <li>
           <Link href="/" passHref>
             <S.LogoWrapper aria-label={SITE_TITLE}>
-              <S.LogoImage />
               <S.Logo />
             </S.LogoWrapper>
           </Link>
