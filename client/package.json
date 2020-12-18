@@ -36,7 +36,7 @@
     "@fortawesome/react-fontawesome": "^0.1.9",
     "axios": "^0.19.2",
     "core-js": "^3.6.5",
-    "dompurify": "^2.0.10",
+    "dompurify": "^2.0.17",
     "dotenv": "^8.2.0",
     "escape-html": "^1.0.3",
     "file-saver": "^2.0.2",
